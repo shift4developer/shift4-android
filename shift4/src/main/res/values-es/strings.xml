@@ -1,0 +1,47 @@
+<resources>
+    <string name="com_shift4_add_payment">Añadir pago</string>
+    <string name="com_shift4_select_amount">Seleccionar importe</string>
+    <string name="com_shift4_email">Correo electrónico</string>
+    <string name="com_shift4_card_information">Información de la tarjeta</string>
+    <string name="com_shift4_card_number">Número de tarjeta</string>
+    <string name="com_shift4_expiration">Fecha de caducidad</string>
+    <string name="com_shift4_cvc">CVC</string>
+    <string name="com_shift4_save_for_future_payments">Guardar esta tarjeta para futuros pagos</string>
+    <string name="com_shift4_enter_payment_data">Introducir los datos de pago</string>
+    <string name="com_shift4_confirm">Confirmar</string>
+    <string name="com_shift4_pay">Pagar %s</string>
+    <string name="com_shift4_user_information">Información del usuario</string>
+    <string name="com_shift4_unlock_card_details">Desbloquear los datos de la tarjeta</string>
+    <string name="com_shift4_sms_code_info">Introduzca el código que acabamos de enviar a su teléfono móvil</string>
+    <string name="com_shift4_card">Tarjeta</string>
+    <string name="com_shift4_no_code_info">¿No has recibido el código?</string>
+
+    <string name="com_shift4_name">Nombre</string>
+    <string name="com_shift4_street">Calle</string>
+    <string name="com_shift4_zip">Código postal</string>
+    <string name="com_shift4_city">Ciudad</string>
+    <string name="com_shift4_country">País</string>
+    <string name="com_shift4_vat">Número de IVA</string>
+    <string name="com_shift4_same_shippint_and_billing_address">Misma dirección de envío y de facturación</string>
+    <string name="com_shift4_billing_address">Dirección de facturación</string>
+    <string name="com_shift4_shipping_address">Dirección de envío</string>
+
+    <string name="com_shift4_invalid_email">Dirección de correo electrónico no válida.</string>
+    <string name="com_shift4_unknown_error">Error desconocido. Inténtelo de nuevo o póngase en contacto con el servicio de asistencia.</string>
+    <string name="com_shift4_invalid_number">El número de tarjeta no es un número de tarjeta válido.</string>
+    <string name="com_shift4_invalid_expiry_month">El mes de caducidad de la tarjeta no es válido.</string>
+    <string name="com_shift4_invalid_expiry_year">El año de caducidad de la tarjeta no es válido.</string>
+    <string name="com_shift4_invalid_cvc">El código de seguridad de su tarjeta no es válido.</string>
+    <string name="com_shift4_incorrect_cvc">El código de seguridad de la tarjeta no ha sido verificado.</string>
+    <string name="com_shift4_incorrect_zip">El código postal de la tarjeta no ha sido verificado.</string>
+    <string name="com_shift4_expired_card">La tarjeta ha caducado.</string>
+    <string name="com_shift4_insufficient_funds">El importe del cargo supera el fondo disponible o el límite de crédito de la tarjeta.</string>
+    <string name="com_shift4_lost_or_stolen">La tarjeta está marcada como perdida o robada.</string>
+    <string name="com_shift4_suspected_fraud">Se sospecha que el cargo es fraudulento.</string>
+    <string name="com_shift4_card_declined">La tarjeta ha sido rechazada por otro motivo.</string>
+    <string name="com_shift4_processing_error">Se ha producido un error al procesar la tarjeta.</string>
+    <string name="com_shift4_blacklisted">La tarjeta está en la lista negra.</string>
+    <string name="com_shift4_expired_token">El token ha caducado.</string>
+    <string name="com_shift4_limit_exceeded">El importe del cargo supera el fondo disponible o el límite de crédito de la tarjeta.</string>
+    <string name="com_shift4_shift4_safely_stores">Shift4 almacena de forma segura los datos de su tarjeta de crédito.</string>
+</resources>

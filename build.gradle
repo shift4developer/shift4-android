@@ -1,0 +1,40 @@
+buildscript {
+    ext.kotlin_version = "1.5.20"
+    repositories {
+        google()
+        mavenCentral()
+        maven {
+            url 'https://storage.googleapis.com/r8-releases/raw'
+        }
+    }
+    dependencies {
+        classpath 'com.android.tools:r8:3.3.75'
+        classpath "com.android.tools.build:gradle:4.2.2"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+
+plugins {
+    id "io.github.gradle-nexus.publish-plugin" version "1.1.0"
+}
+
+version = '1.1.0'
+
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+    delete 'ipworks_debug/build'
+    delete 'ipworks/build'
+}
+
+task printVersion {
+    doLast {
+        println rootProject.version
+    }
+}

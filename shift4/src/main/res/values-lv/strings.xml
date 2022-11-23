@@ -1,0 +1,47 @@
+<resources>
+    <string name="com_shift4_add_payment">Pievienot maksājumu</string>
+    <string name="com_shift4_select_amount">Izvēlēties summu</string>
+    <string name="com_shift4_email">E-pasts</string>
+    <string name="com_shift4_card_information">Kartes informācija</string>
+    <string name="com_shift4_card_number">Kartes numurs</string>
+    <string name="com_shift4_expiration">Derīguma termiņš</string>
+    <string name="com_shift4_cvc">CVC</string>
+    <string name="com_shift4_save_for_future_payments">Saglabāt šo karti turpmākajiem maksājumiem</string>
+    <string name="com_shift4_enter_payment_data">Ievadiet maksājuma datus</string>
+    <string name="com_shift4_confirm">Pārbaudīt</string>
+    <string name="com_shift4_pay">Maksāt %s</string>
+    <string name="com_shift4_user_information">Vietotāja informācija</string>
+    <string name="com_shift4_unlock_card_details">Atbloķēt kartes informāciju</string>
+    <string name="com_shift4_sms_code_info">Ievadiet kodu, ko mēs tikko nosūtījām uz jūsu mobilo tālruni</string>
+    <string name="com_shift4_card">Karte</string>
+    <string name="com_shift4_no_code_info">Kodu nesaņēmāt?</string>
+
+    <string name="com_shift4_name">Vārds</string>
+    <string name="com_shift4_street">Street</string>
+    <string name="com_shift4_zip">Pasta indekss</string>
+    <string name="com_shift4_city">Pilsēta</string>
+    <string name="com_shift4_country">Valsts</string>
+    <string name="com_shift4_vat">PVN numurs</string>
+    <string name="com_shift4_same_shippint_and_billing_address">Tā pati piegādes un norēķinu adrese</string>
+    <string name="com_shift4_billing_address">Norēķinu adrese</string>
+    <string name="com_shift4_shipping_address">Piegādes adrese</string>
+
+    <string name="com_shift4_invalid_email">Nepareiza e-pasta adrese.</string>
+    <string name="com_shift4_unknown_error">Nezināma kļūda. Mēģiniet vēlreiz vai sazinieties ar atbalsta dienestu.</string>
+    <string name="com_shift4_invalid_number">Kartes numurs nav derīgs kartes numurs.</string>
+    <string name="com_shift4_invalid_expiry_month">Kartes derīguma termiņš ir nederīgs.</string>
+    <string name="com_shift4_invalid_expiry_year">Kartes derīguma termiņš ir nederīgs.</string>
+    <string name="com_shift4_invalid_cvc">Kartes drošības kods ir nederīgs.</string>
+    <string name="com_shift4_incorrect_cvc">Kartes drošības kods nav pārbaudīts.</string>
+    <string name="com_shift4_incorrect_zip">Kartes pasta indekss nav pārbaudīts.</string>
+    <string name="com_shift4_expired_card">Kartes derīguma termiņš ir beidzies.</string>
+    <string name="com_shift4_insufficient_funds">Nomaksas summa pārsniedz pieejamo līdzekļu apjomu vai kartes kredītlimitu.</string>
+    <string name="com_shift4_lost_or_stolen">Karte ir atzīmēta kā nozaudēta vai nozagta.</string>
+    <string name="com_shift4_suspected_fraud">Ir aizdomas, ka maksa ir krāpnieciska.</string>
+    <string name="com_shift4_card_declined">Karte tika noraidīta cita iemesla dēļ.</string>
+    <string name="com_shift4_processing_error">Kartes apstrādes laikā notika kļūda.</string>
+    <string name="com_shift4_blacklisted">Karte ir melnajā sarakstā.</string>
+    <string name="com_shift4_expired_token">Tekena derīguma termiņš ir beidzies.</string>
+    <string name="com_shift4_limit_exceeded">Nomaksas summa pārsniedz pieejamos līdzekļus vai kartes kredītlimitu.</string>
+    <string name="com_shift4_shift4_safely_stores">Shift4 droši glabā jūsu kredītkartes datus.</string>
+</resources>

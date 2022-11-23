@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/bottomSheet"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:animateLayoutChanges="true"
+        android:defaultFocusHighlightEnabled="false"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:animateLayoutChanges="false"
+            android:defaultFocusHighlightEnabled="false"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/com_shift4_padding_big"
+            android:paddingTop="@dimen/com_shift4_padding_big"
+            android:paddingRight="@dimen/com_shift4_padding_big"
+            android:paddingBottom="@dimen/com_shift4_padding_standard">
+
+            <include
+                android:id="@+id/titleBar"
+                layout="@layout/com_shift4_layout_titlebar" />
+
+            <ProgressBar
+                android:id="@+id/progressIndicator"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="129dp"
+                android:layout_marginBottom="50dp"
+                android:indeterminateTint="@color/com_shift4_primary" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewDonation"
+                android:layout_width="match_parent"
+                android:layout_height="72dp"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/com_shift4_padding_big" />
+
+            <com.shift4.checkout.component.EmailComponent
+                android:id="@+id/emailComponent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/com_shift4_padding_big" />
+
+            <com.shift4.checkout.component.SMSComponent
+                android:id="@+id/smsComponent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <com.shift4.checkout.component.CardComponent
+                android:id="@+id/cardComponent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <com.shift4.checkout.component.AddressComponent
+                android:id="@+id/addressComponent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/com_shift4_padding_big" />
+
+            <View
+                android:id="@+id/viewButtonSeparator"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:paddingBottom="@dimen/com_shift4_padding_huge"
+                android:background="@color/com_shift4_grayLight" />
+
+            <com.shift4.checkout.component.SwitchComponent
+                app:title="@string/com_shift4_save_for_future_payments"
+                app:subtitle="@string/com_shift4_shift4_safely_stores"
+                android:id="@+id/rememberSwitchComponent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/com_shift4_padding_standard"/>
+
+            <TextView
+                android:id="@+id/textViewError"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/com_shift4_nunitosans_regular"
+                android:paddingTop="@dimen/com_shift4_padding_standard"
+                android:paddingBottom="10dp"
+                android:text=""
+                android:textColor="@color/com_shift4_error"
+                android:textSize="@dimen/com_shift4_font_error" />
+
+            <TextView
+                android:id="@+id/textViewAdditionalButtonInfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/com_shift4_nunitosans_regular"
+                android:paddingTop="@dimen/com_shift4_padding_huge"
+                android:paddingBottom="@dimen/com_shift4_padding_compact"
+                android:text="@string/com_shift4_no_code_info"
+                android:textAlignment="center"
+                android:textColor="@color/com_shift4_black"
+                android:textSize="@dimen/com_shift4_font_body" />
+
+            <com.shift4.checkout.component.ButtonComponent
+                android:id="@+id/buttonComponent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <include layout="@layout/com_shift4_layout_bottombar" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</ScrollView>

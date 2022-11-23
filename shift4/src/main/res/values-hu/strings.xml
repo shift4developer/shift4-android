@@ -1,0 +1,47 @@
+<resources>
+    <string name="com_shift4_add_payment">Fizetés hozzáadása</string>
+    <string name="com_shift4_select_amount">Az összeg kiválasztása</string>
+    <string name="com_shift4_email">E-mail</string>
+    <string name="com_shift4_card_information">Card information</string>
+    <string name="com_shift4_card_number">Kártyaszám</string>
+    <string name="com_shift4_expiration">Az érvényességi idő</string>
+    <string name="com_shift4_cvc">CVC</string>
+    <string name="com_shift4_save_for_future_payments">Mentse el ezt a kártyát jövőbeli fizetésekhez</string>
+    <string name="com_shift4_enter_payment_data">Fizetési adatok megadása</string>
+    <string name="com_shift4_confirm">Megerősítés</string>
+    <string name="com_shift4_pay">Fizessen %s</string>
+    <string name="com_shift4_user_information">A felhasználó adatai</string>
+    <string name="com_shift4_unlock_card_details">Kártyaadatok feloldása</string>
+    <string name="com_shift4_sms_code_info">Adja meg a kódot, amelyet az imént küldtünk a mobiltelefonjára</string>
+    <string name="com_shift4_card">Kártya</string>
+    <string name="com_shift4_no_code_info">Nem kapta meg a kódot?</string>
+
+    <string name="com_shift4_name">Keresztnév</string>
+    <string name="com_shift4_street">Utca</string>
+    <string name="com_shift4_zip">Irányítószám</string>
+    <string name="com_shift4_city">Város</string>
+    <string name="com_shift4_country">Ország</string>
+    <string name="com_shift4_vat">ÁFA szám</string>
+    <string name="com_shift4_same_shippint_and_billing_address">Ugyanaz a szállítási és számlázási cím</string>
+    <string name="com_shift4_billing_address">Számlázási cím</string>
+    <string name="com_shift4_shipping_address">Szállítási cím</string>
+
+    <string name="com_shift4_invalid_email">Elérhetetlen e-mail cím.</string>
+    <string name="com_shift4_unknown_error">Nem ismert hiba. Próbálja újra, vagy lépjen kapcsolatba az ügyfélszolgálattal.</string>
+    <string name="com_shift4_invalid_number">A kártyaszám nem érvényes kártyaszám.</string>
+    <string name="com_shift4_invalid_expiry_month">A kártya\ lejárati hónapja érvénytelen.</string>
+    <string name="com_shift4_invalid_expiry_year">A kártya lejárati éve érvénytelen.</string>
+    <string name="com_shift4_invalid_cvc">A kártya\ biztonsági kódja érvénytelen.</string>
+    <string name="com_shift4_incorrect_cvc">A kártya biztonsági kódjának ellenőrzése sikertelen volt.</string>
+    <string name="com_shift4_incorrect_zip">A kártya irányítószámának ellenőrzése sikertelen volt.</string>
+    <string name="com_shift4_expired_card">A kártya lejárt.</string>
+    <string name="com_shift4_insufficient_funds">A terhelés összege meghaladja a rendelkezésre álló összeget vagy a kártya\ hitelkeretét.</string>
+    <string name="com_shift4_lost_or_stolen">A kártyát elveszettnek vagy lopottnak jelölték.</string>
+    <string name="com_shift4_suspected_fraud">A terhelés feltételezhetően csalárd.</string>
+    <string name="com_shift4_card_declined">A kártyát egyéb okból elutasították.</string>
+    <string name="com_shift4_processing_error">Hiba történt a kártya feldolgozása során.</string>
+    <string name="com_shift4_blacklisted">A kártya feketelistára került.</string>
+    <string name="com_shift4_expired_token">A token lejárt.</string>
+    <string name="com_shift4_limit_exceeded">A terhelés összege meghaladja a rendelkezésre álló összeget vagy a kártya hitelkeretét.</string>
+    <string name="com_shift4_shift4_safely_stores">A Shift4 biztonságosan tárolja a hitelkártyaadatokat.</string>
+</resources>

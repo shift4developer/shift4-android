@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayoutInputEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@drawable/com_shift4_rounded_edge">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayoutEmail"
+            style="@style/SecurionPaySDKTextInputLayoutStyle"
+            layout_constraintBottom_toBottomOf="parent"
+            layout_constraintEnd_toEndOf="parent"
+            layout_constraintStart_toStartOf="parent"
+            layout_constraintTop_toTopOf="parent"
+            android:hint="@string/com_shift4_email">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/textInputEmail"
+                style="@style/SecurionPaySDKTextInputStyle"
+                android:layout_height="@dimen/com_shift4_textfield_height"
+                android:fontFamily="@font/com_shift4_nunitosans_regular"
+                android:imeOptions="actionNext|flagNoExtractUi|flagNoFullscreen"
+                android:inputType="textEmailAddress"
+                android:textSize="16sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/textViewEmailError"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/com_shift4_nunitosans_regular"
+        android:paddingTop="@dimen/com_shift4_padding_compact"
+        android:paddingBottom="0dp"
+        android:text=""
+        android:textColor="@color/com_shift4_error"
+        android:textSize="@dimen/com_shift4_font_error" />
+</LinearLayout>

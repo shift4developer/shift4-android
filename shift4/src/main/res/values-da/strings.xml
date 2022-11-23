@@ -1,0 +1,47 @@
+<resources>
+    <string name="com_shift4_add_payment">Tilføj betaling</string>
+    <string name="com_shift4_select_amount">Vælg beløb</string>
+    <string name="com_shift4_email">E-mail</string>
+    <string name="com_shift4_card_information">Kortoplysninger</string>
+    <string name="com_shift4_card_number">Kortnummer</string>
+    <string name="com_shift4_expiration">Udløbsdato</string>
+    <string name="com_shift4_cvc">CVC</string>
+    <string name="com_shift4_save_for_future_payments">Spar dette kort til fremtidige betalinger</string>
+    <string name="com_shift4_enter_payment_data">Indtast betalingsdata</string>
+    <string name="com_shift4_confirm">Bekræftelse</string>
+    <string name="com_shift4_pay">Betal %s</string>
+    <string name="com_shift4_user_information">Brugeroplysninger</string>
+    <string name="com_shift4_unlock_card_details">Lås kortoplysninger op</string>
+    <string name="com_shift4_sms_code_info">Indtast den kode, vi netop har sendt til din mobiltelefon</string>
+    <string name="com_shift4_card">Kort</string>
+    <string name="com_shift4_no_code_info">Har du ikke fået koden?</string>
+
+    <string name="com_shift4_name">Fornavn</string>
+    <string name="com_shift4_street">Street</string>
+    <string name="com_shift4_zip">Postnummer</string>
+    <string name="com_shift4_city">By</string>
+    <string name="com_shift4_country">Land</string>
+    <string name="com_shift4_vat">Momsnummer</string>
+    <string name="com_shift4_same_shippint_and_billing_address">Samme forsendelses- og faktureringsadresse</string>
+    <string name="com_shift4_billing_address">Fakturaadresse</string>
+    <string name="com_shift4_shipping_address">Leveringsadresse</string>
+
+    <string name="com_shift4_invalid_email">Ugyldig emailadresse.</string>
+    <string name="com_shift4_unknown_error">Ukendt fejl. Prøv igen eller kontakt support.</string>
+    <string name="com_shift4_invalid_number">Kortnummeret er ikke et gyldigt kortnummer.</string>
+    <string name="com_shift4_invalid_expiry_month">Kortets udløbsmåned er ugyldig.</string>
+    <string name="com_shift4_invalid_expiry_year">Kortets udløbsår er ugyldigt.</string>
+    <string name="com_shift4_invalid_cvc">Kortets sikkerhedskode er ugyldig.</string>
+    <string name="com_shift4_incorrect_cvc">Kortets sikkerhedskode blev ikke verificeret.</string>
+    <string name="com_shift4_incorrect_zip">Kortets postnummer blev ikke verificeret.</string>
+    <string name="com_shift4_expired_card">Kortet er udløbet.</string>
+    <string name="com_shift4_insufficient_funds">Det opkrævede beløb overstiger den disponible fond eller kortets kreditgrænse.</string>
+    <string name="com_shift4_lost_or_stolen">Kortet er markeret som mistet eller stjålet.</string>
+    <string name="com_shift4_suspected_fraud">Den opkrævning er mistænkt for at være svigagtig.</string>
+    <string name="com_shift4_card_declined">Kortet er blevet afvist af anden grund.</string>
+    <string name="com_shift4_processing_error">Der opstod en fejl under behandlingen af kortet.</string>
+    <string name="com_shift4_blacklisted">Kortet er sortlistet.</string>
+    <string name="com_shift4_expired_token">Tokenet er udløbet.</string>
+    <string name="com_shift4_limit_exceeded">Det opkrævede beløb overstiger den disponible fond eller kortets kreditgrænse.</string>
+    <string name="com_shift4_shift4_safely_stores">Shift4 opbevarer dine kreditkortdata sikkert.</string>
+</resources>

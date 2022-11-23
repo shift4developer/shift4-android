@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/mainActivityLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".MainActivity">
+
+        <LinearLayout
+            android:id="@+id/layout2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Checkout"
+                android:textSize="32sp" />
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/textEditPublicKeyCheckout"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="Public key" />
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/textEditCheckoutRequest"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="Checkout request" />
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/textEditEmail"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="E-mail (optional)" />
+
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/switchShipping"
+                android:text="Shipping"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/switchBilling"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Billing" />
+
+            <Button
+                android:id="@+id/buttonPaymentDialog"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Pay with Checkout Dialog" />
+
+            <Button
+                android:id="@+id/buttonCleanSavedCards"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Clean saved cards" />
+
+            <TextView
+                android:id="@+id/lastChargeId"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/lastSubscriptionId"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/lastEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/lastCustomerId"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="4dp"
+                android:background="@color/com_shift4_black" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Custom form"
+                android:textSize="32sp" />
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/textEditPublicKeyCustomForm"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="Public key" />
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/textEditCardNumber"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="Card number" />
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/textEditExpMonth"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="Expiration month" />
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/textEditExpYear"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="Expiration year" />
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/textEditCVC"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="CVC" />
+
+            <Button
+                android:id="@+id/buttonPay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Pay with Custom Form" />
+
+            <TextView
+                android:id="@+id/lastTokenId"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

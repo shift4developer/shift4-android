@@ -1,0 +1,48 @@
+<resources>
+    <string name="com_shift4_add_payment">Добавить платеж</string>
+    <string name="com_shift4_select_amount">Выбрать сумму</string>
+    <string name="com_shift4_email">E-mail</string>
+    <string name="com_shift4_card_information">Информация о карте</string>
+    <string name="com_shift4_card_number">Номер карты</string>
+    <string name="com_shift4_expiration">Дата истечения срока действия</string>
+    <string name="com_shift4_cvc">CVC</string>
+    <string name="com_shift4_save_for_future_payments">Сохранить эту карту для будущих платежей</string>
+    <string name="com_shift4_enter_payment_data">Введите данные платежа</string>
+    <string name="com_shift4_confirm">Подтвердить</string>
+    <string name="com_shift4_pay">Оплатить %s</string>
+    <string name="com_shift4_user_information">Информация о пользователе</string>
+    <string name="com_shift4_unlock_card_details">Разблокировать данные карты</string>
+    <string name="com_shift4_sms_code_info">Введите код, который мы\ только что отправили на ваш мобильный телефон</string>.
+
+    <string name="com_shift4_name">Name</string>
+    <string name="com_shift4_street">Street</string>
+    <string name="com_shift4_zip">Zip</string>
+    <string name="com_shift4_city">City</string>
+    <string name="com_shift4_country">Country</string>
+    <string name="com_shift4_vat">VAT ID (for companies)</string>
+    <string name="com_shift4_shipping_address">Shipping address</string>
+    <string name="com_shift4_billing_address">Billing address</string>
+    <string name="com_shift4_same_shippint_and_billing_address">Same shipping and billing address</string>
+
+    <string name="com_shift4_card">Карта</string>
+    <string name="com_shift4_no_code_info">Не получили код?</string>
+    <string name="com_shift4_invalid_email">Неправильный адрес электронной почты.</string>
+    <string name="com_shift4_unknown_error">Неизвестная ошибка. Попробуйте еще раз или обратитесь в службу поддержки.</string>
+    <string name="com_shift4_invalid_number">Номер карты не является действительным.</string>
+    <string name="com_shift4_invalid_expiry_month">Месяц окончания действия карты\ недействителен.</string>
+    <string name="com_shift4_invalid_expiry_year">Год окончания действия карты\ недействителен.</string>
+    <string name="com_shift4_invalid_cvc">Код безопасности вашей карты\ недействителен.</string>
+    <string name="com_shift4_incorrect_cvc">Защитный код вашей карты\ не прошел проверку.</string>
+    <string name="com_shift4_incorrect_zip">Почтовый код карты\ не прошел проверку.</string>
+    <string name="com_shift4_expired_card">Срок действия карты истек.</string>
+    <string name="com_shift4_insufficient_funds">Сумма списания превышает доступный фонд или кредитный лимит карты\.</string>.
+    <string name="com_shift4_lost_or_stolen">Карта помечена как утерянная или украденная.</string>
+    <string name="com_shift4_suspected_fraud">Списание подозревается как мошенническое.</string>
+    <string name="com_shift4_card_declined">Карта была отклонена по другой причине.</string>
+    <string name="com_shift4_processing_error">Во время обработки карты произошла ошибка.</string>
+    <string name="com_shift4_blacklisted">Карта занесена в черный список.</string>
+    <string name="com_shift4_expired_token">Токен истек.</string>
+    <string name="com_shift4_limit_exceeded">Сумма списания превышает доступный фонд или кредитный лимит карты\.</string>
+    <string name="com_shift4_shift4_safely_stores">Shift4 safely stores your credit card data.</string>
+    .
+</resources>

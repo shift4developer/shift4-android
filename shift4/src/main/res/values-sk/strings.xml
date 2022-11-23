@@ -1,0 +1,47 @@
+<resources>
+    <string name="com_shift4_add_payment">Pridanie platby</string>
+    <string name="com_shift4_select_amount">Vyberte sumu</string>
+    <string name="com_shift4_email">E-mail</string>
+    <string name="com_shift4_card_information">Informácie o karte</string>
+    <string name="com_shift4_card_number">Číslo karty</string>
+    <string name="com_shift4_expiration">Dátum expirácie</string>
+    <string name="com_shift4_cvc">CVC</string>
+    <string name="com_shift4_save_for_future_payments">Uložiť túto kartu pre budúce platby</string>
+    <string name="com_shift4_enter_payment_data">Zadať platobné údaje</string>
+    <string name="com_shift4_confirm">Potvrdiť</string>
+    <string name="com_shift4_pay">Platba %s</string>
+    <string name="com_shift4_user_information">Informácie o používateľovi</string>
+    <string name="com_shift4_unlock_card_details">Odomknúť údaje o karte</string>
+    <string name="com_shift4_sms_code_info">Vložte kód, ktorý sme práve poslali na váš mobilný telefón</string>
+    <string name="com_shift4_card">Karta</string>
+    <string name="com_shift4_no_code_info">Nedostali ste kód?</string>
+
+    <string name="com_shift4_name">Meno</string>
+    <string name="com_shift4_street">Ulica</string>
+    <string name="com_shift4_zip">Poštové smerovacie číslo</string>
+    <string name="com_shift4_city">Mesto</string>
+    <string name="com_shift4_country">Krajina</string>
+    <string name="com_shift4_vat">Číslo DPH</string>
+    <string name="com_shift4_same_shippint_and_billing_address">Rovnaká dodacia a fakturačná adresa</string>
+    <string name="com_shift4_billing_address">Fakturačná adresa</string>
+    <string name="com_shift4_shipping_address">Zasielacia adresa</string>
+
+    <string name="com_shift4_invalid_email">Neplatná e-mailová adresa.</string>
+    <string name="com_shift4_unknown_error">Neznáma chyba. Skúste to znova alebo kontaktujte podporu.</string>
+    <string name="com_shift4_invalid_number">Číslo karty nie je platné číslo karty.</string>
+    <string name="com_shift4_invalid_expiry_month">Mesiac platnosti karty je neplatný.</string>
+    <string name="com_shift4_invalid_expiry_year">Rok platnosti karty je neplatný.</string>
+    <string name="com_shift4_invalid_cvc">Bezpečnostný kód karty je neplatný.</string>
+    <string name="com_shift4_incorrect_cvc">Bezpečnostný kód karty sa nepodarilo overiť.</string>
+    <string name="com_shift4_incorrect_zip">Poštový kód karty sa nepodarilo overiť.</string>
+    <string name="com_shift4_expired_card">Karta stratila platnosť.</string>
+    <string name="com_shift4_insufficient_funds">Suma poplatku presahuje dostupné prostriedky alebo kreditný limit karty.</string>
+    <string name="com_shift4_lost_or_stolen">Karta je označená ako stratená alebo odcudzená.</string>
+    <string name="com_shift4_suspected_fraud">Podozrenie, že poplatok je podvodný.</string>
+    <string name="com_shift4_card_declined">Karta bola zamietnutá z iného dôvodu.</string>
+    <string name="com_shift4_processing_error">Pri spracovaní karty došlo k chybe.</string>
+    <string name="com_shift4_blacklisted">Karta je na čiernej listine.</string>
+    <string name="com_shift4_expired_token">Tokenu vypršala platnosť.</string>
+    <string name="com_shift4_limit_exceeded">Suma poplatku presahuje dostupné prostriedky alebo kreditný limit karty.</string>
+    <string name="com_shift4_shift4_safely_stores">Shift4 bezpečne uchováva údaje o vašej kreditnej karte.</string>
+</resources>

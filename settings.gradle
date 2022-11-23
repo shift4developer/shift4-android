@@ -1,0 +1,6 @@
+rootProject.name = "Shift4"
+include ':example'
+include ':shift4'
+include ':ipworks'
+include ':ipworks_debug'
+include ':publish'

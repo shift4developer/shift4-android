@@ -1,0 +1,47 @@
+<resources>
+    <string name="com_shift4_add_payment">Pridėti mokėjimą</string>
+    <string name="com_shift4_select_amount">Pasirinkite sumą</string>
+    <string name="com_shift4_email">Elektroninis paštas</string>
+    <string name="com_shift4_card_information">Kortelės informacija</string>
+    <string name="com_shift4_card_number">Kortelės numeris</string>
+    <string name="com_shift4_expiration">Galiojimo data</string>
+    <string name="com_shift4_cvc">CVC</string>
+    <string name="com_shift4_save_for_future_payments">Pasilikti šią kortelę būsimiems mokėjimams</string>
+    <string name="com_shift4_enter_payment_data">Įveskite mokėjimo duomenis</string>
+    <string name="com_shift4_confirm">Patvirtinti</string>
+    <string name="com_shift4_pay">Mokėti %s</string>
+    <string name="com_shift4_user_information">Vartotojo informacija</string>
+    <string name="com_shift4_unlock_card_details">Atrakinti kortelės duomenis</string>
+    <string name="com_shift4_sms_code_info">Įveskite kodą, kurį ką tik išsiuntėme į jūsų mobilųjį telefoną</string>
+    <string name="com_shift4_card">Kortelė</string>
+    <string name="com_shift4_no_code_info">Negavote kodo?</string>
+
+    <string name="com_shift4_name">Vardas</string>
+    <string name="com_shift4_street">Gatvė</string>
+    <string name="com_shift4_zip">Pašto indeksas</string>
+    <string name="com_shift4_city">Miestas</string>
+    <string name="com_shift4_country">Šalis</string>
+    <string name="com_shift4_vat">PVM mokėtojo kodas</string>
+    <string name="com_shift4_same_shippint_and_billing_address">Tas pats pristatymo ir atsiskaitymo adresas</string>
+    <string name="com_shift4_billing_address">Atsiskaitymo adresas</string>
+    <string name="com_shift4_shipping_address">Pristatymo adresas</string>
+
+    <string name="com_shift4_invalid_email">Neteisingas el. pašto adresas.</string>
+    <string name="com_shift4_unknown_error">Nežinoma klaida. Pabandykite dar kartą arba kreipkitės į palaikymo tarnybą.</string>
+    <string name="com_shift4_invalid_number">Kortelės numeris nėra galiojantis kortelės numeris.</string>
+    <string name="com_shift4_invalid_expiry_month">Kortelės galiojimo mėnuo negalioja.</string>
+    <string name="com_shift4_invalid_expiry_year">Kortelės galiojimo metai negalioja.</string>
+    <string name="com_shift4_invalid_cvc">Kortelės saugumo kodas negalioja.</string>
+    <string name="com_shift4_incorrect_cvc">Kortelės saugumo kodo nepavyko patikrinti.</string>
+    <string name="com_shift4_incorrect_zip">Kortelės pašto kodo nepavyko patikrinti.</string>
+    <string name="com_shift4_expired_card">Kortelės galiojimo laikas baigėsi.</string>
+    <string name="com_shift4_insufficient_funds">Naudos suma viršija turimas lėšas arba kortelės kredito limitą.</string>
+    <string name="com_shift4_lost_or_stolen">Kortelė pažymėta kaip pamesta arba pavogta.</string>
+    <string name="com_shift4_suspected_fraud">Įtariama, kad mokestis yra apgaulingas.</string>
+    <string name="com_shift4_card_declined">Kortelę atsisakyta išduoti dėl kitos priežasties.</string>
+    <string name="com_shift4_processing_error">Apdorojant kortelę įvyko klaida.</string>
+    <string name="com_shift4_blacklisted">Kortelė įtraukta į juodąjį sąrašą.</string>
+    <string name="com_shift4_expired_token">Ženklo galiojimo laikas baigėsi.</string>
+    <string name="com_shift4_limit_exceeded">Naudos suma viršija turimas lėšas arba kortelės kredito limitą.</string>
+    <string name="com_shift4_shift4_safely_stores">Shift4 saugiai saugo jūsų kredito kortelės duomenis.</string>
+</resources>

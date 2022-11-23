@@ -1,0 +1,54 @@
+<resources>
+    <string name="com_shift4_add_payment">Add payment</string>
+    <string name="com_shift4_select_amount">Select amount</string>
+    <string name="com_shift4_email">E-mail</string>
+    <string name="com_shift4_card_information">Card information</string>
+    <string name="com_shift4_card_number">Card number</string>
+    <string name="com_shift4_expiration">Expiration date</string>
+    <string name="com_shift4_cvc">CVC</string>
+    <string name="com_shift4_save_for_future_payments">Remember me in Shift4</string>
+    <string name="com_shift4_enter_payment_data">Enter payment data</string>
+    <string name="com_shift4_confirm">Confirm</string>
+    <string name="com_shift4_pay">Pay %s</string>
+    <string name="com_shift4_user_information">User information</string>
+    <string name="com_shift4_unlock_card_details">Unlock card details</string>
+    <string name="com_shift4_sms_code_info">Enter the code we\'ve just sent to your mobile phone</string>
+    <string name="com_shift4_card">Card</string>
+    <string name="com_shift4_no_code_info">Didn\'t get the code?</string>
+
+    <string name="com_shift4_name">Name</string>
+    <string name="com_shift4_street">Street</string>
+    <string name="com_shift4_zip">Zip</string>
+    <string name="com_shift4_city">City</string>
+    <string name="com_shift4_country">Country</string>
+    <string name="com_shift4_vat">VAT ID (for companies)</string>
+    <string name="com_shift4_shipping_address">Shipping address</string>
+    <string name="com_shift4_billing_address">Billing address</string>
+    <string name="com_shift4_same_shippint_and_billing_address">Same shipping and billing address</string>
+
+    <string name="com_shift4_invalid_email">Invalid e-mail address.</string>
+    <string name="com_shift4_unknown_error">Unknown error. Try again or contact support.</string>
+    <string name="com_shift4_invalid_number">The card number is not a valid credit card number.</string>
+    <string name="com_shift4_invalid_expiry_month">The card\'s expiration month is invalid.</string>
+    <string name="com_shift4_invalid_expiry_year">The card\'s expiration year is invalid.</string>
+    <string name="com_shift4_invalid_cvc">Your card\'s security code is invalid.</string>
+    <string name="com_shift4_incorrect_cvc">The card\'s security code failed verification.</string>
+    <string name="com_shift4_incorrect_zip">The card\'s zip code failed verification.</string>
+    <string name="com_shift4_expired_card">The card has expired.</string>
+    <string name="com_shift4_insufficient_funds">The charge amount exceeds the available funds or the card\'s credit limit.</string>
+    <string name="com_shift4_lost_or_stolen">The card is marked as lost or stolen.</string>
+    <string name="com_shift4_suspected_fraud">The charge is suspected to be fraudulent.</string>
+    <string name="com_shift4_card_declined">The card was declined.</string>
+    <string name="com_shift4_processing_error">An error occurred while processing the card.</string>
+    <string name="com_shift4_blacklisted">The card is blacklisted.</string>
+    <string name="com_shift4_expired_token">The token has expired.</string>
+    <string name="com_shift4_limit_exceeded">The charge amount exceeds the available fund or the card\'s credit limit.</string>
+
+    <string name="com_shift4_threed_error_jailbroken" translatable="false">The device is jailbroken.</string>
+    <string name="com_shift4_threed_error_integrity_tampered" translatable="false">The integrity of the SDK has been tampered.</string>
+    <string name="com_shift4_threed_error_simulator" translatable="false">An emulator is being used to run the app.</string>
+    <string name="com_shift4_threed_error_osnotsupported" translatable="false">The OS or the OS version is not supported.</string>
+    <string name="com_shift4_threed_error_unknown" translatable="false">Unknown </string>
+
+    <string name="com_shift4_shift4_safely_stores">Shift4 safely stores your credit card data.</string>
+</resources>

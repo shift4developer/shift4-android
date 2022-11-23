@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/switchRememberCard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:theme="@style/SecurionPaySDKSwitchTheme"
+            android:thumbTint="@color/com_shift4_primary" />
+
+        <TextView
+            android:id="@+id/textViewSwitchTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:fontFamily="@font/com_shift4_nunitosans_regular"
+            android:text="Remember card"
+            android:textColor="@color/com_shift4_black"
+            android:textSize="@dimen/com_shift4_font_body" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/textViewSwitchSubtitle"
+        android:paddingTop="@dimen/com_shift4_padding_compact"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:fontFamily="@font/com_shift4_nunitosans_regular"
+        android:text="remembers"
+        android:textColor="@color/com_shift4_grayMedium"
+        android:textSize="@dimen/com_shift4_font_error" />
+</LinearLayout>

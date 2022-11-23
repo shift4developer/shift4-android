@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:background="@color/com_shift4_inspirationBlue"
+    android:layout_height="wrap_content">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingStart="@dimen/com_shift4_padding_big"
+        android:paddingTop="@dimen/com_shift4_padding_standard"
+        android:paddingBottom="@dimen/com_shift4_padding_standard"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/com_shift4_nunitosans_regular"
+            android:text="Powered by"
+            android:textColor="@color/com_shift4_black"
+            android:textSize="12sp" />
+
+        <Space
+            android:layout_width="@dimen/com_shift4_padding_medium"
+            android:layout_height="match_parent" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/com_shift4_ic_logo" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <TextView
+        android:visibility="invisible"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/com_shift4_nunitosans_regular"
+        android:paddingTop="@dimen/com_shift4_padding_standard"
+        android:paddingEnd="@dimen/com_shift4_padding_big"
+        android:paddingBottom="@dimen/com_shift4_padding_standard"
+        android:text="Terms &amp; Conditions"
+        android:textColor="@color/com_shift4_black"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

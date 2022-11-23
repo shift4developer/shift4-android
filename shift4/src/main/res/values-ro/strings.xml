@@ -1,0 +1,47 @@
+<resources>
+    <string name="com_shift4_add_payment">Adaugă plata</string>
+    <string name="com_shift4_select_amount">Selectează suma</string>
+    <string name="com_shift4_email">E-mail</string>
+    <string name="com_shift4_card_information">Informații despre card</string>
+    <string name="com_shift4_card_number">Numărul cardului</string>
+    <string name="com_shift4_expiration">Data de expirare</string>
+    <string name="com_shift4_cvc">CVC</string>
+    <string name="com_shift4_save_for_future_payments">Salvează acest card pentru plăți viitoare</string>
+    <string name="com_shift4_enter_payment_data">Introduceți datele de plată</string>
+    <string name="com_shift4_confirm">Confirmă</string>
+    <string name="com_shift4_pay">Pay %s</string>
+    <string name="com_shift4_user_information">Informații utilizator</string>
+    <string name="com_shift4_unlock_card_details">Deblochează detaliile cardului</string>
+    <string name="com_shift4_sms_code_info">Inscrieți codul pe care tocmai vi l-am trimis pe telefonul mobil</string>
+    <string name="com_shift4_card">Card</string>
+    <string name="com_shift4_no_code_info">Nu ați primit codul?</string>
+
+    <string name="com_shift4_name">Nume</string>
+    <string name="com_shift4_street">Strada</string>
+    <string name="com_shift4_zip">Cod poștal</string>
+    <string name="com_shift4_city">Oraș</string>
+    <string name="com_shift4_country">Țara</string>
+    <string name="com_shift4_vat">VAT number</string>
+    <string name="com_shift4_same_shippint_and_billing_address">Aceeași adresă de expediere și de facturare</string>
+    <string name="com_shift4_billing_address">Adresa de facturare</string>
+    <string name="com_shift4_shipping_address">Adresa de expediere</string>
+
+    <string name="com_shift4_invalid_email">Adresa de e-mail invalidă.</string>
+    <string name="com_shift4_unknown_error">Eroare necunoscută. Încercați din nou sau contactați serviciul de asistență.</string>
+    <string name="com_shift4_invalid_number">Numărul cardului nu este un număr de card valid.</string>
+    <string name="com_shift4_invalid_expiry_month">Luna de expirare a cardului nu este validă.</string>
+    <string name="com_shift4_invalid_expiry_year">Anul de expirare al cardului nu este valabil.</string>
+    <string name="com_shift4_invalid_cvc">Codul de securitate al cardului dvs. nu este valid.</string>
+    <string name="com_shift4_incorrect_cvc">Codul de securitate al cardului nu a reușit să fie verificat.</string>
+    <string name="com_shift4_incorrect_zip">Codul poștal al cardului nu a reușit să fie verificat.</string>
+    <string name="com_shift4_expired_card">Cardul a expirat.</string>
+    <string name="com_shift4_insufficient_funds">Măreția debitului depășește fondul disponibil sau limita de credit a cardului.</string>
+    <string name="com_shift4_lost_or_stolen">Cardul este marcat ca fiind pierdut sau furat.</string>
+    <string name="com_shift4_suspected_fraud">Se suspectează că taxa este frauduloasă.</string>
+    <string name="com_shift4_card_declined">Cardul a fost refuzat din alt motiv.</string>
+    <string name="com_shift4_processing_error">A apărut o eroare în timpul procesării cardului.</string>
+    <string name="com_shift4_blacklisted">Cardul este pe lista neagră.</string>
+    <string name="com_shift4_expired_token">Tokenul a expirat.</string>
+    <string name="com_shift4_limit_exceeded">Măreția debitului depășește fondul disponibil sau limita de credit a cardului.</string>
+    <string name="com_shift4_shift4_safely_stores">Shift4 stochează în siguranță datele cardului dvs. de credit.</string>
+</resources>

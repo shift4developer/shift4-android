@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="com_shift4_primary">#0E5BF3</color>
+    <color name="com_shift4_error">#B00020</color>
+    <color name="com_shift4_success">#46A82E</color>
+
+    <color name="com_shift4_white">#FFFFFF</color>
+    <color name="com_shift4_black">#000000</color>
+    <color name="com_shift4_inspirationBlue">#ECF3FE</color>
+
+    <color name="com_shift4_gray">#61000000</color>
+    <color name="com_shift4_grayMedium">#99000000</color>
+    <color name="com_shift4_grayLight">#29000000</color>
+
+    <color name="com_shift4_switch">#bebebe</color>
+    <color name="com_shift4_switch_back">#ebebeb</color>
+</resources>

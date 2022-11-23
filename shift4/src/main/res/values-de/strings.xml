@@ -1,0 +1,47 @@
+<resources>
+    <string name="com_shift4_add_payment">Zahlung hinzufügen</string>
+    <string name="com_shift4_select_amount">Betrag auswählen</string>
+    <string name="com_shift4_email">E-mail</string>
+    <string name="com_shift4_card_information">Karteninformationen</string>
+    <string name="com_shift4_card_number">Kartennummer</string>
+    <string name="com_shift4_expiration">Ablaufdatum</string>
+    <string name="com_shift4_cvc">CVC</string>
+    <string name="com_shift4_save_for_future_payments">Speichern Sie diese Karte für zukünftige Zahlungen</string>
+    <string name="com_shift4_enter_payment_data">Zahlungsdaten eingeben</string>
+    <string name="com_shift4_confirm">Bestätigen</string>
+    <string name="com_shift4_pay">Bezahlen Sie %s</string>
+    <string name="com_shift4_user_information">Benutzerinformationen</string>
+    <string name="com_shift4_unlock_card_details">Kartendaten freischalten</string>
+    <string name="com_shift4_sms_code_info">Geben Sie den Code ein, den wir soeben an Ihr Mobiltelefon gesendet haben</string>
+    <string name="com_shift4_card">Karte</string>
+    <string name="com_shift4_no_code_info">Haben Sie den Code nicht erhalten?</string>
+
+    <string name="com_shift4_name">Vorname</string>
+    <string name="com_shift4_street">Straße</string>
+    <string name="com_shift4_zip">Postleitzahl</string>
+    <string name="com_shift4_city">Stadt</string>
+    <string name="com_shift4_country">Land</string>
+    <string name="com_shift4_vat">Mehrwertsteuernummer</string>
+    <string name="com_shift4_same_shippint_and_billing_address">Gleiche Versand- und Rechnungsadresse</string>
+    <string name="com_shift4_billing_address">Rechnungsadresse</string>
+    <string name="com_shift4_shipping_address">Versandadresse</string>
+
+    <string name="com_shift4_invalid_email">Ungültige E-Mail Adresse.</string>
+    <string name="com_shift4_unknown_error">Unbekannter Fehler. Versuchen Sie es erneut oder kontaktieren Sie den Support.</string>
+    <string name="com_shift4_invalid_number">Die Kartennummer ist keine gültige Kartennummer.</string>
+    <string name="com_shift4_invalid_expiry_month">Der Verfallsmonat der Karte ist ungültig.</string>
+    <string name="com_shift4_invalid_expiry_year">Das Verfallsjahr der Karte ist ungültig.</string>
+    <string name="com_shift4_invalid_cvc">Der Sicherheitscode Ihrer Karte ist ungültig.</string>
+    <string name="com_shift4_incorrect_cvc">Der Sicherheitscode der Karte wurde nicht überprüft.</string>
+    <string name="com_shift4_incorrect_zip">Die Postleitzahl der Karte konnte nicht verifiziert werden.</string>
+    <string name="com_shift4_expired_card">Die Karte ist abgelaufen.</string>
+    <string name="com_shift4_insufficient_funds">Der Aufladebetrag übersteigt das verfügbare Guthaben oder das Kreditlimit der Karte.</string>
+    <string name="com_shift4_lost_or_stolen">Die Karte ist als verloren oder gestohlen markiert.</string>
+    <string name="com_shift4_suspected_fraud">Die Belastung wird als betrügerisch vermutet.</string>
+    <string name="com_shift4_card_declined">Die Karte wurde aus anderen Gründen abgelehnt.</string>
+    <string name="com_shift4_processing_error">Ein Fehler ist bei der Verarbeitung der Karte aufgetreten.</string>
+    <string name="com_shift4_blacklisted">Die Karte steht auf der schwarzen Liste.</string>
+    <string name="com_shift4_expired_token">Das Token ist abgelaufen.</string>
+    <string name="com_shift4_limit_exceeded">Der Belastungsbetrag übersteigt das verfügbare Guthaben oder das Kreditlimit der Karte.</string>
+    <string name="com_shift4_shift4_safely_stores">Shift4 speichert Ihre Kreditkartendaten sicher.</string>
+</resources>

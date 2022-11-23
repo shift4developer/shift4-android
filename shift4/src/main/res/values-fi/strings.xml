@@ -1,0 +1,47 @@
+<resources>
+    <string name="com_shift4_add_payment">Lisää maksu</string>
+    <string name="com_shift4_select_amount">Valitse summa</string>
+    <string name="com_shift4_email">Sähköposti</string>
+    <string name="com_shift4_card_information">Kortin tiedot</string>
+    <string name="com_shift4_card_number">Kortin numero</string>
+    <string name="com_shift4_expiration">Lopetuspäivä</string>
+    <string name="com_shift4_cvc">CVC</string>
+    <string name="com_shift4_save_for_future_payments">Tallenna tämä kortti tulevia maksuja varten</string>
+    <string name="com_shift4_enter_payment_data">Syötä maksutiedot</string>
+    <string name="com_shift4_confirm">Vahvista</string>
+    <string name="com_shift4_pay">Maksa %s</string>
+    <string name="com_shift4_user_information">Käyttäjän tiedot</string>
+    <string name="com_shift4_unlock_card_details">Poista kortin tiedot</string>
+    <string name="com_shift4_sms_code_info">Kirjoita koodi, jonka olemme juuri lähettäneet matkapuhelimeesi</string>
+    <string name="com_shift4_card">Card</string>
+    <string name="com_shift4_no_code_info">Et saanut koodia?</string>
+
+    <string name="com_shift4_name">Etunimi</string>
+    <string name="com_shift4_street">Katu</string>
+    <string name="com_shift4_zip">Postinumero</string>
+    <string name="com_shift4_city">kaupunki</string>
+    <string name="com_shift4_country">Maa</string>
+    <string name="com_shift4_vat">Alv-numero</string>
+    <string name="com_shift4_same_shippint_and_billing_address">Sama toimitus- ja laskutusosoite</string>
+    <string name="com_shift4_billing_address">Laskutusosoite</string>
+    <string name="com_shift4_shipping_address">Toimitusosoite</string>
+
+    <string name="com_shift4_invalid_email">Väärennetty sähköpostiosoite.</string>
+    <string name="com_shift4_unknown_error">Tuntematon virhe. Yritä uudelleen tai ota yhteyttä asiakaspalveluun.</string>
+    <string name="com_shift4_invalid_number">Kortin numero ei ole kelvollinen kortin numero.</string>
+    <string name="com_shift4_invalid_expiry_month">Kortin voimassaolon päättymiskuukausi on virheellinen.</string>
+    <string name="com_shift4_invalid_expiry_year">Kortin viimeinen voimassaolovuosi on virheellinen.</string>
+    <string name="com_shift4_invalid_cvc">Korttisi turvakoodi on virheellinen.</string>
+    <string name="com_shift4_incorrect_cvc">Kortin turvakoodin vahvistus epäonnistui.</string>
+    <string name="com_shift4_incorrect_zip">Kortin postinumero epäonnistui vahvistuksessa.</string>
+    <string name="com_shift4_expired_card">Kortti on vanhentunut.</string>
+    <string name="com_shift4_insufficient_funds">Latauksen määrä ylittää käytettävissä olevat varat tai kortin\ luottorajan.</string>
+    <string name="com_shift4_lost_or_stolen">Kortti on merkitty kadonneeksi tai varastetuksi.</string>
+    <string name="com_shift4_suspected_fraud">Latauksen epäillään olevan vilpillinen.</string>
+    <string name="com_shift4_card_declined">Kortti on hylätty muusta syystä.</string>
+    <string name="com_shift4_processing_error">Kortin käsittelyssä tapahtui virhe.</string>
+    <string name="com_shift4_blacklisted">Kortti on mustalla listalla.</string>
+    <string name="com_shift4_expired_token">Kortin tunniste on vanhentunut.</string>
+    <string name="com_shift4_limit_exceeded">Lataussumma ylittää käytettävissä olevat varat tai kortin luottorajan.</string>
+    <string name="com_shift4_shift4_safely_stores">Shift4 tallentaa luottokorttitietosi turvallisesti.</string>
+</resources>

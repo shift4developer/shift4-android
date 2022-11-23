@@ -1,0 +1,47 @@
+<resources>
+    <string name="com_shift4_add_payment">Betaling toevoegen</string>
+    <string name="com_shift4_select_amount">Selecteer bedrag</string>
+    <string name="com_shift4_email">E-mail</string>
+    <string name="com_shift4_card_information">Card informatie</string>
+    <string name="com_shift4_card_number">Card_nummer</string>
+    <string name="com_shift4_expiration">Vervaldatum</string>
+    <string name="com_shift4_cvc">CVC</string>
+    <string name="com_shift4_save_for_future_payments">Bewaar deze kaart voor toekomstige betalingen</string>
+    <string name="com_shift4_enter_payment_data">Voer betalingsgegevens in</string>
+    <string name="com_shift4_confirm">Bevestigen</string>
+    <string name="com_shift4_pay">Betaal %s</string>
+    <string name="com_shift4_user_information">Gebruikersinformatie</string>
+    <string name="com_shift4_unlock_card_details">De kaartgegevens ontgrendelen</string>
+    <string name="com_shift4_sms_code_info">Voer de code in die we zojuist naar uw mobiele telefoon hebben gestuurd</string>
+    <string name="com_shift4_card">Kaart</string>
+    <string name="com_shift4_no_code_info">Heeft u de code niet ontvangen?</string>
+
+    <string name="com_shift4_name">Naam</string>
+    <string name="com_shift4_street">Straat</string>
+    <string name="com_shift4_zip">Postcode</string>
+    <string name="com_shift4_city">Stad</string>
+    <string name="com_shift4_country">Land</string>
+    <string name="com_shift4_vat">BTW-nummer</string>
+    <string name="com_shift4_same_shippint_and_billing_address">Zelfde verzend- en factuuradres</string>
+    <string name="com_shift4_billing_address">Factuuradres</string>
+    <string name="com_shift4_shipping_address">Verzendadres</string>
+
+    <string name="com_shift4_invalid_email">Ongeldig e-mail adres.</string>
+    <string name="com_shift4_unknown_error">Onbekende fout. Probeer het opnieuw of neem contact op met support.</string>
+    <string name="com_shift4_invalid_number">Het kaartnummer is geen geldig kaartnummer.</string>
+    <string name="com_shift4_invalid_expiry_month">De vervalmaand van de kaart is ongeldig.</string>
+    <string name="com_shift4_invalid_expiry_year">Het vervaljaar van de kaart is ongeldig.</string>
+    <string name="com_shift4_invalid_cvc">De beveiligingscode van uw kaart is ongeldig.</string>
+    <string name="com_shift4_incorrect_cvc">De beveiligingscode van de kaart is niet geverifieerd.</string>
+    <string name="com_shift4_incorrect_zip">De postcode van de kaart is niet geverifieerd.</string>
+    <string name="com_shift4_expired_card">De kaart is verlopen.</string>
+    <string name="com_shift4_insufficient_funds">Het oplaadbedrag overschrijdt het beschikbare bedrag of de kredietlimiet van de kaart.</string>
+    <string name="com_shift4_lost_or_stolen">De kaart is gemarkeerd als verloren of gestolen.</string>
+    <string name="com_shift4_suspected_fraud">De afschrijving is vermoedelijk frauduleus.</string>
+    <string name="com_shift4_card_declined">De kaart is om een andere reden geweigerd.</string>
+    <string name="com_shift4_processing_error">Er is een fout opgetreden tijdens het verwerken van de kaart.</string>
+    <string name="com_shift4_blacklisted">De kaart staat op de zwarte lijst.</string>
+    <string name="com_shift4_expired_token">Het token is verlopen.</string>
+    <string name="com_shift4_limit_exceeded">Het bedrag van de afschrijving overschrijdt het beschikbare saldo of de kredietlimiet van de kaart.</string>
+    <string name="com_shift4_shift4_safely_stores">Shift4 slaat uw creditcardgegevens veilig op.</string>
+</resources>

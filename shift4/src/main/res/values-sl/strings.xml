@@ -1,0 +1,47 @@
+<resources>
+    <string name="com_shift4_add_payment">Dodaj plačilo</string>
+    <string name="com_shift4_select_amount">Izberite znesek</string>
+    <string name="com_shift4_email">E-mail</string>
+    <string name="com_shift4_card_information">Informacije o kartici</string>
+    <string name="com_shift4_card_number">Številka_kartice</string>
+    <string name="com_shift4_expiration">Datum veljavnosti</string>
+    <string name="com_shift4_cvc">CVC</string>
+    <string name="com_shift4_save_for_future_payments">Uhrani to kartico za prihodnja plačila</string>
+    <string name="com_shift4_enter_payment_data">Vnesite podatke o plačilu</string>
+    <string name="com_shift4_confirm">Potrdi</string>
+    <string name="com_shift4_pay">Plačati %s</string>
+    <string name="com_shift4_user_information">Informacije o uporabniku</string>
+    <string name="com_shift4_unlock_card_details">Odkleni podatke o kartici</string>
+    <string name="com_shift4_sms_code_info">Vnesite kodo, ki smo jo pravkar poslali na vaš mobilni telefon</string>
+    <string name="com_shift4_card">Kartica</string>
+    <string name="com_shift4_no_code_info">Ne prejmete kode?</string>
+
+    <string name="com_shift4_name">Ime</string>
+    <string name="com_shift4_street">Ulica</string>
+    <string name="com_shift4_zip">Poštna številka</string>
+    <string name="com_shift4_city">Mesto</string>
+    <string name="com_shift4_country">Država</string>
+    <string name="com_shift4_vat">Številka DDV</string>
+    <string name="com_shift4_same_shippint_and_billing_address">Isti naslov za pošiljanje in zaračunavanje</string>
+    <string name="com_shift4_billing_address">Obračunski naslov</string>
+    <string name="com_shift4_shipping_address">Naslov za pošiljanje</string>
+
+    <string name="com_shift4_invalid_email">Nepravilen e-poštni naslov.</string>
+    <string name="com_shift4_unknown_error">Neznana napaka. Poskusite znova ali se obrnite na podporo.</string>
+    <string name="com_shift4_invalid_number">Številka kartice ni veljavna.</string>
+    <string name="com_shift4_invalid_expiry_month">Mesec veljavnosti kartice je neveljaven.</string>
+    <string name="com_shift4_invalid_expiry_year">Leto veljavnosti kartice je neveljavno.</string>
+    <string name="com_shift4_invalid_cvc">Varnostna koda vaše kartice je neveljavna.</string>
+    <string name="com_shift4_incorrect_cvc">Varnostna koda kartice ni bila preverjena.</string>
+    <string name="com_shift4_incorrect_zip">Poštna številka kartice ni bila preverjena.</string>
+    <string name="com_shift4_expired_card">Kartica je potekla.</string>
+    <string name="com_shift4_insufficient_funds">Znesek obremenitve presega razpoložljiva sredstva ali kreditni limit kartice.</string>
+    <string name="com_shift4_lost_or_stolen">Kartica je označena kot izgubljena ali ukradena.</string>
+    <string name="com_shift4_suspected_fraud">Za polnjenje se sumi, da je goljufivo.</string>
+    <string name="com_shift4_card_declined">Kartica je bila zavrnjena iz drugega razloga.</string>
+    <string name="com_shift4_processing_error">Pri obdelavi kartice je prišlo do napake.</string>
+    <string name="com_shift4_blacklisted">Kartica je na črnem seznamu.</string>
+    <string name="com_shift4_expired_token">Znamek je potekel.</string>
+    <string name="com_shift4_limit_exceeded">Znesek obremenitve presega razpoložljiva sredstva ali kreditni limit kartice.</string>
+    <string name="com_shift4_shift4_safely_stores">Shift4 varno hrani podatke o vaši kreditni kartici.</string>
+</resources>

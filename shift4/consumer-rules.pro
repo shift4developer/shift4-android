@@ -1,0 +1,2 @@
+-keep class com.shift4.** { *; }
+-keep class com.nsoftware.** { *; }

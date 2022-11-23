@@ -1,0 +1,47 @@
+<resources>
+    <string name="com_shift4_add_payment">Makse lisamine</string>
+    <string name="com_shift4_select_amount">Vali summa</string>
+    <string name="com_shift4_email">E-mail</string>
+    <string name="com_shift4_card_information">Kaardi andmed</string>
+    <string name="com_shift4_card_number">Kaardi number</string>
+    <string name="com_shift4_expiration">Aegumiskuupäev</string>
+    <string name="com_shift4_cvc">CVC</string>
+    <string name="com_shift4_save_for_future_payments">Säilitada see kaart tulevaste maksete tegemiseks</string>
+    <string name="com_shift4_enter_payment_data">Enter payment data</string>
+    <string name="com_shift4_confirm">Kinnita</string>
+    <string name="com_shift4_pay">Maksa %s</string>
+    <string name="com_shift4_user_information">Kasutajate andmed</string>
+    <string name="com_shift4_unlock_card_details">Unlock card details</string>
+    <string name="com_shift4_sms_code_info">Kirjutage kood, mille me just teie mobiiltelefonile saatsime</string>
+    <string name="com_shift4_card">Card</string>
+    <string name="com_shift4_no_code_info">Koodi ei saanud?</string>
+
+    <string name="com_shift4_name">Eesnimi</string>
+    <string name="com_shift4_street">Street</string>
+    <string name="com_shift4_zip">Postiindeks</string>
+    <string name="com_shift4_city">Linn</string>
+    <string name="com_shift4_country">Riik</string>
+    <string name="com_shift4_vat">VAT number</string>
+    <string name="com_shift4_same_shippint_and_billing_address">Sama tarne- ja arveldusaadress</string>
+    <string name="com_shift4_billing_address">Arveldusaadress</string>
+    <string name="com_shift4_shipping_address">Tarneaadress</string>
+
+    <string name="com_shift4_invalid_email">Vale e-posti aadress.</string>
+    <string name="com_shift4_unknown_error">Tundmatu viga. Proovige uuesti või võtke ühendust klienditoega.</string>
+    <string name="com_shift4_invalid_number">Kaardi number ei ole kehtiv kaardinumber.</string>
+    <string name="com_shift4_invalid_expiry_month">Kaardi\ aegumiskuu on kehtetu.</string>
+    <string name="com_shift4_invalid_expiry_year">Kaardi kehtivusaasta on kehtetu.</string>
+    <string name="com_shift4_invalid_cvc">Kaardi turvakood on kehtetu.</string>
+    <string name="com_shift4_incorrect_cvc">Kaardi turvakoodi kontrollimine ebaõnnestus.</string>
+    <string name="com_shift4_incorrect_zip">Kaardi postiindeks ei õnnestunud kontrollida.</string>
+    <string name="com_shift4_expired_card">Kaart on aegunud.</string>
+    <string name="com_shift4_insufficient_funds">Maksusumma ületab olemasolevat fondi või kaardi\ krediidilimiiti.</string>
+    <string name="com_shift4_lost_or_stolen">Kaart on märgitud kaotatud või varastatud.</string>
+    <string name="com_shift4_suspected_fraud">Koormus on arvatavasti pettus.</string>
+    <string name="com_shift4_card_declined">Kaart on muul põhjusel tagasi lükatud.</string>
+    <string name="com_shift4_processing_error">Kaardi töötlemisel tekkis viga.</string>
+    <string name="com_shift4_blacklisted">Kaart on musta nimekirja kantud.</string>
+    <string name="com_shift4_expired_token">Token on aegunud.</string>
+    <string name="com_shift4_limit_exceeded">Ületatud summa ületab olemasolevat fondi või kaardi krediidilimiiti.</string>
+    <string name="com_shift4_shift4_safely_stores">Shift4 säilitab teie krediitkaardiandmeid turvaliselt.</string>
+</resources>

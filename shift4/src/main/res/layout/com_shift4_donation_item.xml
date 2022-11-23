@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/donationItemLinearLayout"
+    android:background="@drawable/com_shift4_rounded_edge"
+    android:layout_width="144dp"
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
+
+    <TextView
+        android:textColor="@color/com_shift4_primary"
+        android:fontFamily="@font/com_shift4_nunitosans_black"
+        android:textSize="20sp"
+        android:id="@+id/donationItemTextViewAmount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:textAlignment="center" />
+
+</LinearLayout>
+

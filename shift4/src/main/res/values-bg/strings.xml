@@ -1,0 +1,47 @@
+<resources>
+    <string name="com_shift4_add_payment">Добавяне на плащане</string>
+    <string name="com_shift4_select_amount">Изберете сума</string>
+    <string name="com_shift4_email">Електронна поща</string>
+    <string name="com_shift4_card_information">Информация за картата</string>
+    <string name="com_shift4_card_number">Номер на картата</string>
+    <string name="com_shift4_expiration">Дата на изтичане на срока на валидност</string>
+    <string name="com_shift4_cvc">CVC</string>
+    <string name="com_shift4_save_for_future_payments">Запазване на тази карта за бъдещи плащания</string>
+    <string name="com_shift4_enter_payment_data">Въвеждане на данни за плащане</string>
+    <string name="com_shift4_confirm">Потвърждаване</string>
+    <string name="com_shift4_pay">Плащане на %s</string>
+    <string name="com_shift4_user_information">Информация за потребителя</string>
+    <string name="com_shift4_unlock_card_details">Отключване на данните за картата</string>
+    <string name="com_shift4_sms_code_info">Въведете кода, който току-що изпратихме на вашия мобилен телефон</string>
+    <string name="com_shift4_card">Карта</string>
+    <string name="com_shift4_no_code_info">Не получихте кода?</string>
+
+    <string name="com_shift4_name">Име</string>
+    <string name="com_shift4_street">Street</string>
+    <string name="com_shift4_zip">Пощенски код</string>
+    <string name="com_shift4_city">Град</string>
+    <string name="com_shift4_country">Държава</string>
+    <string name="com_shift4_vat">ДДС номер</string>
+    <string name="com_shift4_same_shippint_and_billing_address">Един и същ адрес за доставка и фактуриране</string>
+    <string name="com_shift4_billing_address">Адрес за фактуриране</string>
+    <string name="com_shift4_shipping_address">Адрес за доставка</string>
+
+    <string name="com_shift4_invalid_email">Невалиден електронен адрес.</string>
+    <string name="com_shift4_unknown_error">Непозната грешка. Опитайте отново или се свържете с поддръжката.</string>
+    <string name="com_shift4_invalid_number">Номерът на картата не е валиден номер на карта.</string>
+    <string name="com_shift4_invalid_expiry_month">Месецът на валидност на картата е невалиден.</string>
+    <string name="com_shift4_invalid_expiry_year">Година на валидност на картата е невалидна.</string>
+    <string name="com_shift4_invalid_cvc">Кодът за сигурност на вашата карта е невалиден.</string>
+    <string name="com_shift4_incorrect_cvc">Кодът за сигурност на картата не е успял да бъде проверен.</string>
+    <string name="com_shift4_incorrect_zip">Пощенският код на картата ви не успя да се провери.</string>
+    <string name="com_shift4_expired_card">Картата е изтекла.</string>
+    <string name="com_shift4_insufficient_funds">Силата на таксата надвишава наличните средства или кредитния лимит на картата.</string>
+    <string name="com_shift4_lost_or_stolen">Картата е отбелязана като изгубена или открадната.</string>
+    <string name="com_shift4_suspected_fraud">За таксата има съмнения, че е измамна.</string>
+    <string name="com_shift4_card_declined">Картата е отказана по друга причина.</string>
+    <string name="com_shift4_processing_error">При обработката на картата е възникнала грешка.</string>
+    <string name="com_shift4_blacklisted">Картата е включена в черния списък.</string>
+    <string name="com_shift4_expired_token">Токенът е изтекъл.</string>
+    <string name="com_shift4_limit_exceeded">Силата на таксата надвишава наличните средства или кредитния лимит на картата.</string>
+    <string name="com_shift4_shift4_safely_stores">Shift4 сигурно съхранява данните на вашата кредитна карта.</string>
+</resources>

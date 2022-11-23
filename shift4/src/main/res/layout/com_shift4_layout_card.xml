@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayoutInputCardNumber"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/com_shift4_rounded_edge">
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/SecurionPaySDKTextInputLayoutStyle"
+            android:hint="@string/com_shift4_card_number"
+            android:nextFocusLeft="@id/textInputExpiration"
+            android:nextFocusRight="@id/textInputExpiration"
+            android:nextFocusUp="@id/textInputExpiration"
+            android:nextFocusDown="@id/textInputExpiration"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/textInputCardNumber"
+                style="@style/SecurionPaySDKTextInputStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/com_shift4_nunitosans_regular"
+                android:imeOptions="actionNext|flagNoExtractUi|flagNoFullscreen"
+                android:inputType="datetime"
+                android:textSize="16sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <ImageView
+            android:id="@+id/imageViewCardBrand"
+            android:layout_width="32dp"
+            android:layout_height="24dp"
+            android:layout_marginEnd="@dimen/com_shift4_padding_standard"
+            android:contentDescription="@string/com_shift4_card"
+            android:src="@drawable/com_shift4_ic_unknown_card"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/com_shift4_padding_medium" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayoutInputExpDate"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/com_shift4_rounded_edge">
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/SecurionPaySDKTextInputLayoutStyle"
+                android:layout_width="0dp"
+                android:hint="@string/com_shift4_expiration"
+                android:nextFocusRight="@id/textInputCVC"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/textInputExpiration"
+                    style="@style/SecurionPaySDKTextInputStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/com_shift4_nunitosans_regular"
+                    android:imeOptions="actionNext|flagNoExtractUi|flagNoFullscreen"
+                    android:inputType="datetime"
+                    android:textCursorDrawable="@drawable/com_shift4_color_cursor"
+                    android:textSize="16sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <Space
+            android:layout_width="@dimen/com_shift4_padding_medium"
+            android:layout_height="match_parent" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayoutInputCVC"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/com_shift4_rounded_edge">
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/SecurionPaySDKTextInputLayoutStyle"
+                android:hint="@string/com_shift4_cvc"
+                android:paddingLeft="@dimen/com_shift4_padding_medium"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/textInputCVC"
+                    style="@style/SecurionPaySDKTextInputStyle"
+                    android:layout_width="113dp"
+                    android:fontFamily="@font/com_shift4_nunitosans_regular"
+                    android:imeOptions="actionNext|flagNoExtractUi|flagNoFullscreen"
+                    android:inputType="number"
+                    android:textSize="16sp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <ImageView
+                android:layout_width="32dp"
+                android:layout_height="24dp"
+                android:layout_marginEnd="@dimen/com_shift4_padding_standard"
+                android:contentDescription="@string/com_shift4_cvc"
+                android:src="@drawable/com_shift4_ic_cvc_helper"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/textViewCardError"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/com_shift4_nunitosans_regular"
+        android:paddingTop="@dimen/com_shift4_padding_compact"
+        android:paddingBottom="0dp"
+        android:text=""
+        android:textColor="@color/com_shift4_error"
+        android:textSize="@dimen/com_shift4_font_error" />
+</LinearLayout>
