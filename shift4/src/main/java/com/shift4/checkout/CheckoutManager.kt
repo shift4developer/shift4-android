@@ -155,8 +155,6 @@ internal class CheckoutManager(
                 if (error != null) {
                     GlobalScope.launch(Dispatchers.Main) { threeDManager.hideProgressDialog() }
                     callback(Result.error(error, null))
-                } else if (!success) {
-                    callback(Result.cancelled())
                 } else {
                     GlobalScope.launch {
                         val challengeCompleteToken =

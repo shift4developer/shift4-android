@@ -29,6 +29,12 @@ data class APIError(
             "Invalid checkout request."
         )
 
+        val threeDTimeout: APIError = APIError(
+            Type.Unknown,
+            Code.Unknown,
+            "3D-Secure transaction timed-out. Try again."
+        )
+
         fun unsupportedValue(value: String): APIError = APIError(
             Type.InvalidRequest,
             Code.UnsupportedValue,
