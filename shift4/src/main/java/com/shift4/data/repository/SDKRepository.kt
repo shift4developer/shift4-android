@@ -1,9 +1,16 @@
 package com.shift4.data.repository
 
+import com.github.kittinunf.fuel.core.FuelError
+import com.github.kittinunf.fuel.core.FuelManager
+import com.github.kittinunf.fuel.core.extensions.authentication
+import com.github.kittinunf.fuel.core.interceptors.LogRequestAsCurlInterceptor
+import com.github.kittinunf.fuel.core.interceptors.LogRequestInterceptor
+import com.github.kittinunf.fuel.core.interceptors.LogResponseInterceptor
+import com.github.kittinunf.fuel.coroutines.awaitObjectResponseResult
+import com.github.kittinunf.fuel.gson.gsonDeserializer
+import com.github.kittinunf.fuel.gson.jsonBody
 import com.shift4.BuildConfig
 import com.shift4.Shift4
-import com.shift4.data.api.APIService
-import com.shift4.data.api.RequestBuilder
 import com.shift4.data.api.Result
 import com.shift4.data.model.address.Billing
 import com.shift4.data.model.address.Shipping
@@ -26,16 +33,45 @@ import com.shift4.utils.UserAgentGenerator
 import com.shift4.utils.base64
 
 internal class SDKRepository(private val shift4: Shift4) {
-    private val responseHandler = ResponseHandler()
+    private val manager = FuelManager()
+
+    init {
+        manager.baseHeaders = mapOf(
+            "User-Agent" to UserAgentGenerator().userAgent(),
+            "Referer" to BuildConfig.BACKOFFICE_URL
+        )
+        if (BuildConfig.DEBUG) {
+            manager.addRequestInterceptor(LogRequestAsCurlInterceptor)
+            manager.addRequestInterceptor(LogRequestInterceptor)
+            manager.addResponseInterceptor(LogResponseInterceptor)
+        }
+        manager.timeoutInMillisecond = 60000
+        manager.timeoutReadInMillisecond = 60000
+    }
+
+    private fun <T> handleResponse(result: com.github.kittinunf.result.Result<T, FuelError>): Result<T> {
+        return when (result) {
+            is com.github.kittinunf.result.Result.Success ->
+                (Result.success(result.value))
+            is com.github.kittinunf.result.Result.Failure -> {
+                val error = ErrorUtils().parseError(
+                    result.error.response.body().asString("application/json")
+                )
+                (Result.error(error, null))
+            }
+        }
+    }
 
     suspend fun createToken(tokenRequest: TokenRequest): Result<Token> {
-        val service = service(BuildConfig.API_URL, true)
+        manager.basePath = BuildConfig.API_URL
 
-        return try {
-            responseHandler.handleSuccess(service.createToken(tokenRequest))
-        } catch (e: Exception) {
-            responseHandler.handleException(e)
-        }
+        val (_, _, result) = manager
+            .post("tokens")
+            .authentication().basic(shift4.publicKey, "")
+            .jsonBody(tokenRequest)
+            .awaitObjectResponseResult<Token>(gsonDeserializer())
+
+        return handleResponse(result)
     }
 
     suspend fun pay(
@@ -49,81 +85,88 @@ internal class SDKRepository(private val shift4: Shift4) {
         shipping: Shipping?,
         billing: Billing?
     ): Result<ChargeResult> {
-        val service = service(BuildConfig.BACKOFFICE_URL, false)
+        val details = checkoutRequestDetails(checkoutRequest)
+        details.error?.let { return@pay Result.error(it) }
 
-        return try {
-            val details = service.checkoutDetails(
-                CheckoutDetailsRequest(
-                    shift4.publicKey,
-                    checkoutRequest.content
+        manager.basePath = BuildConfig.BACKOFFICE_URL
+
+        val chargeRequest = ChargeRequest(
+            key = shift4.publicKey,
+            tokenId = token.id,
+            sessionId = details.data?.sessionId ?: "",
+            checkoutRequest = checkoutRequest.content,
+            email = email,
+            rememberMe = remember,
+            cvc = cvc,
+            verificationSmsId = sms?.id,
+            customAmount = customAmount,
+            shipping = shipping,
+            billing = billing
+        )
+
+        val (_, _, result) = manager
+            .post("checkout/pay")
+            .jsonBody(chargeRequest)
+            .awaitObjectResponseResult<ChargeResult>(gsonDeserializer())
+
+        if (remember) {
+            shift4.emailStorage.lastEmail = email
+        }
+
+        return when (result) {
+            is com.github.kittinunf.result.Result.Success ->
+                (Result.success(result.value.withEmail(email)))
+            is com.github.kittinunf.result.Result.Failure -> {
+                val error = ErrorUtils().parseError(
+                    result.error.response.body().asString("application/json")
                 )
-            )
-
-            val chargeRequest = ChargeRequest(
-                key = shift4.publicKey,
-                tokenId = token.id,
-                sessionId = details.sessionId,
-                checkoutRequest = checkoutRequest.content,
-                email = email,
-                rememberMe = remember,
-                cvc = cvc,
-                verificationSmsId = sms?.id,
-                customAmount = customAmount,
-                shipping = shipping,
-                billing = billing
-            )
-            val result = responseHandler.handleSuccess(service.pay(chargeRequest))
-            if (remember) {
-                shift4.emailStorage.lastEmail = email
+                (Result.error(error, null))
             }
-            Result(result.status, result.data?.withEmail(email), result.error)
-        } catch (e: Exception) {
-            responseHandler.handleException(e)
         }
     }
 
     suspend fun lookup(email: String): Result<LookupResult> {
-        val service = service(BuildConfig.BACKOFFICE_URL, false)
-        val lookupRequest = LookupRequest(shift4.publicKey, email)
+        manager.basePath = BuildConfig.BACKOFFICE_URL
 
-        return try {
-            responseHandler.handleSuccess(service.lookup(lookupRequest))
-        } catch (e: Exception) {
-            responseHandler.handleException(e)
-        }
+        val (_, _, result) = manager
+            .post("checkout/lookup")
+            .jsonBody(LookupRequest(shift4.publicKey, email))
+            .awaitObjectResponseResult<LookupResult>(gsonDeserializer())
+
+        return handleResponse(result)
     }
 
     suspend fun savedToken(email: String): Result<Token> {
-        val service = service(BuildConfig.BACKOFFICE_URL, false)
-        val savedTokenRequest = SavedTokenRequest(shift4.publicKey, email, "android_sdk")
+        manager.basePath = BuildConfig.BACKOFFICE_URL
 
-        return try {
-            responseHandler.handleSuccess(service.savedToken(savedTokenRequest))
-        } catch (e: Exception) {
-            responseHandler.handleException(e)
-        }
+        val (_, _, result) = manager
+            .post("checkout/tokens")
+            .jsonBody(SavedTokenRequest(shift4.publicKey, email, "android_sdk"))
+            .awaitObjectResponseResult<Token>(gsonDeserializer())
+
+        return handleResponse(result)
     }
 
     suspend fun sendSMS(email: String): Result<SMS> {
-        val service = service(BuildConfig.BACKOFFICE_URL, false)
-        val sendSMSRequest = SendSMSRequest(shift4.publicKey, email)
+        manager.basePath = BuildConfig.BACKOFFICE_URL
 
-        return try {
-            responseHandler.handleSuccess(service.sendSMS(sendSMSRequest))
-        } catch (e: Exception) {
-            responseHandler.handleException(e)
-        }
+        val (_, _, result) = manager
+            .post("checkout/verification-sms")
+            .jsonBody(SendSMSRequest(shift4.publicKey, email))
+            .awaitObjectResponseResult<SMS>(gsonDeserializer())
+
+        return handleResponse(result)
     }
 
     suspend fun verifySMS(code: String, sms: SMS): Result<VerifySMSResponse> {
-        val service = service(BuildConfig.BACKOFFICE_URL, false)
-        val sendSMSRequest = VerifySMSRequest(code)
+        manager.basePath = BuildConfig.BACKOFFICE_URL
 
-        return try {
-            responseHandler.handleSuccess(service.verifySMS(sms.id, sendSMSRequest))
-        } catch (e: Exception) {
-            responseHandler.handleException(e)
-        }
+        val (_, _, result) = manager
+            .post("checkout/verification-sms/${sms.id}")
+            .jsonBody(VerifySMSRequest(code))
+            .awaitObjectResponseResult<VerifySMSResponse>(gsonDeserializer())
+
+        return handleResponse(result)
     }
 
     suspend fun threeDCheck(
@@ -131,59 +174,59 @@ internal class SDKRepository(private val shift4: Shift4) {
         amount: Int,
         currency: String
     ): Result<ThreeDCheckResponse> {
-        val service = service(BuildConfig.API_URL, true)
+        manager.basePath = BuildConfig.API_URL
         val request = ThreeDCheckRequest(
             amount,
             currency,
             token.id,
             UserAgentGenerator().userAgent()
         )
+        val (_, _, result) = manager
+            .post("3d-secure")
+            .authentication().basic(shift4.publicKey, "")
+            .jsonBody(request)
+            .awaitObjectResponseResult<ThreeDCheckResponse>(gsonDeserializer())
 
-        return try {
-            responseHandler.handleSuccess(service.threeDCheck(request))
-        } catch (e: Exception) {
-            responseHandler.handleException(e)
-        }
+        return handleResponse(result)
     }
 
     suspend fun threeDAuthorize(
         token: Token,
         authorizationParameters: String
     ): Result<ThreeDAuthResponse> {
-        val service = service(BuildConfig.API_URL, true)
-        val request = ThreeDAuthRequest(authorizationParameters.base64, token.id)
+        manager.basePath = BuildConfig.API_URL
 
-        return try {
-            responseHandler.handleSuccess(service.threeDAuthenticate(request))
-        } catch (e: Exception) {
-            responseHandler.handleException(e)
-        }
+        val request = ThreeDAuthRequest(authorizationParameters.base64, token.id)
+        val (_, _, result) = manager
+            .post("3d-secure/v2/authenticate")
+            .authentication().basic(shift4.publicKey, "")
+            .jsonBody(request)
+            .awaitObjectResponseResult<ThreeDAuthResponse>(gsonDeserializer())
+
+        return handleResponse(result)
     }
 
     suspend fun threeDChallengeComplete(token: Token): Result<Token> {
-        val service = service(BuildConfig.API_URL, true)
-        val request = ThreeDChallengeCompleteRequest(token.id)
+        manager.basePath = BuildConfig.API_URL
 
-        return try {
-            responseHandler.handleSuccess(service.threeDChallengeComplete(request))
-        } catch (e: Exception) {
-            responseHandler.handleException(e)
-        }
+        val request = ThreeDChallengeCompleteRequest(token.id)
+        val (_, _, result) = manager
+            .post("challenge-complete")
+            .authentication().basic(shift4.publicKey, "")
+            .jsonBody(request)
+            .awaitObjectResponseResult<Token>(gsonDeserializer())
+
+        return handleResponse(result)
     }
 
     suspend fun checkoutRequestDetails(checkoutRequest: CheckoutRequest): Result<CheckoutRequestDetails> {
-        val service = service(BuildConfig.BACKOFFICE_URL, false)
-        val request = CheckoutDetailsRequest(shift4.publicKey, checkoutRequest.content)
+        manager.basePath = BuildConfig.BACKOFFICE_URL
 
-        return try {
-            responseHandler.handleSuccess(service.checkoutDetails(request))
-        } catch (e: Exception) {
-            responseHandler.handleException(e)
-        }
-    }
+        val (_, _, result) = manager
+            .post("checkout/forms")
+            .jsonBody(CheckoutDetailsRequest(shift4.publicKey, checkoutRequest.content))
+            .awaitObjectResponseResult<CheckoutRequestDetails>(gsonDeserializer())
 
-    private fun service(url: String, authorize: Boolean): APIService {
-        val requestBuilder = RequestBuilder(shift4.publicKey, url, authorize)
-        return requestBuilder.buildService(APIService::class.java)
+        return handleResponse(result)
     }
 }

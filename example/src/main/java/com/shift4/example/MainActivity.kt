@@ -50,7 +50,7 @@ class MainActivity : AppCompatActivity(), Shift4.CheckoutDialogFragmentResultLis
         }
 
         findViewById<TextInputEditText>(R.id.textEditPublicKeyCheckout).setText("pk_test_MMVbA8QlH8Eynb37DHWxX12Z")
-        findViewById<TextInputEditText>(R.id.textEditCheckoutRequest).setText("ZjkyMGE5ODllMWE2MTFlODNlNTMzYzJjMjk5MGE0YmFhMzdkOWIzMjI5NTFmYTMwZjg3OTYxNmQyYzA5OTVkY3x7ImNoYXJnZSI6eyJhbW91bnQiOjEwMCwiY3VycmVuY3kiOiJFVVIifSwidGhyZWVEU2VjdXJlIjp7ImVuYWJsZSI6dHJ1ZSwicmVxdWlyZUVucm9sbGVkQ2FyZCI6dHJ1ZSwicmVxdWlyZVN1Y2Nlc3NmdWxMaWFiaWxpdHlTaGlmdEZvckVucm9sbGVkQ2FyZCI6dHJ1ZX19")
+        findViewById<TextInputEditText>(R.id.textEditCheckoutRequest).setText("ZjZjODkyODQ0ZWI5MTk5OTM1OGQxZGQ5MTc5N2QzZTJhMjc3NmViYzM5MzVlZmIyMmMzZDkxNjE4M2E4MWY3Ynx7ImNoYXJnZSI6eyJhbW91bnQiOjEwMCwiY3VycmVuY3kiOiJFVVIifSwidGhyZWVEU2VjdXJlIjp7ImVuYWJsZSI6dHJ1ZSwicmVxdWlyZUVucm9sbGVkQ2FyZCI6ZmFsc2UsInJlcXVpcmVTdWNjZXNzZnVsTGlhYmlsaXR5U2hpZnRGb3JFbnJvbGxlZENhcmQiOmZhbHNlfX0")
 
         findViewById<Button>(R.id.buttonPay).setOnClickListener {
             shift4.publicKey =
