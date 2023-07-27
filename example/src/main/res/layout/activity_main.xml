@@ -89,7 +89,7 @@
                 android:layout_height="1dp"
                 android:layout_marginTop="4dp"
                 android:layout_marginBottom="4dp"
-                android:background="@color/com_shift4_black" />
+                android:background="@android:color/black" />
 
             <TextView
                 android:layout_width="match_parent"

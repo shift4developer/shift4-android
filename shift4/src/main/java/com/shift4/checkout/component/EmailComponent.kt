@@ -22,7 +22,11 @@ internal class EmailComponent @JvmOverloads constructor(
             return binding.textInputEmail.text?.toString()
         }
         set(value) {
-            binding.textInputEmail.setText(value)
+            if (!emailFlag) {
+                emailFlag = true
+                binding.textInputEmail.setText(value)
+                emailFlag = false
+            }
         }
 
     var error: String?
@@ -55,16 +59,21 @@ internal class EmailComponent @JvmOverloads constructor(
         ComShift4LayoutEmailBinding.inflate(LayoutInflater.from(context), this, true)
 
     init {
-        binding.textInputEmail.addTextChangedListener {
-            if (emailFlag) {
-                emailFlag = false
-            }
-            emailChangedListener(it?.toString())
-        }
+
     }
 
     override fun clearFocus() {
         super.clearFocus()
         binding.textInputEmail.clearFocus()
+    }
+
+    fun initialize() {
+        binding.textInputEmail.addTextChangedListener {
+            if (!emailFlag) {
+                emailFlag = true
+                emailChangedListener(it?.toString())
+                emailFlag = false
+            }
+        }
     }
 }

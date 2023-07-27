@@ -8,8 +8,8 @@
 
     <TextView
         android:textColor="@color/com_shift4_primary"
-        android:fontFamily="@font/com_shift4_nunitosans_black"
-        android:textSize="20sp"
+        android:fontFamily="@font/shift4_font_tile_label"
+        android:textSize="@dimen/com_shift4_font_size_tile_label"
         android:id="@+id/donationItemTextViewAmount"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -4,4 +4,14 @@
         <attr name="title" format="string" />
         <attr name="subtitle" format="string" />
     </declare-styleable>
+
+    <item name="shift4_font_label" type="font">@font/com_shift4_nunitosans_semibold</item>
+    <item name="shift4_font_error" type="font">@font/com_shift4_nunitosans_semibold</item>
+    <item name="shift4_font_body" type="font">@font/com_shift4_nunitosans_regular</item>
+    <item name="shift4_font_tile_label" type="font">@font/com_shift4_nunitosans_semibold</item>
+    <item name="shift4_font_regular_label" type="font">@font/com_shift4_nunitosans_regular</item>
+    <item name="shift4_font_section" type="font">@font/com_shift4_nunitosans_regular</item>
+    <item name="shift4_font_textedit" type="font">@font/com_shift4_nunitosans_regular</item>
+    <item name="shift4_font_button" type="font">@font/com_shift4_nunitosans_semibold</item>
+    <item name="shift4_font_title" type="font">@font/com_shift4_nunitosans_regular</item>
 </resources>

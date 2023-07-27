@@ -1,5 +1,6 @@
 package com.shift4.data.model.pay
 
+import com.google.gson.Gson
 import com.google.gson.annotations.SerializedName
 
 data class ChargeResult(
@@ -8,7 +9,7 @@ data class ChargeResult(
     val id: String?,
     val subscriptionId: String?,
     val email: String?
-) {
+): java.io.Serializable {
     fun withEmail(email: String): ChargeResult {
         return ChargeResult(
             customer, id, subscriptionId, email

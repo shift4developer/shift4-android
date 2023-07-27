@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <style name="SecurionPaySDKTransparentActivityStyle" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+    </style>
 
     <style name="SecurionPaySDKBottomSheetDialogThemeNoFloating" parent="Theme.Design.Light.BottomSheetDialog">
         <item name="android:windowIsFloating">false</item>
@@ -10,7 +17,7 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:backgroundTint">@android:color/transparent</item>
-        <item name="android:textColorHint">@color/com_shift4_grayMedium</item>
+        <item name="android:textColorHint">@color/com_shift4_placeholder</item>
         <item name="boxBackgroundColor">@android:color/transparent</item>
         <item name="backgroundColor">@android:color/transparent</item>
         <item name="backgroundTint">@android:color/transparent</item>

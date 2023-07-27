@@ -18,7 +18,7 @@ task sourcesJar(type: Jar) {
 }
 
 android {
-    compileSdkVersion 32
+    compileSdkVersion 33
     buildToolsVersion "30.0.3"
 
     defaultConfig {
@@ -109,6 +109,8 @@ android {
         implementation 'androidx.appcompat:appcompat:1.3.0'
         implementation 'com.google.android.material:material:1.4.0'
         implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+        implementation "androidx.activity:activity-ktx:1.7.2"
+        implementation "androidx.fragment:fragment-ktx:1.5.7"
 
         //3DS
         debugCompileOnly fileTree(dir: "../ipworks_debug", include: ["*.aar"])

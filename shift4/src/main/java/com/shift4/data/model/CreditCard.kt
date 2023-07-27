@@ -74,6 +74,8 @@ internal class CreditCard(
 
     val correct: Boolean get() = numberLength == (number?.length ?: 0)
 
+    val expPlaceholder = "••/••"
+
     val readable: String
         get() {
             var result = String.empty
@@ -115,6 +117,26 @@ internal class CreditCard(
             Type.JCB -> resources.getDrawable(R.drawable.com_shift4_ic_logo_jcb, null)
             Type.MAESTRO -> resources.getDrawable(R.drawable.com_shift4_ic_logo_maestro, null)
         }
+    }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is CreditCard) return false
+
+        if (type != other.type) return false
+        if (number != other.number) return false
+        if (last2 != other.last2) return false
+        if (last4 != other.last4) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = type.hashCode()
+        result = 31 * result + (number?.hashCode() ?: 0)
+        result = 31 * result + (last2?.hashCode() ?: 0)
+        result = 31 * result + (last4?.hashCode() ?: 0)
+        return result
     }
 
     private val cardNumber: String

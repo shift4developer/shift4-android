@@ -1,3 +1,3 @@
 package com.shift4.data.model.pay
 
-data class Customer(val id: String)
+data class Customer(val id: String): java.io.Serializable

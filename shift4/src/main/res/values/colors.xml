@@ -5,12 +5,12 @@
     <color name="com_shift4_success">#46A82E</color>
 
     <color name="com_shift4_white">#FFFFFF</color>
-    <color name="com_shift4_black">#000000</color>
+    <color name="com_shift4_text_primary">#000000</color>
     <color name="com_shift4_inspirationBlue">#ECF3FE</color>
 
-    <color name="com_shift4_gray">#61000000</color>
-    <color name="com_shift4_grayMedium">#99000000</color>
-    <color name="com_shift4_grayLight">#29000000</color>
+    <color name="com_shift4_disabled">#61000000</color>
+    <color name="com_shift4_placeholder">#99000000</color>
+    <color name="com_shift4_separator">#29000000</color>
 
     <color name="com_shift4_switch">#bebebe</color>
     <color name="com_shift4_switch_back">#ebebeb</color>

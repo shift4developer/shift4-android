@@ -27,7 +27,7 @@ internal class CheckoutManager(
     private val signature: String,
     private val trustedAppStores: List<String>?
 ) {
-    private val threeDManager by lazy { ThreeDManager() }
+    val threeDManager by lazy { ThreeDManager() }
 
     internal suspend fun pay(
         token: Token,

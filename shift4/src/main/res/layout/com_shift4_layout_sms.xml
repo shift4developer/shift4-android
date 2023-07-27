@@ -17,13 +17,13 @@
         android:id="@+id/textViewUnlockCardDetails"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/com_shift4_nunitosans_regular"
+        android:fontFamily="@font/shift4_font_section"
         android:paddingTop="@dimen/com_shift4_padding_standard"
         android:paddingBottom="@dimen/com_shift4_padding_medium"
         android:text="@string/com_shift4_unlock_card_details"
         android:textAlignment="center"
-        android:textColor="@color/com_shift4_black"
-        android:textSize="@dimen/com_shift4_font_section"
+        android:textColor="@color/com_shift4_text_primary"
+        android:textSize="@dimen/com_shift4_font_size_section"
         app:helperTextTextColor="@color/com_shift4_primary"
         app:hintTextColor="@color/com_shift4_primary" />
 
@@ -31,13 +31,13 @@
         android:id="@+id/textViewSMSCodeInfo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/com_shift4_nunitosans_regular"
+        android:fontFamily="@font/shift4_font_body"
         android:paddingTop="0dp"
         android:paddingBottom="@dimen/com_shift4_padding_standard"
         android:text="@string/com_shift4_sms_code_info"
         android:textAlignment="center"
-        android:textColor="@color/com_shift4_grayMedium"
-        android:textSize="@dimen/com_shift4_font_body"
+        android:textColor="@color/com_shift4_placeholder"
+        android:textSize="@dimen/com_shift4_font_size_body"
         app:helperTextTextColor="@color/com_shift4_primary"
         app:hintTextColor="@color/com_shift4_primary" />
 

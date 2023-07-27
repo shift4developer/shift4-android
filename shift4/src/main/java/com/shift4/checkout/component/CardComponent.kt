@@ -43,7 +43,11 @@ internal class CardComponent @JvmOverloads constructor(
             return binding.textInputCardNumber.text?.toString()
         }
         set(value) {
-            binding.textInputCardNumber.setText(value)
+            if (!numberFlag) {
+                numberFlag = true
+                binding.textInputCardNumber.setText(value)
+                numberFlag = false
+            }
         }
 
     internal var expiration: String?
@@ -51,7 +55,12 @@ internal class CardComponent @JvmOverloads constructor(
             return binding.textInputExpiration.text?.toString()
         }
         set(value) {
-            binding.textInputExpiration.setText(value)
+
+            if (!expirationFlag) {
+                expirationFlag = true
+                binding.textInputExpiration.setText(value)
+                expirationFlag = false
+            }
         }
 
     internal var cvc: String?
@@ -59,7 +68,11 @@ internal class CardComponent @JvmOverloads constructor(
             return binding.textInputCVC.text?.toString()
         }
         set(value) {
-            binding.textInputCVC.setText(value)
+            if (!cvcFlag) {
+                cvcFlag = true
+                binding.textInputCVC.setText(value)
+                cvcFlag = false
+            }
         }
 
     internal var error: String?
@@ -90,7 +103,7 @@ internal class CardComponent @JvmOverloads constructor(
         expirationFlag = true
         cvcFlag = true
         binding.textInputCardNumber.setText(creditCard.readable)
-        binding.textInputExpiration.setText("••/••")
+        binding.textInputExpiration.setText(creditCard.expPlaceholder)
         if (cvc) {
             hideKeyboard()
             binding.textInputCVC.setText("•••")
@@ -99,6 +112,9 @@ internal class CardComponent @JvmOverloads constructor(
             binding.textInputCVC.requestFocus()
         }
         updateCardBrand()
+        numberFlag = false
+        expirationFlag = false
+        cvcFlag = false
     }
 
     override fun setEnabled(enabled: Boolean) {
@@ -111,7 +127,7 @@ internal class CardComponent @JvmOverloads constructor(
         return binding.textInputCardNumber.isEnabled && binding.textInputExpiration.isEnabled && binding.textInputCVC.isEnabled
     }
 
-    init {
+    fun initialize() {
         binding.textInputCardNumber.filters = arrayOf(
             CreditCardInputFilter()
         )
@@ -126,16 +142,14 @@ internal class CardComponent @JvmOverloads constructor(
 
         binding.textInputCardNumber.setOnKeyListener { _, keyCode, _ ->
             if (keyCode == KeyEvent.KEYCODE_DEL) {
-//                clearTextIfSavedEmail()
                 return@setOnKeyListener false
             }
             return@setOnKeyListener false
         }
 
         binding.textInputCardNumber.addTextChangedListener {
-            if (numberFlag) {
-                numberFlag = false
-            } else {
+            if (!numberFlag) {
+                numberFlag = true
                 creditCard =
                     CreditCard(binding.textInputCardNumber.text?.toString())
                 updateCardBrand()
@@ -144,13 +158,13 @@ internal class CardComponent @JvmOverloads constructor(
                 }
                 cvcInputFilter.card = creditCard
                 cardChangedListener(it?.toString())
+                numberFlag = false
             }
         }
 
         binding.textInputExpiration.addTextChangedListener {
-            if (expirationFlag) {
-                expirationFlag = false
-            } else {
+            if (!expirationFlag) {
+                expirationFlag = true
                 if (ExpirationDateFormatter().format(
                         binding.textInputExpiration.text.toString(),
                         false
@@ -159,20 +173,18 @@ internal class CardComponent @JvmOverloads constructor(
                     binding.textInputCVC.requestFocus()
                 }
                 expirationChangedListener(it?.toString())
+                expirationFlag = false
             }
         }
 
         binding.textInputCVC.addTextChangedListener {
-            if (cvcFlag) {
-                cvcFlag = false
-            } else {
-//                if (verifiedCard) {
-//                    clearTextIfSavedEmail()
-//                }
+            if (!cvcFlag) {
+                cvcFlag = true
                 if (it.toString().length == creditCard.cvcLength) {
                     hideKeyboard()
                 }
                 cvcChangedListener(it?.toString())
+                cvcFlag = false
             }
         }
 
@@ -196,6 +208,9 @@ internal class CardComponent @JvmOverloads constructor(
         binding.textInputCVC.text = null
         creditCard = CreditCard.empty
         updateCardBrand()
+        numberFlag = false
+        expirationFlag = false
+        cvcFlag = false
     }
 
     override fun clearFocus() {
@@ -206,7 +221,11 @@ internal class CardComponent @JvmOverloads constructor(
     }
 
     fun setFocus() {
-        binding.textInputCardNumber.requestFocus()
+        if (card.isNullOrEmpty()) {
+            binding.textInputCardNumber.requestFocus()
+        } else {
+            binding.textInputCVC.requestFocus()
+        }
     }
 
     private fun updateCardBrand() {

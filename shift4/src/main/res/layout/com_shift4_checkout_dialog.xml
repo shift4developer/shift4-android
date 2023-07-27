@@ -84,7 +84,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:paddingBottom="@dimen/com_shift4_padding_huge"
-                android:background="@color/com_shift4_grayLight" />
+                android:background="@color/com_shift4_separator" />
 
             <com.shift4.checkout.component.SwitchComponent
                 app:title="@string/com_shift4_save_for_future_payments"
@@ -101,24 +101,24 @@
                 android:id="@+id/textViewError"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/com_shift4_nunitosans_regular"
+                android:fontFamily="@font/shift4_font_error"
                 android:paddingTop="@dimen/com_shift4_padding_standard"
                 android:paddingBottom="10dp"
                 android:text=""
                 android:textColor="@color/com_shift4_error"
-                android:textSize="@dimen/com_shift4_font_error" />
+                android:textSize="@dimen/com_shift4_font_size_error" />
 
             <TextView
                 android:id="@+id/textViewAdditionalButtonInfo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/com_shift4_nunitosans_regular"
+                android:fontFamily="@font/shift4_font_body"
                 android:paddingTop="@dimen/com_shift4_padding_huge"
                 android:paddingBottom="@dimen/com_shift4_padding_compact"
                 android:text="@string/com_shift4_no_code_info"
                 android:textAlignment="center"
-                android:textColor="@color/com_shift4_black"
-                android:textSize="@dimen/com_shift4_font_body" />
+                android:textColor="@color/com_shift4_text_primary"
+                android:textSize="@dimen/com_shift4_font_size_body" />
 
             <com.shift4.checkout.component.ButtonComponent
                 android:id="@+id/buttonComponent"

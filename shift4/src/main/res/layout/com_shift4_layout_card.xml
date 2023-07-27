@@ -23,13 +23,14 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/textInputCardNumber"
+                android:saveEnabled="false"
                 style="@style/SecurionPaySDKTextInputStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/com_shift4_nunitosans_regular"
+                android:fontFamily="@font/shift4_font_textedit"
                 android:imeOptions="actionNext|flagNoExtractUi|flagNoFullscreen"
                 android:inputType="datetime"
-                android:textSize="16sp" />
+                android:textSize="@dimen/com_shift4_font_size_textedit" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <ImageView
@@ -77,11 +78,11 @@
                     style="@style/SecurionPaySDKTextInputStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/com_shift4_nunitosans_regular"
+                    android:fontFamily="@font/shift4_font_textedit"
                     android:imeOptions="actionNext|flagNoExtractUi|flagNoFullscreen"
                     android:inputType="datetime"
                     android:textCursorDrawable="@drawable/com_shift4_color_cursor"
-                    android:textSize="16sp" />
+                    android:textSize="@dimen/com_shift4_font_size_textedit" />
             </com.google.android.material.textfield.TextInputLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -107,10 +108,10 @@
                     android:id="@+id/textInputCVC"
                     style="@style/SecurionPaySDKTextInputStyle"
                     android:layout_width="113dp"
-                    android:fontFamily="@font/com_shift4_nunitosans_regular"
+                    android:fontFamily="@font/shift4_font_textedit"
                     android:imeOptions="actionNext|flagNoExtractUi|flagNoFullscreen"
                     android:inputType="number"
-                    android:textSize="16sp" />
+                    android:textSize="@dimen/com_shift4_font_size_textedit" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -130,10 +131,10 @@
         android:id="@+id/textViewCardError"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/com_shift4_nunitosans_regular"
+        android:fontFamily="@font/shift4_font_error"
         android:paddingTop="@dimen/com_shift4_padding_compact"
         android:paddingBottom="0dp"
         android:text=""
         android:textColor="@color/com_shift4_error"
-        android:textSize="@dimen/com_shift4_font_error" />
+        android:textSize="@dimen/com_shift4_font_size_error" />
 </LinearLayout>

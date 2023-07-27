@@ -4,12 +4,13 @@ import android.content.Context
 import com.google.gson.annotations.SerializedName
 import com.nsoftware.ipworks3ds.sdk.Warning
 import com.shift4.R
+import java.io.Serializable
 
 data class APIError(
     val type: Type? = Type.Unknown,
     val code: Code? = Code.Unknown,
     private val message: String? = null
-) {
+): Serializable {
     companion object {
         val unknown: APIError = APIError(
             Type.Unknown,
@@ -70,7 +71,7 @@ data class APIError(
         )
     }
 
-    enum class Type(val value: String) {
+    enum class Type(val value: String): Serializable {
         @SerializedName("card_error")
         CardError("card_error"),
 
@@ -89,7 +90,7 @@ data class APIError(
         Unknown("unknown")
     }
 
-    enum class Code(val value: String) {
+    enum class Code(val value: String): Serializable {
         @SerializedName("invalid_email")
         InvalidEmail("invalid_email"),
 

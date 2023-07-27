@@ -21,7 +21,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/com_shift4_nunitosans_regular"
             android:text="Powered by"
-            android:textColor="@color/com_shift4_black"
+            android:textColor="@color/com_shift4_text_primary"
             android:textSize="12sp" />
 
         <Space
@@ -43,7 +43,7 @@
         android:paddingEnd="@dimen/com_shift4_padding_big"
         android:paddingBottom="@dimen/com_shift4_padding_standard"
         android:text="Terms &amp; Conditions"
-        android:textColor="@color/com_shift4_black"
+        android:textColor="@color/com_shift4_text_primary"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

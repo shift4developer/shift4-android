@@ -2,14 +2,17 @@ package com.shift4
 
 import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import androidx.annotation.DrawableRes
 import androidx.appcompat.app.AppCompatActivity
 import com.shift4.checkout.CheckoutDialogFragment
+import com.shift4.checkout.TransparentActivity
 import com.shift4.data.api.Result
+import com.shift4.data.api.Status
 import com.shift4.data.model.error.APIError
-import com.shift4.data.model.pay.ChargeResult
 import com.shift4.data.model.pay.CheckoutRequest
+import com.shift4.data.model.result.CheckoutResult
 import com.shift4.data.model.token.Token
 import com.shift4.data.model.token.TokenRequest
 import com.shift4.data.repository.SDKRepository
@@ -19,18 +22,23 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
+
 class Shift4(
     context: Context,
     var publicKey: String,
     var signature: String,
     private val trustedAppStores: List<String>? = null
 ) {
+    companion object {
+        const val SHIFT4_RESULT_CODE = 7080
+    }
+
     internal val repository = SDKRepository(this)
     internal val emailStorage = EmailStorage(context)
     private var threeDAuthenticator: ThreeDAuthenticator? = null
 
     public interface CheckoutDialogFragmentResultListener {
-        public fun onCheckoutFinish(result: Result<ChargeResult>?)
+        public fun onCheckoutFinish(result: CheckoutResult?)
     }
 
     fun <T> showCheckoutDialog(
@@ -42,22 +50,21 @@ class Shift4(
         collectBillingAddress: Boolean = false,
         email: String? = null,
         @DrawableRes merchantLogo: Int? = null
-    ) where T : AppCompatActivity, T : CheckoutDialogFragmentResultListener {
+    ) where T : Activity, T : CheckoutDialogFragmentResultListener {
         if (!checkoutRequest.correct) {
-            activity.onCheckoutFinish(Result.error(APIError.invalidCheckoutRequest))
+            activity.onCheckoutFinish(CheckoutResult(Status.ERROR, null, APIError.invalidCheckoutRequest))
             return
         }
         if (checkoutRequest.termsAndConditions != null) {
-            activity.onCheckoutFinish(Result.error(APIError.unsupportedValue("termsAndConditions")))
+            activity.onCheckoutFinish(CheckoutResult(Status.ERROR, null, APIError.unsupportedValue("termsAndConditions")))
             return
         }
         if (checkoutRequest.crossSaleOfferIds != null) {
-            activity.onCheckoutFinish(Result.error(APIError.unsupportedValue("crossSaleOfferIds")))
+            activity.onCheckoutFinish(CheckoutResult(Status.ERROR, null, APIError.unsupportedValue("crossSaleOfferIds")))
             return
         }
 
-        val checkoutDialogFragment = CheckoutDialogFragment()
-        checkoutDialogFragment.arguments = Bundle().apply {
+        val arguments = Bundle().apply {
             putString("checkoutRequest", checkoutRequest.content)
             putString("signature", signature)
             putString("publicKey", publicKey)
@@ -71,7 +78,30 @@ class Shift4(
             }
             trustedAppStores?.let { putStringArray("trustedAppStores", it.toTypedArray()) }
         }
-        checkoutDialogFragment.show(activity.supportFragmentManager, "checkoutDialogFragment")
+
+        if (activity is AppCompatActivity) {
+            val checkoutDialogFragment = CheckoutDialogFragment()
+            checkoutDialogFragment.arguments = arguments
+            checkoutDialogFragment.show(activity.supportFragmentManager, "checkoutDialogFragment")
+        } else {
+            val intent = Intent(activity, TransparentActivity::class.java)
+            intent.apply {
+                putExtra("checkoutRequest", checkoutRequest.content)
+                putExtra("signature", signature)
+                putExtra("publicKey", publicKey)
+                putExtra("merchantName", merchantName)
+                putExtra("description", description)
+                putExtra("collectShippingAddress", collectShippingAddress)
+                putExtra("collectBillingAddress", collectBillingAddress)
+                merchantLogo?.let { putExtra("merchantLogoRes", it) }
+                email?.let {
+                    if (it.isNotEmpty()) { putExtra("initialEmail", it) }
+                }
+                trustedAppStores?.let { putExtra("trustedAppStores", it.toTypedArray()) }
+            }
+
+            activity.startActivityForResult(intent, 0)
+        }
     }
 
     fun cleanSavedCards() {

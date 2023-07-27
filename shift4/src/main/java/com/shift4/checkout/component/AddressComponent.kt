@@ -13,23 +13,18 @@ import com.shift4.databinding.ComShift4LayoutAddressBinding
 
 
 internal class AddressComponent @JvmOverloads constructor(
-    context: Context,
-    attrs: AttributeSet? = null,
-    defStyleAttr: Int = 0
+    context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : LinearLayout(context, attrs, defStyleAttr) {
-    private val binding =
-        ComShift4LayoutAddressBinding.inflate(
-            LayoutInflater.from(context),
-            this,
-            true
-        )
+    private val binding = ComShift4LayoutAddressBinding.inflate(
+        LayoutInflater.from(context), this, true
+    )
 
     var onAddressUpdated: (shipping: Shipping?, billing: Billing?) -> Unit = { _, _ -> }
 
     private var shouldCollectShipping = false
     private var shouldCollectBilling = false
 
-    val billing: Billing?
+    var billing: Billing?
         get() {
             val name = binding.textInputName.text.toString()
             val street = binding.textInputStreet.text.toString()
@@ -44,7 +39,17 @@ internal class AddressComponent @JvmOverloads constructor(
                 null
             }
         }
-    val shipping: Shipping?
+        set(value) {
+            if (value != null) {
+                binding.textInputName.setText(value.name)
+                binding.textInputStreet.setText(value.address.line1)
+                binding.textInputZip.setText(value.address.zip)
+                binding.textInputCity.setText(value.address.city)
+//            binding.textInputCountry.cpViewHelper.selectedCountry = value.address.country
+                binding.textInputVat.setText(value.vat)
+            }
+        }
+    var shipping: Shipping?
         get() {
             val name = binding.textInputShippingName.text.toString()
             val street = binding.textInputShippingStreet.text.toString()
@@ -61,6 +66,15 @@ internal class AddressComponent @JvmOverloads constructor(
                 Shipping(name, Address(street, zip, city, country))
             } else {
                 null
+            }
+        }
+        set(value) {
+            if (value != null) {
+                binding.textInputShippingName.setText(value.name)
+                binding.textInputShippingStreet.setText(value.address.line1)
+                binding.textInputShippingZip.setText(value.address.zip)
+                binding.textInputShippingCity.setText(value.address.city)
+//            binding.textInputCountry.cpViewHelper.selectedCountry = value.address.country
             }
         }
     private var sameAddress: Boolean = false

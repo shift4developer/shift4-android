@@ -1,5 +1,6 @@
 package com.shift4.example
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
@@ -10,10 +11,9 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.switchmaterial.SwitchMaterial
 import com.google.android.material.textfield.TextInputEditText
 import com.shift4.Shift4
-import com.shift4.data.api.Result
 import com.shift4.data.api.Status
-import com.shift4.data.model.pay.ChargeResult
 import com.shift4.data.model.pay.CheckoutRequest
+import com.shift4.data.model.result.CheckoutResult
 import com.shift4.data.model.token.TokenRequest
 
 
@@ -50,7 +50,7 @@ class MainActivity : AppCompatActivity(), Shift4.CheckoutDialogFragmentResultLis
         }
 
         findViewById<TextInputEditText>(R.id.textEditPublicKeyCheckout).setText("pk_test_MMVbA8QlH8Eynb37DHWxX12Z")
-        findViewById<TextInputEditText>(R.id.textEditCheckoutRequest).setText("ZjZjODkyODQ0ZWI5MTk5OTM1OGQxZGQ5MTc5N2QzZTJhMjc3NmViYzM5MzVlZmIyMmMzZDkxNjE4M2E4MWY3Ynx7ImNoYXJnZSI6eyJhbW91bnQiOjEwMCwiY3VycmVuY3kiOiJFVVIifSwidGhyZWVEU2VjdXJlIjp7ImVuYWJsZSI6dHJ1ZSwicmVxdWlyZUVucm9sbGVkQ2FyZCI6ZmFsc2UsInJlcXVpcmVTdWNjZXNzZnVsTGlhYmlsaXR5U2hpZnRGb3JFbnJvbGxlZENhcmQiOmZhbHNlfX0")
+        findViewById<TextInputEditText>(R.id.textEditCheckoutRequest).setText("NjkzNWY4ZDlhNDk2ZTg2YjdmN2E4ZjRmYWE5MjgwODdjYmU3MDI1YzE2YTkyNzhmNDYyNjg3YTljNWViNmY3Znx7ImNoYXJnZSI6eyJhbW91bnQiOjEwMCwiY3VycmVuY3kiOiJVU0QifX0")
 
         findViewById<Button>(R.id.buttonPay).setOnClickListener {
             shift4.publicKey =
@@ -106,7 +106,7 @@ class MainActivity : AppCompatActivity(), Shift4.CheckoutDialogFragmentResultLis
         }
     }
 
-    override fun onCheckoutFinish(result: Result<ChargeResult>?) {
+    override fun onCheckoutFinish(result: CheckoutResult?) {
         result?.let {
             when (it.status) {
                 Status.SUCCESS -> {
@@ -140,6 +140,13 @@ class MainActivity : AppCompatActivity(), Shift4.CheckoutDialogFragmentResultLis
                 Snackbar.LENGTH_SHORT
             ).show()
             findViewById<TextView>(R.id.lastChargeId).text = null
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == Shift4.SHIFT4_RESULT_CODE) {
+            onCheckoutFinish(data?.getSerializableExtra("result") as CheckoutResult?)
         }
     }
 }

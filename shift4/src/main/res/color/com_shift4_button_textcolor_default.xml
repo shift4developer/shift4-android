@@ -3,5 +3,5 @@
     <item android:state_enabled="true"
         android:color="@color/com_shift4_white" />
     <item android:state_enabled="false"
-        android:color="@color/com_shift4_gray"/>
+        android:color="@color/com_shift4_disabled"/>
 </selector>

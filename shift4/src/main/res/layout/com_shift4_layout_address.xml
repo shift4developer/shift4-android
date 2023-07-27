@@ -11,7 +11,7 @@
         android:layout_height="1dp"
         android:layout_marginTop="@dimen/com_shift4_padding_big"
         android:layout_marginBottom="@dimen/com_shift4_padding_big"
-        android:background="@color/com_shift4_grayLight" />
+        android:background="@color/com_shift4_separator" />
 
     <com.shift4.checkout.component.SwitchComponent
         android:id="@+id/sameShippingSwitchComponent"
@@ -25,10 +25,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/com_shift4_padding_medium"
-        android:fontFamily="@font/com_shift4_nunitosans_semibold"
+        android:fontFamily="@font/shift4_font_tile_label"
         android:text="@string/com_shift4_shipping_address"
-        android:textColor="@color/com_shift4_black"
-        android:textSize="14sp" />
+        android:textColor="@color/com_shift4_text_primary"
+        android:textSize="@dimen/com_shift4_font_size_tile_label" />
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -58,10 +58,10 @@
                     style="@style/SecurionPaySDKTextInputStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/com_shift4_nunitosans_regular"
+                    android:fontFamily="@font/shift4_font_textedit"
                     android:imeOptions="actionNext|flagNoExtractUi|flagNoFullscreen"
                     android:inputType="text"
-                    android:textSize="16sp" />
+                    android:textSize="@dimen/com_shift4_font_size_textedit" />
             </com.google.android.material.textfield.TextInputLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -90,10 +90,10 @@
                     style="@style/SecurionPaySDKTextInputStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/com_shift4_nunitosans_regular"
+                    android:fontFamily="@font/shift4_font_textedit"
                     android:imeOptions="actionNext|flagNoExtractUi|flagNoFullscreen"
                     android:inputType="text"
-                    android:textSize="16sp" />
+                    android:textSize="@dimen/com_shift4_font_size_textedit" />
             </com.google.android.material.textfield.TextInputLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -130,11 +130,11 @@
                         style="@style/SecurionPaySDKTextInputStyle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/com_shift4_nunitosans_regular"
+                        android:fontFamily="@font/shift4_font_textedit"
                         android:imeOptions="actionNext|flagNoExtractUi|flagNoFullscreen"
                         android:inputType="text"
                         android:textCursorDrawable="@drawable/com_shift4_color_cursor"
-                        android:textSize="16sp" />
+                        android:textSize="@dimen/com_shift4_font_size_textedit" />
                 </com.google.android.material.textfield.TextInputLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -159,10 +159,10 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/textInputShippingCity"
                         style="@style/SecurionPaySDKTextInputStyle"
-                        android:fontFamily="@font/com_shift4_nunitosans_regular"
+                        android:fontFamily="@font/shift4_font_textedit"
                         android:imeOptions="actionNext|flagNoExtractUi|flagNoFullscreen"
                         android:inputType="text"
-                        android:textSize="16sp" />
+                        android:textSize="@dimen/com_shift4_font_size_textedit" />
 
                 </com.google.android.material.textfield.TextInputLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -199,10 +199,10 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/com_shift4_padding_big"
         android:layout_marginBottom="@dimen/com_shift4_padding_medium"
-        android:fontFamily="@font/com_shift4_nunitosans_semibold"
+        android:fontFamily="@font/shift4_font_tile_label"
         android:text="@string/com_shift4_billing_address"
-        android:textColor="@color/com_shift4_black"
-        android:textSize="14sp" />
+        android:textColor="@color/com_shift4_text_primary"
+        android:textSize="@dimen/com_shift4_font_size_tile_label" />
 
     <LinearLayout
         android:id="@+id/linearLayoutBillingSection"
@@ -231,10 +231,10 @@
                     style="@style/SecurionPaySDKTextInputStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/com_shift4_nunitosans_regular"
+                    android:fontFamily="@font/shift4_font_textedit"
                     android:imeOptions="actionNext|flagNoExtractUi|flagNoFullscreen"
                     android:inputType="text"
-                    android:textSize="16sp" />
+                    android:textSize="@dimen/com_shift4_font_size_textedit" />
             </com.google.android.material.textfield.TextInputLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -263,10 +263,10 @@
                     style="@style/SecurionPaySDKTextInputStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/com_shift4_nunitosans_regular"
+                    android:fontFamily="@font/shift4_font_textedit"
                     android:imeOptions="actionNext|flagNoExtractUi|flagNoFullscreen"
                     android:inputType="text"
-                    android:textSize="16sp" />
+                    android:textSize="@dimen/com_shift4_font_size_textedit" />
             </com.google.android.material.textfield.TextInputLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -303,11 +303,11 @@
                         style="@style/SecurionPaySDKTextInputStyle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/com_shift4_nunitosans_regular"
+                        android:fontFamily="@font/shift4_font_textedit"
                         android:imeOptions="actionNext|flagNoExtractUi|flagNoFullscreen"
                         android:inputType="text"
                         android:textCursorDrawable="@drawable/com_shift4_color_cursor"
-                        android:textSize="16sp" />
+                        android:textSize="@dimen/com_shift4_font_size_textedit" />
                 </com.google.android.material.textfield.TextInputLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -332,10 +332,10 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/textInputCity"
                         style="@style/SecurionPaySDKTextInputStyle"
-                        android:fontFamily="@font/com_shift4_nunitosans_regular"
+                        android:fontFamily="@font/shift4_font_textedit"
                         android:imeOptions="actionNext|flagNoExtractUi|flagNoFullscreen"
                         android:inputType="text"
-                        android:textSize="16sp" />
+                        android:textSize="@dimen/com_shift4_font_size_textedit" />
 
                 </com.google.android.material.textfield.TextInputLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -388,10 +388,10 @@
                     style="@style/SecurionPaySDKTextInputStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/com_shift4_nunitosans_regular"
+                    android:fontFamily="@font/shift4_font_textedit"
                     android:imeOptions="actionNext|flagNoExtractUi|flagNoFullscreen"
                     android:inputType="text"
-                    android:textSize="16sp" />
+                    android:textSize="@dimen/com_shift4_font_size_textedit" />
             </com.google.android.material.textfield.TextInputLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
