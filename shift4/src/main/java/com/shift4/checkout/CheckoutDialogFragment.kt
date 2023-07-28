@@ -9,27 +9,42 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
-import android.widget.FrameLayout
+import android.widget.*
+import androidx.appcompat.widget.AppCompatImageButton
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.shift4.R
 import com.shift4.Shift4
-import com.shift4.checkout.component.ButtonComponent
+import com.shift4.checkout.component.*
 import com.shift4.data.api.Result
 import com.shift4.data.model.pay.ChargeResult
 import com.shift4.data.model.result.CheckoutResult
-import com.shift4.databinding.ComShift4CheckoutDialogBinding
 
 
 internal class CheckoutDialogFragment : BottomSheetDialogFragment() {
-    private val viewModel: CheckoutDialogFragmentViewModel by viewModels()
+    private lateinit var rootView: View
+    private lateinit var buttonClose: AppCompatImageButton
+    private lateinit var textViewMerchantName: TextView
+    private lateinit var textViewMerchantDescription: TextView
+    private lateinit var imageViewMerchantLogo: ImageView
+    private lateinit var emailComponent: EmailComponent
+    private lateinit var cardComponent: CardComponent
+    private lateinit var smsComponent: SMSComponent
+    private lateinit var addressComponent: AddressComponent
+    private lateinit var viewButtonSeparator: View
+    private lateinit var textViewAdditionalButtonInfo: TextView
+    private lateinit var buttonComponent: ButtonComponent
+    private lateinit var rememberSwitchComponent: SwitchComponent
+    private lateinit var recyclerViewDonation: RecyclerView
+    private lateinit var progressIndicator: ProgressBar
+    private lateinit var textViewError: TextView
 
-    private var _binding: ComShift4CheckoutDialogBinding? = null
-    private val binding get() = _binding!!
+    private val viewModel: CheckoutDialogFragmentViewModel by viewModels()
 
     private val modalBottomSheetBehavior: BottomSheetBehavior<FrameLayout> get() = (this.dialog as BottomSheetDialog).behavior
 
@@ -37,8 +52,23 @@ internal class CheckoutDialogFragment : BottomSheetDialogFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = ComShift4CheckoutDialogBinding.inflate(inflater, container, false)
-        return binding.root
+        rootView = inflater.inflate(R.layout.com_shift4_checkout_dialog, container, false)
+        buttonClose = rootView.findViewById(R.id.buttonClose)
+        textViewMerchantName = rootView.findViewById(R.id.textViewMerchantName)
+        textViewMerchantDescription = rootView.findViewById(R.id.textViewMerchantDescription)
+        imageViewMerchantLogo = rootView.findViewById(R.id.imageViewMerchantLogo)
+        emailComponent = rootView.findViewById(R.id.emailComponent)
+        cardComponent = rootView.findViewById(R.id.cardComponent)
+        smsComponent = rootView.findViewById(R.id.smsComponent)
+        addressComponent = rootView.findViewById(R.id.addressComponent)
+        viewButtonSeparator = rootView.findViewById(R.id.viewButtonSeparator)
+        textViewAdditionalButtonInfo = rootView.findViewById(R.id.textViewAdditionalButtonInfo)
+        buttonComponent = rootView.findViewById(R.id.buttonComponent)
+        rememberSwitchComponent = rootView.findViewById(R.id.rememberSwitchComponent)
+        recyclerViewDonation = rootView.findViewById(R.id.recyclerViewDonation)
+        progressIndicator = rootView.findViewById(R.id.progressIndicator)
+        textViewError = rootView.findViewById(R.id.textViewError)
+        return rootView
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,202 +84,202 @@ internal class CheckoutDialogFragment : BottomSheetDialogFragment() {
         modalBottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
         modalBottomSheetBehavior.isDraggable = false
 
-        binding.titleBar.textViewMerchantName.text = requireArguments().getString("merchantName")
-        binding.titleBar.textViewMerchantDescription.text =
+        textViewMerchantName.text = requireArguments().getString("merchantName")
+        textViewMerchantDescription.text =
             requireArguments().getString("description")
         requireArguments().getInt("merchantLogoRes", 0).let {
             if (it != 0) {
                 val drawable = ResourcesCompat.getDrawable(resources, it, null)
-                binding.titleBar.imageViewMerchantLogo.setImageDrawable(drawable)
+                imageViewMerchantLogo.setImageDrawable(drawable)
             }
         }
 
-        binding.emailComponent.emailChangedListener = viewModel::onEmailChange
-        binding.cardComponent.cardChangedListener = viewModel::onCardChange
-        binding.cardComponent.expirationChangedListener = viewModel::onExpChange
-        binding.cardComponent.cvcChangedListener = viewModel::onCvcChange
-        binding.smsComponent.smsEnteredListener = viewModel::onSmsEntered
-        binding.addressComponent.onAddressUpdated = viewModel::onAddressEntered
-        binding.buttonComponent.onClickListener = { viewModel.onClickButton(requireActivity()) }
-        binding.rememberSwitchComponent.onCheckedListener = viewModel::onRememberSwitchChange
+        emailComponent.emailChangedListener = viewModel::onEmailChange
+        cardComponent.cardChangedListener = viewModel::onCardChange
+        cardComponent.expirationChangedListener = viewModel::onExpChange
+        cardComponent.cvcChangedListener = viewModel::onCvcChange
+        smsComponent.smsEnteredListener = viewModel::onSmsEntered
+        addressComponent.onAddressUpdated = viewModel::onAddressEntered
+        buttonComponent.onClickListener = { viewModel.onClickButton(requireActivity()) }
+        rememberSwitchComponent.onCheckedListener = viewModel::onRememberSwitchChange
 
         viewModel.emailValue.observe(viewLifecycleOwner) {
-            binding.emailComponent.email = it
+            emailComponent.email = it
         }
 
         viewModel.cardValue.observe(viewLifecycleOwner) {
-            binding.cardComponent.card = it
+            cardComponent.card = it
         }
 
         viewModel.expValue.observe(viewLifecycleOwner) {
-            binding.cardComponent.expiration = it
+            cardComponent.expiration = it
         }
 
         viewModel.cvcValue.observe(viewLifecycleOwner) {
-            binding.cardComponent.cvc = it
+            cardComponent.cvc = it
         }
 
         viewModel.billingValue.observe(viewLifecycleOwner) {
-            binding.addressComponent.billing = it
+            addressComponent.billing = it
         }
 
         viewModel.shippingValue.observe(viewLifecycleOwner) {
-            binding.addressComponent.shipping = it
+            addressComponent.shipping = it
         }
 
         viewModel.rememberValue.observe(viewLifecycleOwner) {
-            binding.rememberSwitchComponent.checked = it
+            rememberSwitchComponent.checked = it
         }
 
         viewModel.isAddressComponentVisible.observe(viewLifecycleOwner) {
-            binding.addressComponent.visibility = if (it) View.VISIBLE else View.GONE
+            addressComponent.visibility = if (it) View.VISIBLE else View.GONE
         }
 
         viewModel.isAddressComponentEnabled.observe(viewLifecycleOwner) {
-            binding.addressComponent.isEnabled = it
+            addressComponent.isEnabled = it
         }
 
         viewModel.isDonationComponentVisible.observe(viewLifecycleOwner) {
-            binding.recyclerViewDonation.visibility = if (it) View.VISIBLE else View.GONE
+            recyclerViewDonation.visibility = if (it) View.VISIBLE else View.GONE
         }
 
         viewModel.isProgressComponentVisible.observe(viewLifecycleOwner) {
-            binding.progressIndicator.visibility = if (it) View.VISIBLE else View.GONE
+            progressIndicator.visibility = if (it) View.VISIBLE else View.GONE
         }
 
         viewModel.isCardComponentEnabled.observe(viewLifecycleOwner) {
-            binding.cardComponent.isEnabled = it
+            cardComponent.isEnabled = it
         }
 
         viewModel.isCardComponentVisible.observe(viewLifecycleOwner) {
-            binding.cardComponent.visibility = if (it) View.VISIBLE else View.GONE
+            cardComponent.visibility = if (it) View.VISIBLE else View.GONE
         }
 
         viewModel.cleanCardComponent.observe(viewLifecycleOwner) {
             if (it) {
-                binding.cardComponent.clean()
+                cardComponent.clean()
             }
         }
 
         viewModel.isCardComponentFocused.observe(viewLifecycleOwner) {
             if (it) {
-                binding.cardComponent.setFocus()
+                cardComponent.setFocus()
             } else {
-                binding.cardComponent.clearFocus()
+                cardComponent.clearFocus()
             }
         }
 
         viewModel.creditCardValue.observe(viewLifecycleOwner) {
-            binding.cardComponent.setCreditCard(it.first, it.second)
+            cardComponent.setCreditCard(it.first, it.second)
         }
 
         viewModel.isSmsComponentVisible.observe(viewLifecycleOwner) {
-            binding.smsComponent.visibility = if (it) View.VISIBLE else View.GONE
+            smsComponent.visibility = if (it) View.VISIBLE else View.GONE
         }
 
         viewModel.isSmsComponentFocused.observe(viewLifecycleOwner) {
             if (it) {
                 Handler(Looper.getMainLooper()).postDelayed(
                     {
-                        binding.smsComponent.focus()
+                        smsComponent.focus()
                         showKeyboard()
                     },
                     100,
                 )
-                binding.smsComponent.clean()
+                smsComponent.clean()
             }
         }
 
         viewModel.isSmsComponentError.observe(viewLifecycleOwner) {
             if (it) {
-                binding.smsComponent.blinkError()
+                smsComponent.blinkError()
             }
         }
 
         viewModel.isSwitchVisible.observe(viewLifecycleOwner) {
             if (it) {
-                (binding.viewButtonSeparator.layoutParams as ViewGroup.MarginLayoutParams).topMargin =
+                (viewButtonSeparator.layoutParams as ViewGroup.MarginLayoutParams).topMargin =
                     0
-                binding.rememberSwitchComponent.visibility = View.VISIBLE
+                rememberSwitchComponent.visibility = View.VISIBLE
             } else {
-                (binding.viewButtonSeparator.layoutParams as ViewGroup.MarginLayoutParams).topMargin =
+                (viewButtonSeparator.layoutParams as ViewGroup.MarginLayoutParams).topMargin =
                     64
-                binding.rememberSwitchComponent.visibility = View.GONE
+                rememberSwitchComponent.visibility = View.GONE
             }
         }
 
         viewModel.isEmailComponentVisible.observe(viewLifecycleOwner) {
-            binding.emailComponent.visibility = if (it) View.VISIBLE else View.GONE
+            emailComponent.visibility = if (it) View.VISIBLE else View.GONE
         }
 
         viewModel.isEmailComponentEnabled.observe(viewLifecycleOwner) {
-            binding.emailComponent.isEnabled = it
+            emailComponent.isEnabled = it
         }
 
         viewModel.isAdditionalButtonInfoVisible.observe(viewLifecycleOwner) {
-            binding.textViewAdditionalButtonInfo.visibility = if (it) View.VISIBLE else View.GONE
+            textViewAdditionalButtonInfo.visibility = if (it) View.VISIBLE else View.GONE
         }
 
         viewModel.isButtonSeparatorVisible.observe(viewLifecycleOwner) {
-            binding.viewButtonSeparator.visibility = if (it) View.VISIBLE else View.GONE
+            viewButtonSeparator.visibility = if (it) View.VISIBLE else View.GONE
         }
 
         viewModel.isButtonComponentVisible.observe(viewLifecycleOwner) {
-            binding.buttonComponent.visibility = if (it) View.VISIBLE else View.GONE
+            buttonComponent.visibility = if (it) View.VISIBLE else View.GONE
         }
 
         viewModel.buttonComponentText.observe(viewLifecycleOwner) {
             if (it != null) {
-                binding.buttonComponent.setText(getString(it.first, it.second))
+                buttonComponent.setText(getString(it.first, it.second))
             } else {
-                binding.buttonComponent.setText("")
+                buttonComponent.setText("")
             }
         }
 
         viewModel.isButtonComponentEnabled.observe(viewLifecycleOwner) {
-            binding.buttonComponent.isEnabled = it
+            buttonComponent.isEnabled = it
         }
 
         viewModel.buttonComponentState.observe(viewLifecycleOwner) {
-            binding.buttonComponent.state = it
+            buttonComponent.state = it
         }
 
         viewModel.isButtonAnimating.observe(viewLifecycleOwner) {
             if (it) {
-                binding.buttonComponent.state = ButtonComponent.State.PROGRESS
+                buttonComponent.state = ButtonComponent.State.PROGRESS
             } else {
-                binding.buttonComponent.state = ButtonComponent.State.NORMAL
+                buttonComponent.state = ButtonComponent.State.NORMAL
             }
         }
 
         viewModel.isButtonCloseVisible.observe(viewLifecycleOwner) {
-            binding.titleBar.buttonClose.visibility = if (it) View.VISIBLE else View.GONE
+            buttonClose.visibility = if (it) View.VISIBLE else View.GONE
         }
 
         viewModel.donationsAdapter.observe(viewLifecycleOwner) {
-            binding.recyclerViewDonation.adapter = it
+            recyclerViewDonation.adapter = it
         }
 
         viewModel.error.observe(viewLifecycleOwner) {
             val message = it?.message(requireContext())
-            binding.textViewError.text = message
+            textViewError.text = message
             if (message.isNullOrEmpty()) {
-                binding.textViewError.visibility = View.GONE
-                (binding.viewButtonSeparator.layoutParams as ViewGroup.MarginLayoutParams).bottomMargin =
+                textViewError.visibility = View.GONE
+                (viewButtonSeparator.layoutParams as ViewGroup.MarginLayoutParams).bottomMargin =
                     64
             } else {
-                binding.textViewError.visibility = View.VISIBLE
-                (binding.viewButtonSeparator.layoutParams as ViewGroup.MarginLayoutParams).bottomMargin =
+                textViewError.visibility = View.VISIBLE
+                (viewButtonSeparator.layoutParams as ViewGroup.MarginLayoutParams).bottomMargin =
                     64
             }
         }
 
         viewModel.emailError.observe(viewLifecycleOwner) {
-            binding.emailComponent.error = it?.message(requireContext())
+            emailComponent.error = it?.message(requireContext())
         }
 
         viewModel.cardError.observe(viewLifecycleOwner) {
-            binding.cardComponent.error = it?.message(requireContext())
+            cardComponent.error = it?.message(requireContext())
         }
 
         viewModel.isKeyboardVisible.observe(viewLifecycleOwner) {
@@ -267,7 +297,7 @@ internal class CheckoutDialogFragment : BottomSheetDialogFragment() {
             dismiss()
         }
 
-        binding.titleBar.buttonClose.setOnClickListener {
+        buttonClose.setOnClickListener {
             if (!isCancelable) {
                 return@setOnClickListener
             }
@@ -276,13 +306,13 @@ internal class CheckoutDialogFragment : BottomSheetDialogFragment() {
             callback(null)
         }
 
-        binding.recyclerViewDonation.addItemDecoration(
+        recyclerViewDonation.addItemDecoration(
             DonationsAdapter.DonationItemDecoration(requireContext())
         )
 
         viewModel.initialize(requireArguments(), requireContext())
 
-        binding.addressComponent.setup(
+        addressComponent.setup(
             shipping = viewModel.collectShippingAddress,
             billing = viewModel.collectBillingAddress
         )
@@ -290,13 +320,8 @@ internal class CheckoutDialogFragment : BottomSheetDialogFragment() {
 
     override fun onResume() {
         super.onResume()
-        binding.emailComponent.initialize()
-        binding.cardComponent.initialize()
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+        emailComponent.initialize()
+        cardComponent.initialize()
     }
 
     override fun onDismiss(dialog: DialogInterface) {
@@ -312,10 +337,10 @@ internal class CheckoutDialogFragment : BottomSheetDialogFragment() {
 
     private fun hideKeyboard() {
         view?.also { view ->
-            binding.cardComponent.clearFocus()
-            binding.smsComponent.clearFocus()
-            binding.emailComponent.clearFocus()
-            binding.addressComponent.clearFocus()
+            cardComponent.clearFocus()
+            smsComponent.clearFocus()
+            emailComponent.clearFocus()
+            addressComponent.clearFocus()
 
             (requireContext().getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager)
                 .hideSoftInputFromWindow(view.windowToken, 0)

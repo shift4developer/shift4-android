@@ -4,21 +4,23 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.Button
+import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.ProgressBar
 import androidx.annotation.StringRes
 import androidx.core.content.res.ResourcesCompat
 import com.shift4.R
-import com.shift4.databinding.ComShift4LayoutButtonBinding
 
 internal class ButtonComponent @JvmOverloads constructor(
-    context: Context,
-    attrs: AttributeSet? = null,
-    defStyleAttr: Int = 0
+    context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : LinearLayout(context, attrs, defStyleAttr) {
+    private lateinit var progressBarButton: ProgressBar
+    private lateinit var imageViewCheck: ImageView
+    private lateinit var buttonPayment: Button
+
     enum class State {
-        NORMAL,
-        PROGRESS,
-        SUCCESS
+        NORMAL, PROGRESS, SUCCESS
     }
 
     var onClickListener: () -> Unit = {}
@@ -27,51 +29,48 @@ internal class ButtonComponent @JvmOverloads constructor(
             field = value
             when (value) {
                 State.NORMAL -> {
-                    binding.progressBarButton.visibility = View.INVISIBLE
-                    binding.imageViewCheck.visibility = View.INVISIBLE
+                    progressBarButton.visibility = View.INVISIBLE
+                    imageViewCheck.visibility = View.INVISIBLE
                 }
                 State.PROGRESS -> {
-                    binding.progressBarButton.visibility = View.VISIBLE
-                    binding.progressBarButton.isEnabled = true
-                    binding.buttonPayment.text = null
+                    progressBarButton.visibility = View.VISIBLE
+                    progressBarButton.isEnabled = true
+                    buttonPayment.text = null
                 }
                 State.SUCCESS -> {
-                    binding.progressBarButton.visibility = View.INVISIBLE
-                    binding.imageViewCheck.visibility = View.VISIBLE
-                    binding.buttonPayment.text = null
-                    binding.buttonPayment.background = ResourcesCompat.getDrawable(
-                        resources,
-                        R.drawable.com_shift4_button_success,
-                        null
+                    progressBarButton.visibility = View.INVISIBLE
+                    imageViewCheck.visibility = View.VISIBLE
+                    buttonPayment.text = null
+                    buttonPayment.background = ResourcesCompat.getDrawable(
+                        resources, R.drawable.com_shift4_button_success, null
                     )
                 }
             }
         }
 
-    private val binding =
-        ComShift4LayoutButtonBinding.inflate(
-            LayoutInflater.from(context),
-            this,
-            true
-        )
-
     init {
+        LayoutInflater.from(context).inflate(R.layout.com_shift4_layout_button, this, true)
+
+        progressBarButton = findViewById<ProgressBar>(R.id.progressBarButton)
+        imageViewCheck = findViewById<ImageView>(R.id.imageViewCheck)
+        buttonPayment = findViewById<Button>(R.id.buttonPayment)
+
         state = State.NORMAL
 
-        binding.buttonPayment.setOnClickListener {
+        buttonPayment.setOnClickListener {
             onClickListener()
         }
     }
 
     fun setText(@StringRes id: Int) {
-        binding.buttonPayment.setText(id)
+        buttonPayment.setText(id)
     }
 
     fun setText(text: String) {
-        binding.buttonPayment.text = text
+        buttonPayment.text = text
     }
 
     override fun setEnabled(enabled: Boolean) {
-        binding.buttonPayment.isEnabled = enabled
+        buttonPayment.isEnabled = enabled
     }
 }

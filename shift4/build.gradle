@@ -31,10 +31,6 @@ android {
         consumerProguardFiles "consumer-rules.pro"
     }
 
-    buildFeatures {
-        viewBinding true
-    }
-
     testOptions {
         unitTests.all {
             useJUnitPlatform()
@@ -127,7 +123,7 @@ android {
 
         //External
         implementation 'com.alimuzaffar.lib:pinentryedittext:2.0.6'
-        implementation 'com.hbb20:android-country-picker:0.0.7'
+        implementation 'com.hbb20:ccp:2.7.3'
     }
 }
 

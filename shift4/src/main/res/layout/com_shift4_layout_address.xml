@@ -178,11 +178,10 @@
             android:layout_height="@dimen/com_shift4_textfield_height"
             android:background="@drawable/com_shift4_rounded_edge">
 
-            <com.hbb20.CountryPickerView
+            <com.hbb20.CountryCodePicker
                 android:id="@+id/textInputShippingCountry"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cp_initialSelectionMode="autoDetectCounty"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -351,11 +350,11 @@
             android:layout_height="@dimen/com_shift4_textfield_height"
             android:background="@drawable/com_shift4_rounded_edge">
 
-            <com.hbb20.CountryPickerView
+            <com.hbb20.CountryCodePicker
                 android:id="@+id/textInputCountry"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cp_initialSelectionMode="autoDetectCounty"
+
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"

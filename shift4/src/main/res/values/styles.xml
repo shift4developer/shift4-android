@@ -30,9 +30,18 @@
         <item name="android:paddingRight">1dp</item>
         <item name="android:paddingTop">1dp</item>
         <item name="android:paddingBottom">1dp</item>
+        <item name="colorControlActivated">@android:color/transparent</item>
+        <item name="colorPrimary">@android:color/transparent</item>
+        <item name="colorAccent">@android:color/transparent</item>
+        <item name="android:colorControlActivated">@android:color/transparent</item>
     </style>
 
     <style name="SecurionPaySDKTextInputStyle" parent="Theme.AppCompat.Light">
+        <item name="android:textSelectHandleRight">@android:color/transparent</item>
+        <item name="android:textSelectHandleLeft">@android:color/transparent</item>
+        <item name="android:textSelectHandle">@android:color/transparent</item>
+        <item name="colorAccent">@android:color/transparent</item>
+        <item name="colorPrimary">@android:color/transparent</item>
         <item name="backgroundColor">@android:color/transparent</item>
         <item name="android:layout_width">match_parent</item>
         <item name="backgroundTint">@android:color/transparent</item>
@@ -43,6 +52,7 @@
         <item name="android:textColorHint">@color/com_shift4_primary</item>
         <item name="android:textCursorDrawable">@drawable/com_shift4_color_cursor</item>
         <item name="hintTextColor">@color/com_shift4_primary</item>
+        <item name="colorControlActivated">@android:color/transparent</item>
     </style>
 
     <style name="SecurionPaySDKSwitchTheme" parent="">

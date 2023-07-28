@@ -6,6 +6,7 @@
 
     <application>
         <activity android:name=".checkout.TransparentActivity"
+            android:theme="@style/Theme.AppCompat.DayNight"
             android:windowIsTranslucent="true"
             android:windowDisablePreview="true"
             android:excludeFromRecents="true"

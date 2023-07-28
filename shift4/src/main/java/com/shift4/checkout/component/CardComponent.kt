@@ -8,8 +8,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
+import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.widget.addTextChangedListener
+import com.google.android.material.textfield.TextInputEditText
 import com.shift4.R
 import com.shift4.data.model.CreditCard
 import com.shift4.utils.*
@@ -20,6 +24,16 @@ internal class CardComponent @JvmOverloads constructor(
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
 ) : LinearLayout(context, attrs, defStyleAttr) {
+    private lateinit var textInputCardNumber: TextInputEditText
+    private lateinit var textInputExpiration: TextInputEditText
+    private lateinit var textInputCVC: TextInputEditText
+
+    private lateinit var constraintLayoutInputCardNumber: ConstraintLayout
+    private lateinit var constraintLayoutInputCVC: ConstraintLayout
+    private lateinit var constraintLayoutInputExpDate: ConstraintLayout
+    private lateinit var textViewCardError: TextView
+    private lateinit var imageViewCardBrand: ImageView
+
     private var creditCard: CreditCard = CreditCard.empty
 
     private val cvcInputFilter = CVCInputFilter()
@@ -27,50 +41,79 @@ internal class CardComponent @JvmOverloads constructor(
     private var expirationFlag = false
     private var cvcFlag = false
 
-    private val binding =
-        com.shift4.databinding.ComShift4LayoutCardBinding.inflate(
-            LayoutInflater.from(context),
-            this,
-            true
-        )
-
     internal var cardChangedListener: (String?) -> Unit = {}
     var expirationChangedListener: (String?) -> Unit = {}
     var cvcChangedListener: (String?) -> Unit = {}
 
+   init {
+        LayoutInflater.from(context).inflate(R.layout.com_shift4_layout_card, this, true)
+
+        textInputCardNumber = findViewById<TextInputEditText>(R.id.textInputCardNumber)
+        textInputExpiration = findViewById<TextInputEditText>(R.id.textInputExpiration)
+        textInputCVC = findViewById<TextInputEditText>(R.id.textInputCVC)
+
+        constraintLayoutInputCardNumber =
+            findViewById<ConstraintLayout>(R.id.constraintLayoutInputCardNumber)
+        constraintLayoutInputCVC = findViewById<ConstraintLayout>(R.id.constraintLayoutInputCVC)
+        constraintLayoutInputExpDate =
+            findViewById<ConstraintLayout>(R.id.constraintLayoutInputExpDate)
+        textViewCardError = findViewById<TextView>(R.id.textViewCardError)
+        imageViewCardBrand = findViewById<ImageView>(R.id.imageViewCardBrand)
+
+
+        textInputCardNumber.setBackgroundColor(
+            context.resources.getColor(
+                android.R.color.transparent,
+                null
+            )
+        )
+        textInputExpiration.setBackgroundColor(
+            context.resources.getColor(
+                android.R.color.transparent,
+                null
+            )
+        )
+        textInputCVC.setBackgroundColor(
+            context.resources.getColor(
+                android.R.color.transparent,
+                null
+            )
+        )
+    }
+
     internal var card: String?
         get() {
-            return binding.textInputCardNumber.text?.toString()
+            return textInputCardNumber.text?.toString()
         }
         set(value) {
             if (!numberFlag) {
                 numberFlag = true
-                binding.textInputCardNumber.setText(value)
+                textInputCardNumber.setText(value)
                 numberFlag = false
             }
         }
 
     internal var expiration: String?
         get() {
-            return binding.textInputExpiration.text?.toString()
+            return textInputExpiration.text?.toString()
         }
         set(value) {
 
             if (!expirationFlag) {
                 expirationFlag = true
-                binding.textInputExpiration.setText(value)
+                textInputExpiration.setText(value)
                 expirationFlag = false
             }
         }
 
     internal var cvc: String?
         get() {
-            return binding.textInputCVC.text?.toString()
+            return textInputCVC.text?.toString()
         }
         set(value) {
             if (!cvcFlag) {
                 cvcFlag = true
-                binding.textInputCVC.setText(value)
+                textInputCVC.setText(value)
                 cvcFlag = false
             }
         }
@@ -78,19 +121,19 @@ internal class CardComponent @JvmOverloads constructor(
     internal var error: String?
         set(value) {
             if (value == null) {
-                binding.constraintLayoutInputCardNumber.setBackgroundResource(R.drawable.com_shift4_rounded_edge)
-                binding.constraintLayoutInputCVC.setBackgroundResource(R.drawable.com_shift4_rounded_edge)
-                binding.constraintLayoutInputExpDate.setBackgroundResource(R.drawable.com_shift4_rounded_edge)
+                constraintLayoutInputCardNumber.setBackgroundResource(R.drawable.com_shift4_rounded_edge)
+                constraintLayoutInputCVC.setBackgroundResource(R.drawable.com_shift4_rounded_edge)
+                constraintLayoutInputExpDate.setBackgroundResource(R.drawable.com_shift4_rounded_edge)
             } else {
-                binding.constraintLayoutInputCardNumber.setBackgroundResource(R.drawable.com_shift4_rounded_edge_with_error)
-                binding.constraintLayoutInputCVC.setBackgroundResource(R.drawable.com_shift4_rounded_edge_with_error)
-                binding.constraintLayoutInputExpDate.setBackgroundResource(R.drawable.com_shift4_rounded_edge_with_error)
+                constraintLayoutInputCardNumber.setBackgroundResource(R.drawable.com_shift4_rounded_edge_with_error)
+                constraintLayoutInputCVC.setBackgroundResource(R.drawable.com_shift4_rounded_edge_with_error)
+                constraintLayoutInputExpDate.setBackgroundResource(R.drawable.com_shift4_rounded_edge_with_error)
             }
-            binding.textViewCardError.text = value
+            textViewCardError.text = value
             if (value.isNullOrEmpty()) {
-                binding.textViewCardError.visibility = View.GONE
+                textViewCardError.visibility = View.GONE
             } else {
-                binding.textViewCardError.visibility = View.VISIBLE
+                textViewCardError.visibility = View.VISIBLE
             }
         }
         get() {
@@ -102,14 +145,14 @@ internal class CardComponent @JvmOverloads constructor(
         numberFlag = true
         expirationFlag = true
         cvcFlag = true
-        binding.textInputCardNumber.setText(creditCard.readable)
-        binding.textInputExpiration.setText(creditCard.expPlaceholder)
+        textInputCardNumber.setText(creditCard.readable)
+        textInputExpiration.setText(creditCard.expPlaceholder)
         if (cvc) {
             hideKeyboard()
-            binding.textInputCVC.setText("•••")
+            textInputCVC.setText("•••")
         } else {
-            binding.textInputCVC.text = null
-            binding.textInputCVC.requestFocus()
+            textInputCVC.text = null
+            textInputCVC.requestFocus()
         }
         updateCardBrand()
         numberFlag = false
@@ -118,43 +161,43 @@ internal class CardComponent @JvmOverloads constructor(
     }
 
     override fun setEnabled(enabled: Boolean) {
-        binding.textInputCardNumber.isEnabled = enabled
-        binding.textInputExpiration.isEnabled = enabled
-        binding.textInputCVC.isEnabled = enabled
+        textInputCardNumber.isEnabled = enabled
+        textInputExpiration.isEnabled = enabled
+        textInputCVC.isEnabled = enabled
     }
 
     override fun isEnabled(): Boolean {
-        return binding.textInputCardNumber.isEnabled && binding.textInputExpiration.isEnabled && binding.textInputCVC.isEnabled
+        return textInputCardNumber.isEnabled && textInputExpiration.isEnabled && textInputCVC.isEnabled
     }
 
     fun initialize() {
-        binding.textInputCardNumber.filters = arrayOf(
+        textInputCardNumber.filters = arrayOf(
             CreditCardInputFilter()
         )
 
-        binding.textInputExpiration.filters = arrayOf(
+        textInputExpiration.filters = arrayOf(
             ExpirationInputFilter()
         )
 
-        binding.textInputCVC.filters = arrayOf(
+        textInputCVC.filters = arrayOf(
             cvcInputFilter
         )
 
-        binding.textInputCardNumber.setOnKeyListener { _, keyCode, _ ->
+        textInputCardNumber.setOnKeyListener { _, keyCode, _ ->
             if (keyCode == KeyEvent.KEYCODE_DEL) {
                 return@setOnKeyListener false
             }
             return@setOnKeyListener false
         }
 
-        binding.textInputCardNumber.addTextChangedListener {
+        textInputCardNumber.addTextChangedListener {
             if (!numberFlag) {
                 numberFlag = true
                 creditCard =
-                    CreditCard(binding.textInputCardNumber.text?.toString())
+                    CreditCard(textInputCardNumber.text?.toString())
                 updateCardBrand()
                 if (creditCard.correct) {
-                    binding.textInputExpiration.requestFocus()
+                    textInputExpiration.requestFocus()
                 }
                 cvcInputFilter.card = creditCard
                 cardChangedListener(it?.toString())
@@ -162,22 +205,22 @@ internal class CardComponent @JvmOverloads constructor(
             }
         }
 
-        binding.textInputExpiration.addTextChangedListener {
+        textInputExpiration.addTextChangedListener {
             if (!expirationFlag) {
                 expirationFlag = true
                 if (ExpirationDateFormatter().format(
-                        binding.textInputExpiration.text.toString(),
+                        textInputExpiration.text.toString(),
                         false
                     ).resignFocus
                 ) {
-                    binding.textInputCVC.requestFocus()
+                    textInputCVC.requestFocus()
                 }
                 expirationChangedListener(it?.toString())
                 expirationFlag = false
             }
         }
 
-        binding.textInputCVC.addTextChangedListener {
+        textInputCVC.addTextChangedListener {
             if (!cvcFlag) {
                 cvcFlag = true
                 if (it.toString().length == creditCard.cvcLength) {
@@ -188,24 +231,24 @@ internal class CardComponent @JvmOverloads constructor(
             }
         }
 
-        binding.textInputCVC.setOnEditorActionListener { _, actionId, _ ->
+        textInputCVC.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 hideKeyboard()
             }
             return@setOnEditorActionListener true
         }
 
-        binding.textInputExpiration.disableCopyPaste()
-        binding.textInputCVC.disableCopyPaste()
+        textInputExpiration.disableCopyPaste()
+        textInputCVC.disableCopyPaste()
     }
 
     internal fun clean() {
         numberFlag = true
         expirationFlag = true
         cvcFlag = true
-        binding.textInputCardNumber.text = null
-        binding.textInputExpiration.text = null
-        binding.textInputCVC.text = null
+        textInputCardNumber.text = null
+        textInputExpiration.text = null
+        textInputCVC.text = null
         creditCard = CreditCard.empty
         updateCardBrand()
         numberFlag = false
@@ -215,21 +258,21 @@ internal class CardComponent @JvmOverloads constructor(
 
     override fun clearFocus() {
         super.clearFocus()
-        binding.textInputCardNumber.clearFocus()
-        binding.textInputExpiration.clearFocus()
-        binding.textInputCVC.clearFocus()
+        textInputCardNumber.clearFocus()
+        textInputExpiration.clearFocus()
+        textInputCVC.clearFocus()
     }
 
     fun setFocus() {
         if (card.isNullOrEmpty()) {
-            binding.textInputCardNumber.requestFocus()
+            textInputCardNumber.requestFocus()
         } else {
-            binding.textInputCVC.requestFocus()
+            textInputCVC.requestFocus()
         }
     }
 
     private fun updateCardBrand() {
-        binding.imageViewCardBrand.setImageDrawable(creditCard.image(resources))
+        imageViewCardBrand.setImageDrawable(creditCard.image(resources))
     }
 
     private fun hideKeyboard() {

@@ -65,30 +65,36 @@ To present Checkout Dialog you need to create Checkout Request on your backend s
 
 ```kotlin
 val checkoutRequest = CheckoutRequest("...")
-shift4.showCheckoutDialog(this, checkoutRequest)
+shift4.showCheckoutDialog(this, checkoutRequest, "Example merchant", "Example payment")
 ```
 
 To receive the callback from Checkout Dialog, you have to implement interface `Shift4.CheckoutDialogFragmentResultListener`.
 
 ```kotlin
 class MainActivity : AppCompatActivity(), Shift4.CheckoutDialogFragmentResultListener {
-    override fun onCheckoutFinish(result: Result<ChargeResult>?) {
-        result?.let {
-            when (it.status) {
-                Status.SUCCESS -> {
-                    Log.i("SP", it.data!!.id!!)
-                }
-                Status.ERROR -> {
-                    Log.e("SP", it.error?.message(this)!!)
-                }
-            }
-        } ?: run {
-            Log.i("SP","Cancelled")
+    override fun onCheckoutFinish(result: CheckoutResult?) {
+        if (result == null) {
+            // cancelled
         }
-    }    
+        if (result?.data != null) {
+            // success
+        }
+        if (result?.error != null) {
+            // error
+        }
+    }
 }
 ```
 
+We strongly recommend using AppCompatActivity to get the best UX experience. However, if you decide to use Activity, you need to implement the following additional code. This is necessary, for example, if you integrate the SDK into a Flutter App.
+```kotlin
+override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+    super.onActivityResult(requestCode, resultCode, data)
+    if (resultCode == Shift4.SHIFT4_RESULT_CODE) {
+        onCheckoutFinish(data?.getSerializableExtra("result") as CheckoutResult?)
+    }
+}
+```
 #### Saved cards
 
 Checkout View Controller has a feature allowing to remember cards used before. To delete them, use code:
@@ -156,6 +162,94 @@ shift4.createToken(tokenRequest) { token ->
 | .threeDSecure | .integrityTampered | "The integrity of the SDK has been tampered."          | Check your SDK integration. Error happens when you install app from untrusted App Store, when you try to run release version on Emulator or when your fingerprint is incorrect. |
 | .threeDSecure | .simulator         | "An emulator is being used to run the app."            |                                                              |
 | .threeDSecure | .osNotSupported    | "The OS or the OS version is not supported."           |                                                              |
+
+## Flutter
+
+The SDK is created in native technologies, but since Flutter allows you to use native components, integrating the library on this platform is possible, but requires a few additional steps.
+
+At first that, open the project located in the /android subdirectory in the main project directory. Then perform the configuration described in the Installation section. Don't forget to request the 3D-Secure library, without which you won't compile the project, and which we can't publish on github for licensing reasons. You will get it by contacting devsupport@shift4.com.
+
+Add following code to onCreate method of calling activity:
+```kotlin
+val checkoutChannel = MethodChannel(flutterEngine!!.dartExecutor.binaryMessenger, "com.example/checkout")
+checkoutChannel.setMethodCallHandler { call: MethodCall, result: MethodChannel.Result ->
+    if (call.method == "checkout") {
+        performCheckout(result)
+    } else {
+        result.notImplemented()
+    }
+}
+```
+
+And create the following method and variable:
+```kotlin
+    private var flutterChannelResult: MethodChannel.Result? = null
+
+    private fun performCheckout(result: MethodChannel.Result) {
+        flutterChannelResult = result
+
+        val checkoutRequest = CheckoutRequest("...")
+    
+        val publicKey = "pk_test_..."
+        val signature = "00:11:22...."
+        val trustedAppStores = listOf("com.google.android.packageinstaller") // Firebase App Distribution
+        val shift4 = Shift4(applicationContext, publicKey, signature, trustedAppStores)
+
+        shift4.showCheckoutDialog(this, checkoutRequest, "Example merchant", "Example payment")
+    }
+```
+
+Then implement listeners as in the Installation section:
+
+```kotlin
+override fun onCheckoutFinish(result: CheckoutResult?) {
+    if (result == null) {
+        // cancelled
+    }
+    if (result?.data != null) {
+        flutterChannelResult?.success(result.toMap())
+    }
+    if (result?.error != null) {
+        flutterChannelResult?.error(result.error!!.code.toString(), result.error!!.message(context), null)
+    }
+    flutterChannelResult = null
+}
+
+override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+    super.onActivityResult(requestCode, resultCode, data)
+    if (resultCode == Shift4.SHIFT4_RESULT_CODE) {
+        onCheckoutFinish(data?.getSerializableExtra("result") as CheckoutResult?)
+    }
+}
+```
+
+Remember to provide the appropriate publicKey and checkoutRequest.
+
+In the State of your application add the lines:
+
+```dart
+static const platform = MethodChannel('com.example/checkout');
+
+Future<void> _checkout() async {
+  try {
+    final Map result = await platform.invokeMethod('checkout');
+    print(result);
+  } on PlatformException catch (e) {
+    print(e);
+  }
+}
+```
+
+And execute the created function somewhere, such as creating a button:
+
+```dart
+TextButton(
+    onPressed: _checkout, 
+    child: const Text('Hello Shift4!')),
+```
+
+That's it. You can launch your app.
+
 
 ## Testing
 
