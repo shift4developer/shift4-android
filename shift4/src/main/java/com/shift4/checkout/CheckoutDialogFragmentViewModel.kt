@@ -604,7 +604,6 @@ internal class CheckoutDialogFragmentViewModel : ViewModel() {
                         if (currentMode == Mode.LOADING) {
                             switchMode(Mode.NEW_CARD)
                         }
-                        _isCardComponentFocused.value = email != null
                     }
                 }
             }

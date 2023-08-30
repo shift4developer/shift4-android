@@ -50,7 +50,7 @@ class MainActivity : AppCompatActivity(), Shift4.CheckoutDialogFragmentResultLis
         }
 
         findViewById<TextInputEditText>(R.id.textEditPublicKeyCheckout).setText("pk_test_MMVbA8QlH8Eynb37DHWxX12Z")
-        findViewById<TextInputEditText>(R.id.textEditCheckoutRequest).setText("NjkzNWY4ZDlhNDk2ZTg2YjdmN2E4ZjRmYWE5MjgwODdjYmU3MDI1YzE2YTkyNzhmNDYyNjg3YTljNWViNmY3Znx7ImNoYXJnZSI6eyJhbW91bnQiOjEwMCwiY3VycmVuY3kiOiJVU0QifX0")
+        findViewById<TextInputEditText>(R.id.textEditCheckoutRequest).setText("ZjkyMGE5ODllMWE2MTFlODNlNTMzYzJjMjk5MGE0YmFhMzdkOWIzMjI5NTFmYTMwZjg3OTYxNmQyYzA5OTVkY3x7ImNoYXJnZSI6eyJhbW91bnQiOjEwMCwiY3VycmVuY3kiOiJFVVIifSwidGhyZWVEU2VjdXJlIjp7ImVuYWJsZSI6dHJ1ZSwicmVxdWlyZUVucm9sbGVkQ2FyZCI6dHJ1ZSwicmVxdWlyZVN1Y2Nlc3NmdWxMaWFiaWxpdHlTaGlmdEZvckVucm9sbGVkQ2FyZCI6dHJ1ZX19")
 
         findViewById<Button>(R.id.buttonPay).setOnClickListener {
             shift4.publicKey =

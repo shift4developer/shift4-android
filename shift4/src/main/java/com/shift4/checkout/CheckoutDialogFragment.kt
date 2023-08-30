@@ -131,6 +131,10 @@ internal class CheckoutDialogFragment : BottomSheetDialogFragment() {
             rememberSwitchComponent.checked = it
         }
 
+        viewModel.isRememberSwitchComponentEnabled.observe(viewLifecycleOwner) {
+            rememberSwitchComponent.isEnabled = it
+        }
+
         viewModel.isAddressComponentVisible.observe(viewLifecycleOwner) {
             addressComponent.visibility = if (it) View.VISIBLE else View.GONE
         }
