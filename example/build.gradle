@@ -10,7 +10,7 @@ android {
     defaultConfig {
         applicationId "com.shift4.example"
         minSdkVersion 23
-        targetSdkVersion 32
+        targetSdkVersion 33
         versionCode 58
         versionName "1.0.0"
 
@@ -30,8 +30,18 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+
+    kotlinOptions {
+        jvmTarget = "11"
+    }
+
+    kotlin {
+        jvmToolchain {
+            languageVersion.set(JavaLanguageVersion.of("11"))
+        }
     }
 
     project.gradle.taskGraph.whenReady {
@@ -40,9 +50,6 @@ android {
         }
     }
 
-    kotlinOptions {
-        jvmTarget = '1.8'
-    }
     packagingOptions {
         exclude 'META-INF/DEPENDENCIES'
         exclude 'META-INF/LICENSE.md'
@@ -62,9 +69,9 @@ dependencies {
     debugImplementation fileTree(dir: "../ipworks_debug", include: ["*.aar"])
     releaseImplementation fileTree(dir: "../ipworks", include: ["*.aar"])
 
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation 'androidx.appcompat:appcompat:1.2.0'
+//    implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'com.google.android.material:material:1.2.1'
+    implementation 'androidx.core:core-ktx:1.9.0'
 }
 
 if (project.file("src/androidTest/dependencies.gradle").exists()) {
