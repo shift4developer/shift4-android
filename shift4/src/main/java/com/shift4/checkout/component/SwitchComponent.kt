@@ -12,9 +12,9 @@ import com.shift4.R
 internal class SwitchComponent @JvmOverloads constructor(
     context: Context, private val attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : LinearLayout(context, attrs, defStyleAttr) {
-    private lateinit var textViewSwitchTitle: TextView
-    private lateinit var textViewSwitchSubtitle: TextView
-    private lateinit var switchRememberCard: SwitchCompat
+    private var textViewSwitchTitle: TextView
+    private var textViewSwitchSubtitle: TextView
+    private var switchRememberCard: SwitchCompat
 
     var onCheckedListener: (Boolean) -> Unit = {}
 

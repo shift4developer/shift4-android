@@ -6,7 +6,7 @@ import com.shift4.data.model.error.APIErrorGatewayResponse
 import com.shift4.data.model.error.APIErrorResponse
 
 internal class ErrorUtils {
-    fun parseError(responseBody: String?): APIError {
+    fun parseError(responseBody: String): APIError {
         val error: APIErrorResponse? = try {
             Gson().fromJson(responseBody, APIErrorResponse::class.java)
         } catch (e: Exception) {

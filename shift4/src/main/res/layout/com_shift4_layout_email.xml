@@ -21,6 +21,7 @@
             android:hint="@string/com_shift4_email">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:importantForAutofill="no"
                 android:id="@+id/textInputEmail"
                 style="@style/SecurionPaySDKTextInputStyle"
                 android:layout_height="@dimen/com_shift4_textfield_height"

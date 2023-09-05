@@ -14,18 +14,19 @@ import com.shift4.data.model.sms.VerifySMSResponse
 import com.shift4.data.model.token.Token
 import com.shift4.data.model.token.TokenRequest
 import com.shift4.data.repository.SDKRepository
-import com.shift4.utils.EmailStorage
 import com.shift4.threed.ThreeDManager
+import com.shift4.utils.EmailStorage
 import com.shift4.utils.fromBase64
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 internal class CheckoutManager(
     private val repository: SDKRepository,
     internal val emailStorage: EmailStorage,
     private val signature: String,
-    private val trustedAppStores: List<String>?
+    private val trustedAppStores: List<String>?,
+    private val coroutineScope: CoroutineScope
 ) {
     val threeDManager by lazy { ThreeDManager() }
 
@@ -117,26 +118,26 @@ internal class CheckoutManager(
                 trustedAppStores
             )
             threeDManager.createTransaction(threeDCheckData.version, threeDCheckData.token.brand)
-            GlobalScope.launch(Dispatchers.Main) { threeDManager.showProgressDialog() }
+            coroutineScope.launch(Dispatchers.Main) { threeDManager.showProgressDialog() }
             authorizationParameters =
                 threeDManager.authenticationRequestParameters()?.authRequest
             if ((authorizationParameters ?: "").isEmpty()) {
                 warnings.firstOrNull()?.let {
-                    GlobalScope.launch(Dispatchers.Main) {
-                        GlobalScope.launch(Dispatchers.Main) { threeDManager.hideProgressDialog() }
+                    coroutineScope.launch(Dispatchers.Main) {
+                        threeDManager.hideProgressDialog()
                         callback(Result.error(APIError.threeDError(it)))
                     }
                     return@pay
                 } ?: run {
-                    GlobalScope.launch(Dispatchers.Main) {
-                        GlobalScope.launch(Dispatchers.Main) { threeDManager.hideProgressDialog() }
+                    coroutineScope.launch(Dispatchers.Main) {
+                        threeDManager.hideProgressDialog()
                         callback(Result.error(APIError.unknownThreeD))
                     }
                     return@pay
                 }
             }
         } catch (e: Exception) {
-            GlobalScope.launch(Dispatchers.Main) { threeDManager.hideProgressDialog() }
+            coroutineScope.launch(Dispatchers.Main) { threeDManager.hideProgressDialog() }
             callback(Result.error(APIError.unknownThreeD))
             return@pay
         }
@@ -144,7 +145,7 @@ internal class CheckoutManager(
         val threeDAuthentication =
             repository.threeDAuthorize(threeDCheckData.token, authorizationParameters ?: "")
         val ares = threeDAuthentication.data?.ares ?: run {
-            GlobalScope.launch(Dispatchers.Main) { threeDManager.hideProgressDialog() }
+            coroutineScope.launch(Dispatchers.Main) { threeDManager.hideProgressDialog() }
             callback(Result.error(threeDAuthentication.error ?: APIError.unknown))
             return@pay
         }
@@ -153,13 +154,13 @@ internal class CheckoutManager(
             val response = ares.clientAuthResponse.fromBase64
             threeDManager.startChallenge(response) { success, error ->
                 if (error != null) {
-                    GlobalScope.launch(Dispatchers.Main) { threeDManager.hideProgressDialog() }
+                    coroutineScope.launch(Dispatchers.Main) { threeDManager.hideProgressDialog() }
                     callback(Result.error(error, null))
                 } else {
-                    GlobalScope.launch {
+                    coroutineScope.launch(Dispatchers.IO) {
                         val challengeCompleteToken =
                             repository.threeDChallengeComplete(threeDCheckData.token)
-                        GlobalScope.launch(Dispatchers.Main) { threeDManager.hideProgressDialog() }
+                        coroutineScope.launch(Dispatchers.Main) { threeDManager.hideProgressDialog() }
                         when (challengeCompleteToken.status) {
                             Status.SUCCESS -> {
                                 if (challengeCompleteToken.data?.threeDSecureInfo?.liabilityShift == "failed" && checkoutRequest.requireSuccessfulLiabilityShiftForEnrolledCard) {
@@ -181,13 +182,14 @@ internal class CheckoutManager(
                                         shipping = shipping,
                                         billing = billing
                                     )
-                                    GlobalScope.launch(Dispatchers.Main) {
+                                    coroutineScope.launch(Dispatchers.Main) {
                                         callback(
                                             paymentResult
                                         )
                                     }
                                 }
                             }
+
                             Status.ERROR -> {
                                 val paymentResult = repository.pay(
                                     token,
@@ -200,7 +202,7 @@ internal class CheckoutManager(
                                     shipping = shipping,
                                     billing = billing
                                 )
-                                GlobalScope.launch(Dispatchers.Main) { callback(paymentResult) }
+                                coroutineScope.launch(Dispatchers.Main) { callback(paymentResult) }
                             }
                         }
                     }
@@ -209,7 +211,7 @@ internal class CheckoutManager(
         } else if (ares.transStatus == "N" || ares.transStatus == "U" || ares.transStatus == "R") {
             if (checkoutRequest.requireSuccessfulLiabilityShiftForEnrolledCard) {
                 callback(Result.error(APIError.successfulLiabilityShiftIsRequired, null))
-                GlobalScope.launch(Dispatchers.Main) { threeDManager.hideProgressDialog() }
+                coroutineScope.launch(Dispatchers.Main) { threeDManager.hideProgressDialog() }
                 return@pay
             } else {
                 repository.threeDChallengeComplete(threeDCheckData.token)
@@ -224,8 +226,10 @@ internal class CheckoutManager(
                     shipping = shipping,
                     billing = billing
                 )
-                GlobalScope.launch(Dispatchers.Main) { threeDManager.hideProgressDialog() }
-                GlobalScope.launch(Dispatchers.Main) { callback(paymentResult) }
+                coroutineScope.launch(Dispatchers.Main) {
+                    threeDManager.hideProgressDialog()
+                    callback(paymentResult)
+                }
             }
         } else {
             repository.threeDChallengeComplete(threeDCheckData.token)
@@ -240,8 +244,10 @@ internal class CheckoutManager(
                 shipping = shipping,
                 billing = billing
             )
-            GlobalScope.launch(Dispatchers.Main) { threeDManager.hideProgressDialog() }
-            GlobalScope.launch(Dispatchers.Main) { callback(paymentResult) }
+            coroutineScope.launch(Dispatchers.Main) {
+                threeDManager.hideProgressDialog()
+                callback(paymentResult)
+            }
         }
     }
 

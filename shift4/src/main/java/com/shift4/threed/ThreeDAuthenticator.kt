@@ -6,8 +6,9 @@ import com.shift4.data.model.error.APIError
 import com.shift4.data.model.token.Token
 import com.shift4.data.repository.SDKRepository
 import com.shift4.utils.fromBase64
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 
 internal class ThreeDAuthenticator(
@@ -15,6 +16,7 @@ internal class ThreeDAuthenticator(
     private val signature: String,
     private val trustedAppStores: List<String>?,
     private val activity: Activity,
+    private val coroutineScope: CoroutineScope,
     private val callback: (Result<Token>) -> Unit
 ) {
     private val threeDManager by lazy { ThreeDManager() }
@@ -23,12 +25,13 @@ internal class ThreeDAuthenticator(
         token: Token,
         amount: Int,
         currency: String
-    ) = GlobalScope.launch {
+    ) = coroutineScope.launch {
         val threeDCheck = repository.threeDCheck(token, amount, currency)
         val threeDCheckData = threeDCheck.data ?: run {
             executeCallback(Result.error(threeDCheck.error ?: APIError.unknown))
             return@launch
         }
+
         if (threeDCheckData.token.threeDSecureInfo?.enrolled != true || threeDCheckData.version.first() == '1') {
             executeCallback(Result.success(threeDCheckData.token))
             return@launch
@@ -84,7 +87,7 @@ internal class ThreeDAuthenticator(
                     progressDialog(false)
                     executeCallback(Result.cancelled())
                 } else {
-                    GlobalScope.launch {
+                    coroutineScope.launch(Dispatchers.IO) {
                         repository.threeDChallengeComplete(threeDCheckData.token)
                         progressDialog(false)
                         executeCallback(Result.success(threeDCheckData.token))
@@ -99,13 +102,13 @@ internal class ThreeDAuthenticator(
     }
 
     private fun executeCallback(result: Result<Token>) {
-        GlobalScope.launch(Dispatchers.Main) {
+        coroutineScope.launch(Dispatchers.Main) {
             callback(result)
         }
     }
 
     private fun progressDialog(show: Boolean) {
-        GlobalScope.launch(Dispatchers.Main) {
+        coroutineScope.launch(Dispatchers.Main) {
             if (show) {
                 threeDManager.showProgressDialog()
             } else {

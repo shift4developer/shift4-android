@@ -54,8 +54,15 @@ Releasing using a store other than Play Store is forbidden by default. If you wa
 val publicKey = "pk_test_..."
 val signature = "00:11:22...."
 val trustedAppStores = listOf("com.google.android.packageinstaller") // Firebase App Distribution
-val shift4 = Shift4(applicationContext, publicKey, signature, trustedAppStores)
+shift4 = Shift4(applicationContext, publicKey, signature, trustedAppStores)
 ```
+
+Remember to clean up the library in onDestroy method:
+
+```kotlin
+shift4.cleanUp()
+```
+
 
 ### Checkout Dialog
 

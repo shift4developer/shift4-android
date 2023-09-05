@@ -12,7 +12,7 @@ import com.shift4.R
 internal class SMSComponent @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : LinearLayout(context, attrs, defStyleAttr) {
-    private lateinit var textInputSMSCode: com.alimuzaffar.lib.pin.PinEntryEditText
+    private var textInputSMSCode: com.alimuzaffar.lib.pin.PinEntryEditText
 
     init {
         LayoutInflater.from(context).inflate(R.layout.com_shift4_layout_sms, this, true)

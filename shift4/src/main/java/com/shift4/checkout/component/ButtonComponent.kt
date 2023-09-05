@@ -15,9 +15,9 @@ import com.shift4.R
 internal class ButtonComponent @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : LinearLayout(context, attrs, defStyleAttr) {
-    private lateinit var progressBarButton: ProgressBar
-    private lateinit var imageViewCheck: ImageView
-    private lateinit var buttonPayment: Button
+    private var progressBarButton: ProgressBar
+    private var imageViewCheck: ImageView
+    private var buttonPayment: Button
 
     enum class State {
         NORMAL, PROGRESS, SUCCESS

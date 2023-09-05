@@ -17,9 +17,9 @@ internal class EmailComponent @JvmOverloads constructor(
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
 ) : LinearLayout(context, attrs, defStyleAttr) {
-    private lateinit var textInputEmail: com.google.android.material.textfield.TextInputEditText
-    private lateinit var textViewEmailError: TextView
-    private lateinit var constraintLayoutInputEmail: ConstraintLayout
+    private var textInputEmail: com.google.android.material.textfield.TextInputEditText
+    private var textViewEmailError: TextView
+    private var constraintLayoutInputEmail: ConstraintLayout
 
     init {
         LayoutInflater.from(context).inflate(R.layout.com_shift4_layout_email, this, true)

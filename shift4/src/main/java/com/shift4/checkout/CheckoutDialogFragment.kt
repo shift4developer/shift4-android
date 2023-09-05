@@ -9,7 +9,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
-import android.widget.*
+import android.widget.FrameLayout
+import android.widget.ImageView
+import android.widget.ProgressBar
+import android.widget.TextView
 import androidx.appcompat.widget.AppCompatImageButton
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.DialogFragment
@@ -20,7 +23,12 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.shift4.R
 import com.shift4.Shift4
-import com.shift4.checkout.component.*
+import com.shift4.checkout.component.AddressComponent
+import com.shift4.checkout.component.ButtonComponent
+import com.shift4.checkout.component.CardComponent
+import com.shift4.checkout.component.EmailComponent
+import com.shift4.checkout.component.SMSComponent
+import com.shift4.checkout.component.SwitchComponent
 import com.shift4.data.api.Result
 import com.shift4.data.model.pay.ChargeResult
 import com.shift4.data.model.result.CheckoutResult
@@ -51,7 +59,7 @@ internal class CheckoutDialogFragment : BottomSheetDialogFragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         rootView = inflater.inflate(R.layout.com_shift4_checkout_dialog, container, false)
         buttonClose = rootView.findViewById(R.id.buttonClose)
         textViewMerchantName = rootView.findViewById(R.id.textViewMerchantName)

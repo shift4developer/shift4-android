@@ -18,8 +18,10 @@ import com.shift4.data.model.token.TokenRequest
 import com.shift4.data.repository.SDKRepository
 import com.shift4.threed.ThreeDAuthenticator
 import com.shift4.utils.EmailStorage
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 
 
@@ -33,12 +35,14 @@ class Shift4(
         const val SHIFT4_RESULT_CODE = 7080
     }
 
+
     internal val repository = SDKRepository(this)
     internal val emailStorage = EmailStorage(context)
     private var threeDAuthenticator: ThreeDAuthenticator? = null
+    private val coroutineScope = CoroutineScope(Job())
 
-    public interface CheckoutDialogFragmentResultListener {
-        public fun onCheckoutFinish(result: CheckoutResult?)
+    interface CheckoutDialogFragmentResultListener {
+        fun onCheckoutFinish(result: CheckoutResult?)
     }
 
     fun <T> showCheckoutDialog(
@@ -52,15 +56,34 @@ class Shift4(
         @DrawableRes merchantLogo: Int? = null
     ) where T : Activity, T : CheckoutDialogFragmentResultListener {
         if (!checkoutRequest.correct) {
-            activity.onCheckoutFinish(CheckoutResult(Status.ERROR, null, APIError.invalidCheckoutRequest))
+            activity.onCheckoutFinish(
+                CheckoutResult(
+                    Status.ERROR,
+                    null,
+                    APIError.invalidCheckoutRequest
+                )
+            )
             return
         }
+
         if (checkoutRequest.termsAndConditions != null) {
-            activity.onCheckoutFinish(CheckoutResult(Status.ERROR, null, APIError.unsupportedValue("termsAndConditions")))
+            activity.onCheckoutFinish(
+                CheckoutResult(
+                    Status.ERROR,
+                    null,
+                    APIError.unsupportedValue("termsAndConditions")
+                )
+            )
             return
         }
         if (checkoutRequest.crossSaleOfferIds != null) {
-            activity.onCheckoutFinish(CheckoutResult(Status.ERROR, null, APIError.unsupportedValue("crossSaleOfferIds")))
+            activity.onCheckoutFinish(
+                CheckoutResult(
+                    Status.ERROR,
+                    null,
+                    APIError.unsupportedValue("crossSaleOfferIds")
+                )
+            )
             return
         }
 
@@ -74,7 +97,9 @@ class Shift4(
             putBoolean("collectBillingAddress", collectBillingAddress)
             merchantLogo?.let { putInt("merchantLogoRes", it) }
             email?.let {
-                if (it.isNotEmpty()) { putString("initialEmail", it) }
+                if (it.isNotEmpty()) {
+                    putString("initialEmail", it)
+                }
             }
             trustedAppStores?.let { putStringArray("trustedAppStores", it.toTypedArray()) }
         }
@@ -95,7 +120,9 @@ class Shift4(
                 putExtra("collectBillingAddress", collectBillingAddress)
                 merchantLogo?.let { putExtra("merchantLogoRes", it) }
                 email?.let {
-                    if (it.isNotEmpty()) { putExtra("initialEmail", it) }
+                    if (it.isNotEmpty()) {
+                        putExtra("initialEmail", it)
+                    }
                 }
                 trustedAppStores?.let { putExtra("trustedAppStores", it.toTypedArray()) }
             }
@@ -109,9 +136,9 @@ class Shift4(
     }
 
     fun createToken(tokenRequest: TokenRequest, callback: (Result<Token>) -> Unit) {
-        GlobalScope.launch {
+        coroutineScope.launch(Dispatchers.IO) {
             val token = repository.createToken(tokenRequest)
-            GlobalScope.launch(Dispatchers.Main) {
+            coroutineScope.launch(Dispatchers.Main) {
                 callback(token)
             }
         }
@@ -128,14 +155,19 @@ class Shift4(
             callback(Result.error(APIError.busy))
             return
         }
-        threeDAuthenticator = ThreeDAuthenticator(repository, signature, trustedAppStores, activity) {
-            threeDAuthenticator = null
-            callback(it)
-        }
+        threeDAuthenticator =
+            ThreeDAuthenticator(repository, signature, trustedAppStores, activity, coroutineScope) {
+                threeDAuthenticator = null
+                callback(it)
+            }
         threeDAuthenticator?.authenticate(
             token,
             amount,
             currency
         )
+    }
+
+    fun cleanUp() {
+        coroutineScope.cancel()
     }
 }

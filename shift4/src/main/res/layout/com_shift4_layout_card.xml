@@ -22,7 +22,9 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:textIsSelectable="false"
                 android:id="@+id/textInputCardNumber"
+                android:importantForAutofill="no"
                 android:saveEnabled="false"
                 style="@style/SecurionPaySDKTextInputStyle"
                 android:layout_width="match_parent"
@@ -74,7 +76,9 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:textIsSelectable="false"
                     android:id="@+id/textInputExpiration"
+                    android:importantForAutofill="no"
                     style="@style/SecurionPaySDKTextInputStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -105,12 +109,14 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:textIsSelectable="false"
+                    android:importantForAutofill="no"
                     android:id="@+id/textInputCVC"
                     style="@style/SecurionPaySDKTextInputStyle"
                     android:layout_width="113dp"
                     android:fontFamily="@font/shift4_font_textedit"
                     android:imeOptions="actionNext|flagNoExtractUi|flagNoFullscreen"
-                    android:inputType="number"
+                    android:inputType="datetime"
                     android:textSize="@dimen/com_shift4_font_size_textedit" />
 
             </com.google.android.material.textfield.TextInputLayout>

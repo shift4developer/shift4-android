@@ -17,24 +17,24 @@ import com.shift4.data.model.address.Shipping
 internal class AddressComponent @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : LinearLayout(context, attrs, defStyleAttr) {
-    private lateinit var textInputName:TextInputEditText
-    private lateinit var textInputStreet:TextInputEditText
-    private lateinit var textInputZip:TextInputEditText
-    private lateinit var textInputCity:TextInputEditText
-    private lateinit var textInputCountry :com.hbb20.CountryCodePicker
-    private lateinit var textInputVat:TextInputEditText
+    private var textInputName:TextInputEditText
+    private var textInputStreet:TextInputEditText
+    private var textInputZip:TextInputEditText
+    private var textInputCity:TextInputEditText
+    private var textInputCountry :com.hbb20.CountryCodePicker
+    private var textInputVat:TextInputEditText
 
-    private lateinit var textInputShippingName :TextInputEditText
-    private lateinit var textInputShippingStreet:TextInputEditText
-    private lateinit var textInputShippingZip :TextInputEditText
-    private lateinit var textInputShippingCity :TextInputEditText
-    private lateinit var textInputShippingCountry :com.hbb20.CountryCodePicker
+    private var textInputShippingName :TextInputEditText
+    private var textInputShippingStreet:TextInputEditText
+    private var textInputShippingZip :TextInputEditText
+    private var textInputShippingCity :TextInputEditText
+    private var textInputShippingCountry :com.hbb20.CountryCodePicker
 
-    private lateinit var sameShippingSwitchComponent : SwitchComponent
-    private lateinit var textViewShippingAddress : TextView
-    private lateinit var textViewBillingAddress :TextView
-    private lateinit var linearLayoutShippingSection: LinearLayout
-    private lateinit var linearLayoutAddress: LinearLayout
+    private var sameShippingSwitchComponent : SwitchComponent
+    private var textViewShippingAddress : TextView
+    private var textViewBillingAddress :TextView
+    private var linearLayoutShippingSection: LinearLayout
+    private var linearLayoutAddress: LinearLayout
 
     var onAddressUpdated: (shipping: Shipping?, billing: Billing?) -> Unit = { _, _ -> }
 

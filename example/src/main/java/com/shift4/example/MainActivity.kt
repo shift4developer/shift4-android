@@ -18,11 +18,12 @@ import com.shift4.data.model.token.TokenRequest
 
 
 class MainActivity : AppCompatActivity(), Shift4.CheckoutDialogFragmentResultListener {
+    private lateinit var shift4: Shift4
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val shift4 = Shift4(
+        shift4 = Shift4(
             applicationContext,
             findViewById<TextInputEditText>(R.id.textEditPublicKeyCheckout).text.toString(),
             "8D:1D:B1:DC:EF:45:8E:16:55:BA:AE:C3:FA:16:CE:B0:8C:DE:85:EA:BE:57:5F:2E:BE:AC:E9:62:97:E0:55:37",
@@ -81,6 +82,7 @@ class MainActivity : AppCompatActivity(), Shift4.CheckoutDialogFragmentResultLis
                                     findViewById<TextView>(R.id.lastTokenId).text =
                                         "Last token: ${authenticatedToken.data?.id}"
                                 }
+
                                 Status.ERROR -> {
                                     Snackbar.make(
                                         findViewById(R.id.mainActivityLayout),
@@ -93,6 +95,7 @@ class MainActivity : AppCompatActivity(), Shift4.CheckoutDialogFragmentResultLis
                             }
                         }
                     }
+
                     Status.ERROR -> {
                         Snackbar.make(
                             findViewById(R.id.mainActivityLayout),
@@ -124,6 +127,7 @@ class MainActivity : AppCompatActivity(), Shift4.CheckoutDialogFragmentResultLis
                     findViewById<TextView>(R.id.lastCustomerId).text =
                         it.data?.customer?.id?.let { id -> "Last customer: $id" }
                 }
+
                 Status.ERROR -> {
                     Snackbar.make(
                         findViewById(R.id.mainActivityLayout),
@@ -148,5 +152,10 @@ class MainActivity : AppCompatActivity(), Shift4.CheckoutDialogFragmentResultLis
         if (resultCode == Shift4.SHIFT4_RESULT_CODE) {
             onCheckoutFinish(data?.getSerializableExtra("result") as CheckoutResult?)
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        shift4.cleanUp()
     }
 }

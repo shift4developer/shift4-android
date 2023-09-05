@@ -24,15 +24,15 @@ internal class CardComponent @JvmOverloads constructor(
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
 ) : LinearLayout(context, attrs, defStyleAttr) {
-    private lateinit var textInputCardNumber: TextInputEditText
-    private lateinit var textInputExpiration: TextInputEditText
-    private lateinit var textInputCVC: TextInputEditText
+    private var textInputCardNumber: TextInputEditText
+    private var textInputExpiration: TextInputEditText
+    private var textInputCVC: TextInputEditText
 
-    private lateinit var constraintLayoutInputCardNumber: ConstraintLayout
-    private lateinit var constraintLayoutInputCVC: ConstraintLayout
-    private lateinit var constraintLayoutInputExpDate: ConstraintLayout
-    private lateinit var textViewCardError: TextView
-    private lateinit var imageViewCardBrand: ImageView
+    private var constraintLayoutInputCardNumber: ConstraintLayout
+    private var constraintLayoutInputCVC: ConstraintLayout
+    private var constraintLayoutInputExpDate: ConstraintLayout
+    private var textViewCardError: TextView
+    private var imageViewCardBrand: ImageView
 
     private var creditCard: CreditCard = CreditCard.empty
 

@@ -29,10 +29,10 @@ import com.shift4.utils.EmailStorage
 import com.shift4.utils.EmailValidator
 import com.shift4.utils.empty
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.util.*
+import java.util.Timer
+import java.util.TimerTask
 
 internal enum class Mode {
     INITIALIZING, LOADING, DONATION, NEW_CARD, SMS
@@ -257,7 +257,8 @@ internal class CheckoutDialogFragmentViewModel : ViewModel() {
             ),
             EmailStorage(context),
             arguments.getString("signature", null) ?: String.empty,
-            arguments.getStringArray("trustedAppStores")?.toList()
+            arguments.getStringArray("trustedAppStores")?.toList(),
+            viewModelScope
         )
         collectShippingAddress = arguments.getBoolean("collectShippingAddress")
         collectBillingAddress =
@@ -282,6 +283,7 @@ internal class CheckoutDialogFragmentViewModel : ViewModel() {
                 _donationsAdapter.value = donationsAdapter
                 switchMode(Mode.DONATION)
             }
+
             checkoutRequest.subscriptionPlanId != null -> {
                 switchMode(Mode.LOADING)
                 _isKeyboardVisible.value = false
@@ -289,6 +291,7 @@ internal class CheckoutDialogFragmentViewModel : ViewModel() {
                 remember = checkoutRequest.rememberMe
                 _rememberValue.value = checkoutRequest.rememberMe
             }
+
             checkoutManager.emailStorage.lastEmail != null || initialEmail != null -> {
                 _isKeyboardVisible.value = false
                 switchMode(Mode.LOADING)
@@ -300,6 +303,7 @@ internal class CheckoutDialogFragmentViewModel : ViewModel() {
                 lookup(silent = true)
                 _emailValue.value = email
             }
+
             else -> {
                 switchMode(Mode.NEW_CARD)
                 updateButtonStatus()
@@ -327,6 +331,7 @@ internal class CheckoutDialogFragmentViewModel : ViewModel() {
             Mode.LOADING -> {
                 _isProgressComponentVisible.value = true
             }
+
             Mode.NEW_CARD -> {
                 if (collectShippingAddress || collectBillingAddress) {
                     _isAddressComponentVisible.value = true
@@ -340,6 +345,7 @@ internal class CheckoutDialogFragmentViewModel : ViewModel() {
                 updateAmountOnButton()
                 updateButtonStatus()
             }
+
             Mode.SMS -> {
                 _isSmsComponentVisible.value = true
                 _isButtonCloseVisible.value = true
@@ -349,6 +355,7 @@ internal class CheckoutDialogFragmentViewModel : ViewModel() {
                 _buttonComponentText.value = Pair(R.string.com_shift4_enter_payment_data, null)
                 _isButtonComponentEnabled.value = true
             }
+
             Mode.DONATION -> {
                 _isDonationComponentVisible.value = true
                 _isButtonSeparatorVisible.value = true
@@ -357,6 +364,7 @@ internal class CheckoutDialogFragmentViewModel : ViewModel() {
                 _buttonComponentText.value = Pair(R.string.com_shift4_confirm, null)
                 _isButtonComponentEnabled.value = true
             }
+
             else -> {
             }
         }
@@ -387,8 +395,10 @@ internal class CheckoutDialogFragmentViewModel : ViewModel() {
         when {
             subscription != null -> _buttonComponentText.value =
                 Pair(R.string.com_shift4_pay, subscription?.readable())
+
             selectedDonation != null -> _buttonComponentText.value =
                 Pair(R.string.com_shift4_pay, selectedDonation?.readable)
+
             else -> _buttonComponentText.value =
                 Pair(R.string.com_shift4_pay, checkoutRequest.readable)
         }
@@ -425,7 +435,7 @@ internal class CheckoutDialogFragmentViewModel : ViewModel() {
         }
         setProcessingState(true)
         _error.value = null
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             val verifyResult = checkoutManager.verifySMS(smsValue ?: String.empty, sms!!)
             withContext(Dispatchers.Main) {
                 setProcessingState(false)
@@ -440,6 +450,7 @@ internal class CheckoutDialogFragmentViewModel : ViewModel() {
                         fillCardForm()
                         switchMode(Mode.NEW_CARD)
                     }
+
                     Status.ERROR -> verifyResult.error?.also { error ->
                         _isSmsComponentError.value = true
                         if (error.code != APIError.Code.InvalidVerificationCode) {
@@ -482,7 +493,7 @@ internal class CheckoutDialogFragmentViewModel : ViewModel() {
         _cardError.value = null
 
         if (savedEmail != null) {
-            viewModelScope.launch {
+            viewModelScope.launch(Dispatchers.IO) {
                 val token = checkoutManager.savedToken(savedEmail!!)
                 viewModelScope.launch(Dispatchers.Main) {
                     when (token.status) {
@@ -513,6 +524,7 @@ internal class CheckoutDialogFragmentViewModel : ViewModel() {
                                 processChargeResult(it)
                             }
                         }
+
                         Status.ERROR -> {
                             setProcessingState(false)
                             revertButtonAnimation()
@@ -527,7 +539,7 @@ internal class CheckoutDialogFragmentViewModel : ViewModel() {
         val tokenRequest = TokenRequest(
             card ?: String.empty, month ?: String.empty, year ?: String.empty, cvc ?: String.empty
         )
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             checkoutManager.pay(
                 tokenRequest,
                 checkoutRequest,
@@ -553,9 +565,9 @@ internal class CheckoutDialogFragmentViewModel : ViewModel() {
         if (!silent) {
             setProcessingState(true)
         }
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             val lookup = checkoutManager.lookup(email ?: String.empty)
-            viewModelScope.launch (Dispatchers.Main) {
+            viewModelScope.launch(Dispatchers.Main) {
                 when (lookup.status) {
                     Status.SUCCESS -> lookup.data?.also { data ->
                         savedEmail = email
@@ -565,13 +577,14 @@ internal class CheckoutDialogFragmentViewModel : ViewModel() {
                                 verifiedCard = true
                             }
                             val sendSMSResult = checkoutManager.sendSMS(email ?: String.empty)
-                            viewModelScope.launch (Dispatchers.Main) {
+                            viewModelScope.launch(Dispatchers.Main) {
                                 setProcessingState(false)
                                 when (sendSMSResult.status) {
                                     Status.SUCCESS -> {
                                         sms = sendSMSResult.data
                                         switchMode(Mode.SMS)
                                     }
+
                                     Status.ERROR -> lookup.error?.also {
                                         _error.value = it
                                         updateAmountOnButton()
@@ -579,22 +592,19 @@ internal class CheckoutDialogFragmentViewModel : ViewModel() {
                                 }
                             }
                         } else {
-                            viewModelScope.launch (Dispatchers.Main) {
-                                card = CreditCard(data.card).readable
-                                expiration = CreditCard(data.card).expPlaceholder
-                                _creditCardValue.value =
-                                    Pair(CreditCard(card = data.card), verifiedCard)
-                                remember = true
-                                _rememberValue.value = true
-                                fillCardForm()
-                                setProcessingState(false)
-                                Handler(Looper.getMainLooper()).postDelayed({
-                                    switchMode(Mode.NEW_CARD)
-                                    _isCardComponentFocused.value = true
-                                }, 200)
-                            }
+                            card = CreditCard(data.card).readable
+                            expiration = CreditCard(data.card).expPlaceholder
+                            _creditCardValue.value =
+                                Pair(CreditCard(card = data.card), verifiedCard)
+                            remember = true
+                            _rememberValue.value = true
+                            fillCardForm()
+                            setProcessingState(false)
+                            switchMode(Mode.NEW_CARD)
+                            _isCardComponentFocused.value = true
                         }
                     }
+
                     Status.ERROR -> lookup.error?.also {
                         if (!silent) {
                             _error.value = it
@@ -611,7 +621,7 @@ internal class CheckoutDialogFragmentViewModel : ViewModel() {
     }
 
     private fun getCheckoutDetails() {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             val details = checkoutManager.checkoutRequestDetails(checkoutRequest)
             viewModelScope.launch(Dispatchers.Main) {
                 when (details.status) {
@@ -623,6 +633,7 @@ internal class CheckoutDialogFragmentViewModel : ViewModel() {
                         _isCardComponentFocused.value = email != null
                         lookup(true)
                     }
+
                     Status.ERROR -> {
                         _callback.value = Result.error(APIError.unknown)
                     }
@@ -650,6 +661,7 @@ internal class CheckoutDialogFragmentViewModel : ViewModel() {
                 revertButtonAnimation()
                 setProcessingState(false)
             }
+
             Status.ERROR -> charge.error?.also { error ->
                 setProcessingState(false)
                 _isKeyboardVisible.value = false
