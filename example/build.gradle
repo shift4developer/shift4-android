@@ -4,6 +4,7 @@ plugins {
 }
 
 android {
+    namespace 'com.shift4.example'
     compileSdkVersion 33
     buildToolsVersion "30.0.3"
 
