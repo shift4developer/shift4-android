@@ -8,12 +8,14 @@
         <item name="android:windowIsFloating">true</item>
     </style>
 
-    <style name="SecurionPaySDKBottomSheetDialogThemeNoFloating" parent="Theme.Design.Light.BottomSheetDialog">
+    <style name="SecurionPaySDKBottomSheetDialogThemeNoFloating" parent="Theme.Material3.DayNight.BottomSheetDialog">
         <item name="android:windowIsFloating">false</item>
         <item name="android:windowSoftInputMode">stateAlwaysVisible</item>
+
+        <item name="colorPrimary">@color/com_shift4_primary</item>
     </style>
 
-    <style name="SecurionPaySDKTextInputLayoutStyle" parent="Theme.AppCompat.Light">
+    <style name="SecurionPaySDKTextInputLayoutStyle" >
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:backgroundTint">@android:color/transparent</item>
@@ -36,7 +38,7 @@
         <item name="android:colorControlActivated">@android:color/transparent</item>
     </style>
 
-    <style name="SecurionPaySDKTextInputStyle" parent="Theme.AppCompat.Light">
+    <style name="SecurionPaySDKTextInputStyle">
         <item name="android:textSelectHandleRight">@android:color/transparent</item>
         <item name="android:textSelectHandleLeft">@android:color/transparent</item>
         <item name="android:textSelectHandle">@android:color/transparent</item>
@@ -55,9 +57,10 @@
         <item name="colorControlActivated">@android:color/transparent</item>
     </style>
 
-    <style name="SecurionPaySDKSwitchTheme" parent="">
+    <style name="SecurionPaySDKSwitchTheme" parent="Theme.AppCompat.Light">
         <item name="colorControlActivated">@color/com_shift4_primary</item>
         <item name="colorSwitchThumbNormal">@color/com_shift4_switch_back</item>
         <item name="android:colorForeground">@color/com_shift4_switch</item>
     </style>
+
 </resources>

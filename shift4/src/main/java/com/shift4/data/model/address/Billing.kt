@@ -1,8 +1,13 @@
 package com.shift4.data.model.address
 
+import com.google.gson.annotations.SerializedName
+
 internal data class Billing(
+    @SerializedName("name")
     val name: String,
+    @SerializedName("address")
     val address: Address,
+    @SerializedName("vat")
     val vat: String?
 ) {
     override fun equals(other: Any?): Boolean {

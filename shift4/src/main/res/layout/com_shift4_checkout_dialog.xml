@@ -2,6 +2,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/bottomSheet"
+    android:background="@color/com_shift4_background"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content">
 

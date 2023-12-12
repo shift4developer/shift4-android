@@ -91,47 +91,8 @@
                 android:layout_marginBottom="4dp"
                 android:background="@android:color/black" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Custom form"
-                android:textSize="32sp" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/textEditPublicKeyCustomForm"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:hint="Public key" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/textEditCardNumber"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:hint="Card number" />
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/textEditExpMonth"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:hint="Expiration month" />
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/textEditExpYear"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:hint="Expiration year" />
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/textEditCVC"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:hint="CVC" />
-
-            <Button
-                android:id="@+id/buttonPay"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Pay with Custom Form" />
 
             <TextView
                 android:id="@+id/lastTokenId"

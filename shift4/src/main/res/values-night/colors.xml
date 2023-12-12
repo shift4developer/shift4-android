@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="com_shift4_primary">#0E5BF3</color>
+    <color name="com_shift4_primary">#389CFF</color>
     <color name="com_shift4_error">#B00020</color>
     <color name="com_shift4_success">#46A82E</color>
 
-    <color name="com_shift4_background">#FFFFFF</color>
+    <color name="com_shift4_background">#000000</color>
+    <color name="com_shift4_text_primary">#FFFFFF</color>
+    <color name="com_shift4_inspirationBlue">#141414</color>
 
-    <color name="com_shift4_text_primary">#000000</color>
-    <color name="com_shift4_inspirationBlue">#ECF3FE</color>
-
-    <color name="com_shift4_disabled">#61000000</color>
-    <color name="com_shift4_placeholder">#99000000</color>
-    <color name="com_shift4_separator">#29000000</color>
+    <color name="com_shift4_disabled">#FFC0C0C0</color>
+    <color name="com_shift4_placeholder">#E5FFFFFF</color>
+    <color name="com_shift4_separator">#FF666666</color>
 
     <color name="com_shift4_switch">#bebebe</color>
     <color name="com_shift4_switch_back">#ebebeb</color>

@@ -2,13 +2,18 @@ package com.shift4.data.model.error
 
 import android.content.Context
 import com.google.gson.annotations.SerializedName
-import com.nsoftware.ipworks3ds.sdk.Warning
 import com.shift4.R
+import com.shift4.threedsecure.pub.ProtocolErrorEvent
+import com.shift4.threedsecure.pub.RuntimeErrorEvent
+import com.shift4.threedsecure.pub.Warning
 import java.io.Serializable
 
 data class APIError(
+    @SerializedName("type")
     val type: Type? = Type.Unknown,
+    @SerializedName("code")
     val code: Code? = Code.Unknown,
+    @SerializedName("message")
     private val message: String? = null
 ): Serializable {
     companion object {
@@ -22,6 +27,24 @@ data class APIError(
             Type.ThreeDSecure,
             Code.Unknown,
             "Unknown 3D Secure Error. Check your SDK integration."
+        )
+
+        fun threeD(e: Exception): APIError = APIError(
+            Type.ThreeDSecure,
+            Code.Unknown,
+            e.message
+        )
+
+        fun protocolThreeD(e: ProtocolErrorEvent): APIError = APIError(
+            Type.ThreeDSecure,
+            Code.Unknown,
+            e.errorMessage.errorDescription
+        )
+
+        fun runtimeThreeD(e: RuntimeErrorEvent): APIError = APIError(
+            Type.ThreeDSecure,
+            Code.Unknown,
+            e.getErrorMessage()
         )
 
         val invalidCheckoutRequest: APIError = APIError(

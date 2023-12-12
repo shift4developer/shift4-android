@@ -1,6 +1,6 @@
 # Shift4 Android SDK
 
-Welcome to Shift4 Android SDK. Framework allows you to easily add Shift4 payments to your mobile apps. It allows you to integrate Shift4 with just a few lines of code. It also exposes low-level Shift4 API which you can use to create custom payment form.
+Welcome to Shift4 Android SDK. Framework allows you to easily add Shift4 payments to your mobile apps. It allows you to integrate Shift4 with just a few lines of code.
 
 ## Features
 
@@ -12,29 +12,17 @@ All sensitive data is sent directly to our servers instead of using your backend
 
 Add a smart 3D Secure verification with superior UX to your transactions. Provide smooth and uninterrupted payment experience that doesn’t interfere with your conversion process.
 
-#### Shift4 API
-
-We provide methods corresponding to Shift4 API. It allows you creating an entirely custom UI embedded into your application to increase conversion by keeping clients inside your app.
-
 #### Translations
 
 You can process payments in 18 languages.
 
-## Requirements and limitations
-
-Strict requirements of PCI 3DS SDK make development impossible. Running on simulator or debugging are forbidden in a production build of your application. We provide two versions of Framework both for Debug and Release builds so you can create and debug your application without any issues.
-
-Releasing using a store other than Play Store is forbidden by default. If you want to use a different store, for example Firebase App Distribution, you have to provide their identifiers as described below.
-
 ## Installation
 
-3D Secure library license requirements force us to distribute it via email. Contact devsupport@shift4.com to get it. Download both ipworks3ds_sdk_deploy.aar and ipworks3ds_sdk.aar 3D-Secure libraries, copy them to your project and add as dependencies. Next, add `shift4-android` and `shift4-android-debug` to your `build.gradle` dependencies.
+Add `shift4-android` to your `build.gradle` dependencies.
 
 ```
 dependencies {
     implementation 'com.shift4:shift4-android:1.1.0'
-    releaseImplementation files('ipworks3ds_sdk_deploy.aar')
-    debugImplementation files('ipworks3ds_sdk.aar')
 }
 ```
 
@@ -46,15 +34,13 @@ If you have not created an account yet, you can do it here: https://dev.shift4.c
 
 To configure the framework you need to provide the public key. You can find it here: https://dev.shift4.com/account-settings. Notice that there are two types of keys: live and test. The type of key determines application mode. Make sure you used a live key in build released to Play Store.
 
-Framework also requires you to specify App Signature. This property should be set to the SHA256 fingerprint of the certificate used to sign the app. You can find it in Google Play Console. Any attempt to perform the 3D Secure operation in release mode results in error if they do not match. This value should not be hardcoded in the application for security reasons. You should provide it on your backend side.
-
-Releasing using a store other than Play Store is forbidden by default. If you want to use a different store, for example Firebase App Distribution, you have to provide their identifiers.
+If you are installing an app from a store other than the Play Store, enter its ID. Also provide the ID of the application. This data is useful in risk assessment for 3D-Secure transactions. 
 
 ```kotlin
 val publicKey = "pk_test_..."
-val signature = "00:11:22...."
 val trustedAppStores = listOf("com.google.android.packageinstaller") // Firebase App Distribution
-shift4 = Shift4(applicationContext, publicKey, signature, trustedAppStores)
+val appIdentifier = "com.shift4.example"
+shift4 = Shift4(applicationContext, publicKey, appIdentifier, trustedAppStores)
 ```
 
 Remember to clean up the library in onDestroy method:
@@ -63,16 +49,24 @@ Remember to clean up the library in onDestroy method:
 shift4.cleanUp()
 ```
 
-
 ### Checkout Dialog
 
 Checkout Dialog is an out-of-box solution designed to provide the smoothest payment experience possible. It is a simple overlay with payments that appears on top of your page. Well-designed and ready to use.
 
-To present Checkout Dialog you need to create Checkout Request on your backend side. You can find more informations about Checkout Requests here: https://dev.shift4.com/docs/api#checkout-request. You can also create test Checkout Request here: https://dev.shift4.com/docs/checkout-request-generator.
+To present Checkout Dialog you need to create Checkout Request on your backend side. You can find more information about Checkout Requests here: https://dev.shift4.com/docs/api#checkout-request. You can also create test Checkout Request here: https://dev.shift4.com/docs/checkout-request-generator.
 
 ```kotlin
 val checkoutRequest = CheckoutRequest("...")
-shift4.showCheckoutDialog(this, checkoutRequest, "Example merchant", "Example payment")
+shift4.showCheckoutDialog(
+    this,
+    checkoutRequest = checkoutRequest,
+    merchantName = "Example Merchant",
+    description = "Example payment",
+    merchantLogo = R.drawable.ic_example_merchant_logo, // Optional
+    collectShippingAddress = true, // Optional
+    collectBillingAddress = true, // Optional
+    email = "example@mail.com" // Optional
+)
 ```
 
 To receive the callback from Checkout Dialog, you have to implement interface `Shift4.CheckoutDialogFragmentResultListener`.
@@ -122,31 +116,6 @@ shift4.cleanSavedCards()
 | .threeDSecure | .simulator                | "An emulator is being used to run the app."            |                                                              |
 | .threeDSecure | .osNotSupported           | "The OS or the OS version is not supported."           |                                                              |
 
-### Custom Form
-
-```kotlin
-val tokenRequest = TokenRequest("4242424242424242", "10", "2034", "123")
-shift4.createToken(tokenRequest) { token ->
-    when (token.status) {
-        Status.ERROR -> {
-            Log.e("Shift4", token.error!!.message(this))
-        }
-        Status.SUCCESS -> {
-            shift4.authenticate(token.data!!, 10000, "EUR", this) { authenticatedToken ->
-                when(authenticatedToken.status) {
-                    Status.SUCCESS -> {
-                        Log.d("Shift4", token.data!!.id)
-                    }
-                    Status.ERROR -> {
-                        Log.e("Shift4", token.error!!.message(this))
-                    }
-                }
-            }
-        }
-    }
-}
-```
-
 #### Possible errors
 
 ##### Creating token
@@ -174,7 +143,7 @@ shift4.createToken(tokenRequest) { token ->
 
 The SDK is created in native technologies, but since Flutter allows you to use native components, integrating the library on this platform is possible, but requires a few additional steps.
 
-At first that, open the project located in the /android subdirectory in the main project directory. Then perform the configuration described in the Installation section. Don't forget to request the 3D-Secure library, without which you won't compile the project, and which we can't publish on github for licensing reasons. You will get it by contacting devsupport@shift4.com.
+At first that, open the project located in the /android subdirectory in the main project directory. Then perform the configuration described in the Installation section.
 
 Add following code to onCreate method of calling activity:
 ```kotlin
@@ -198,9 +167,8 @@ And create the following method and variable:
         val checkoutRequest = CheckoutRequest("...")
     
         val publicKey = "pk_test_..."
-        val signature = "00:11:22...."
         val trustedAppStores = listOf("com.google.android.packageinstaller") // Firebase App Distribution
-        val shift4 = Shift4(applicationContext, publicKey, signature, trustedAppStores)
+        val shift4 = Shift4(applicationContext, publicKey, trustedAppStores)
 
         shift4.showCheckoutDialog(this, checkoutRequest, "Example merchant", "Example payment")
     }
@@ -271,3 +239,4 @@ SDK supports localization in for 18 languages. Your application must be localize
 ## License
 
 Framework is released under the MIT Licence.
+3D Secure SDK is released under the Apache 2.0 Licence.

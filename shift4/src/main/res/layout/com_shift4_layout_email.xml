@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -13,18 +14,30 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayoutEmail"
-            style="@style/SecurionPaySDKTextInputLayoutStyle"
+
             layout_constraintBottom_toBottomOf="parent"
             layout_constraintEnd_toEndOf="parent"
             layout_constraintStart_toStartOf="parent"
             layout_constraintTop_toTopOf="parent"
+
+            style="?attr/textInputFilledStyle"
+            android:backgroundTint="@android:color/transparent"
+            android:textColorHint="@color/com_shift4_placeholder"
+            app:boxBackgroundColor="@android:color/transparent"
+            android:background="@android:color/transparent"
+            app:boxStrokeWidth="0dp"
+            app:boxStrokeWidthFocused="0dp"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+
             android:hint="@string/com_shift4_email">
 
             <com.google.android.material.textfield.TextInputEditText
+                style="@style/SecurionPaySDKTextInputStyle"
+                android:layout_width="match_parent"
                 android:importantForAutofill="no"
                 android:id="@+id/textInputEmail"
-                style="@style/SecurionPaySDKTextInputStyle"
-                android:layout_height="@dimen/com_shift4_textfield_height"
+                android:layout_height="wrap_content"
                 android:fontFamily="@font/shift4_font_textedit"
                 android:imeOptions="actionNext|flagNoExtractUi|flagNoFullscreen"
                 android:inputType="textEmailAddress"

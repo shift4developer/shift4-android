@@ -13,19 +13,17 @@ android {
         minSdkVersion 23
         targetSdkVersion 33
         versionCode 58
-        versionName "1.0.0"
+        versionName "1.0.1"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
         release {
-            shrinkResources true
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
         debug {
-            shrinkResources false
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
@@ -66,12 +64,8 @@ android {
 
 dependencies {
     implementation project(':shift4')
-
-    debugImplementation fileTree(dir: "../ipworks_debug", include: ["*.aar"])
-    releaseImplementation fileTree(dir: "../ipworks", include: ["*.aar"])
-
-//    implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'com.google.android.material:material:1.2.1'
+    
+    implementation 'com.google.android.material:material:1.9.0'
     implementation 'androidx.core:core-ktx:1.9.0'
 }
 

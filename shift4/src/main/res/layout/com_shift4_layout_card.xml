@@ -12,7 +12,15 @@
         android:background="@drawable/com_shift4_rounded_edge">
 
         <com.google.android.material.textfield.TextInputLayout
-            style="@style/SecurionPaySDKTextInputLayoutStyle"
+            style="?attr/textInputFilledStyle"
+            android:backgroundTint="@android:color/transparent"
+            android:textColorHint="@color/com_shift4_placeholder"
+            app:boxBackgroundColor="@android:color/transparent"
+            android:background="@android:color/transparent"
+            app:boxStrokeWidth="0dp"
+            app:boxStrokeWidthFocused="0dp"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
             android:hint="@string/com_shift4_card_number"
             android:nextFocusLeft="@id/textInputExpiration"
             android:nextFocusRight="@id/textInputExpiration"
@@ -66,7 +74,14 @@
             android:background="@drawable/com_shift4_rounded_edge">
 
             <com.google.android.material.textfield.TextInputLayout
-                style="@style/SecurionPaySDKTextInputLayoutStyle"
+                style="?attr/textInputFilledStyle"
+            android:backgroundTint="@android:color/transparent"
+            android:textColorHint="@color/com_shift4_placeholder"
+            app:boxBackgroundColor="@android:color/transparent"
+            android:background="@android:color/transparent"
+            app:boxStrokeWidth="0dp"
+            app:boxStrokeWidthFocused="0dp"
+            android:layout_height="wrap_content"
                 android:layout_width="0dp"
                 android:hint="@string/com_shift4_expiration"
                 android:nextFocusRight="@id/textInputCVC"
@@ -102,7 +117,15 @@
             android:background="@drawable/com_shift4_rounded_edge">
 
             <com.google.android.material.textfield.TextInputLayout
-                style="@style/SecurionPaySDKTextInputLayoutStyle"
+                style="?attr/textInputFilledStyle"
+            android:backgroundTint="@android:color/transparent"
+            android:textColorHint="@color/com_shift4_placeholder"
+            app:boxBackgroundColor="@android:color/transparent"
+            android:background="@android:color/transparent"
+            app:boxStrokeWidth="0dp"
+            app:boxStrokeWidthFocused="0dp"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
                 android:hint="@string/com_shift4_cvc"
                 android:paddingLeft="@dimen/com_shift4_padding_medium"
                 app:layout_constraintStart_toStartOf="parent"

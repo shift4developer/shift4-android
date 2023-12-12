@@ -9,22 +9,26 @@
         android:layout_height="wrap_content">
 
         <androidx.appcompat.widget.SwitchCompat
+            android:theme="@style/SecurionPaySDKSwitchTheme"
             android:id="@+id/switchRememberCard"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="20dp"
             android:layout_alignParentEnd="true"
-            android:theme="@style/SecurionPaySDKSwitchTheme"
-            android:thumbTint="@color/com_shift4_primary" />
+            android:layout_centerVertical="true" />
 
         <TextView
+            android:fontFamily="@font/shift4_font_body"
+            android:textColor="@color/com_shift4_text_primary"
+            android:textSize="@dimen/com_shift4_font_size_body"
             android:id="@+id/textViewSwitchTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
-            android:fontFamily="@font/shift4_font_body"
-            android:text="Remember card"
-            android:textColor="@color/com_shift4_text_primary"
-            android:textSize="@dimen/com_shift4_font_size_body" />
+            android:layout_toStartOf="@id/switchRememberCard"
+            android:layout_marginEnd="8dp"
+            android:text="Long label text that will wrap whger ergger ger gerge rger ger ge rg er gergen it's too long"
+            android:ellipsize="end"
+            android:maxLines="10"/>
     </RelativeLayout>
 
     <TextView

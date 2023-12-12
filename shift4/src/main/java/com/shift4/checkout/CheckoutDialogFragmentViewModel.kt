@@ -13,7 +13,7 @@ import com.shift4.R
 import com.shift4.Shift4
 import com.shift4.checkout.component.ButtonComponent
 import com.shift4.data.api.Result
-import com.shift4.data.api.Status
+import com.shift4.data.model.result.Status
 import com.shift4.data.model.CreditCard
 import com.shift4.data.model.address.Billing
 import com.shift4.data.model.address.Shipping
@@ -251,12 +251,13 @@ internal class CheckoutDialogFragmentViewModel : ViewModel() {
                 Shift4(
                     context,
                     arguments.getString("publicKey", null) ?: String.empty,
-                    arguments.getString("signature", null) ?: String.empty,
+                    arguments.getString("packageName", null) ?: String.empty,
                     arguments.getStringArray("trustedAppStores")?.toList()
                 )
             ),
             EmailStorage(context),
             arguments.getString("signature", null) ?: String.empty,
+            arguments.getString("packageName", null) ?: String.empty,
             arguments.getStringArray("trustedAppStores")?.toList(),
             viewModelScope
         )

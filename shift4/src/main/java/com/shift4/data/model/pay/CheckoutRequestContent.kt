@@ -1,13 +1,23 @@
 package com.shift4.data.model.pay
 
+import com.google.gson.annotations.SerializedName
+
 internal data class CheckoutRequestContent(
+    @SerializedName("charge")
     val charge: Charge?,
+    @SerializedName("customCharge")
     val customCharge: CustomCharge?,
+    @SerializedName("rememberMe")
     val rememberMe: Boolean?,
+    @SerializedName("customerId")
     val customerId: String?,
+    @SerializedName("termsAndConditionsUrl")
     val termsAndConditionsUrl: String?,
+    @SerializedName("crossSaleOfferIds")
     val crossSaleOfferIds: Array<String>?,
+    @SerializedName("threeDSecure")
     val threeDSecure: ThreeDSecure?,
+    @SerializedName("subscription")
     val subscription: Subscription?
 ) {
     data class Subscription(val planId: String)

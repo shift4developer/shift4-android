@@ -20,7 +20,42 @@
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
 
--keep class com.shift4.data.model.** { *; }
--keep class com.shift4.** { *; }
--keep class com.nsoftware.** { *; }
+-repackageclasses "com.shift4.sdkinternal"
 
+-keepclassmembers,allowobfuscation class * {
+ @com.google.gson.annotations.SerializedName <fields>;
+}
+-keep class com.shift4.data.model.** { *; }
+-keep class com.shift4.data.model.pay.CheckoutRequest { *; }
+-keep class com.shift4.data.model.pay.ChargeResult { *; }
+-keep class com.shift4.data.model.result.CheckoutResult { *; }
+
+-keep class com.shift4.Shift4 { *; }
+-keep interface com.shift4.Shift4$CheckoutDialogFragmentResultListener { *;}
+
+-keep class * extends com.google.gson.TypeAdapter
+-keep class * implements com.google.gson.TypeAdapterFactory
+-keep class * implements com.google.gson.JsonSerializer
+-keep class * implements com.google.gson.JsonDeserializer
+
+-if class **$Companion extends **
+-keep class <2>
+-if class **$Companion implements **
+-keep class <2>
+
+
+#########
+
+-keep class com.shift4.threedsecure.pub.* { *; }
+-keep class com.shift4.threedsecure.exception.* { *; }
+
+-keepclassmembers,allowobfuscation class * {
+  @com.google.gson.annotations.SerializedName <fields>;
+}
+
+-keep class * extends com.google.gson.TypeAdapter
+-keep class * implements com.google.gson.TypeAdapterFactory
+-keep class * implements com.google.gson.JsonSerializer
+-keep class * implements com.google.gson.JsonDeserializer
+
+-keep class org.bouncycastle.** { *; }

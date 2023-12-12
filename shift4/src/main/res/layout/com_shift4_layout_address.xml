@@ -44,12 +44,20 @@
             android:background="@drawable/com_shift4_rounded_edge">
 
             <com.google.android.material.textfield.TextInputLayout
-                style="@style/SecurionPaySDKTextInputLayoutStyle"
+                style="?attr/textInputFilledStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:backgroundTint="@android:color/transparent"
                 android:hint="@string/com_shift4_name"
                 android:nextFocusLeft="@id/textInputExpiration"
                 android:nextFocusRight="@id/textInputExpiration"
                 android:nextFocusUp="@id/textInputExpiration"
                 android:nextFocusDown="@id/textInputExpiration"
+                android:textColorHint="@color/com_shift4_placeholder"
+                app:boxBackgroundColor="@android:color/transparent"
+                app:boxStrokeWidth="0dp"
+                app:boxStrokeWidthFocused="0dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
@@ -76,12 +84,20 @@
             android:background="@drawable/com_shift4_rounded_edge">
 
             <com.google.android.material.textfield.TextInputLayout
-                style="@style/SecurionPaySDKTextInputLayoutStyle"
+                style="?attr/textInputFilledStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:backgroundTint="@android:color/transparent"
                 android:hint="@string/com_shift4_street"
                 android:nextFocusLeft="@id/textInputExpiration"
                 android:nextFocusRight="@id/textInputExpiration"
                 android:nextFocusUp="@id/textInputExpiration"
                 android:nextFocusDown="@id/textInputExpiration"
+                android:textColorHint="@color/com_shift4_placeholder"
+                app:boxBackgroundColor="@android:color/transparent"
+                app:boxStrokeWidth="0dp"
+                app:boxStrokeWidthFocused="0dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
@@ -116,10 +132,17 @@
                 android:background="@drawable/com_shift4_rounded_edge">
 
                 <com.google.android.material.textfield.TextInputLayout
-                    style="@style/SecurionPaySDKTextInputLayoutStyle"
+                    style="?attr/textInputFilledStyle"
                     android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:backgroundTint="@android:color/transparent"
                     android:hint="@string/com_shift4_zip"
                     android:nextFocusRight="@id/textInputCVC"
+                    android:textColorHint="@color/com_shift4_placeholder"
+                    app:boxBackgroundColor="@android:color/transparent"
+                    app:boxStrokeWidth="0dp"
+                    app:boxStrokeWidthFocused="0dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -150,9 +173,17 @@
                 android:background="@drawable/com_shift4_rounded_edge">
 
                 <com.google.android.material.textfield.TextInputLayout
-                    style="@style/SecurionPaySDKTextInputLayoutStyle"
+                    style="?attr/textInputFilledStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:backgroundTint="@android:color/transparent"
                     android:hint="@string/com_shift4_city"
                     android:paddingLeft="@dimen/com_shift4_padding_medium"
+                    android:textColorHint="@color/com_shift4_placeholder"
+                    app:boxBackgroundColor="@android:color/transparent"
+                    app:boxStrokeWidth="0dp"
+                    app:boxStrokeWidthFocused="0dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
 
@@ -216,12 +247,20 @@
             android:background="@drawable/com_shift4_rounded_edge">
 
             <com.google.android.material.textfield.TextInputLayout
-                style="@style/SecurionPaySDKTextInputLayoutStyle"
+                style="?attr/textInputFilledStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:backgroundTint="@android:color/transparent"
                 android:hint="@string/com_shift4_name"
                 android:nextFocusLeft="@id/textInputExpiration"
                 android:nextFocusRight="@id/textInputExpiration"
                 android:nextFocusUp="@id/textInputExpiration"
                 android:nextFocusDown="@id/textInputExpiration"
+                android:textColorHint="@color/com_shift4_placeholder"
+                app:boxBackgroundColor="@android:color/transparent"
+                app:boxStrokeWidth="0dp"
+                app:boxStrokeWidthFocused="0dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
@@ -248,12 +287,20 @@
             android:background="@drawable/com_shift4_rounded_edge">
 
             <com.google.android.material.textfield.TextInputLayout
-                style="@style/SecurionPaySDKTextInputLayoutStyle"
+                style="?attr/textInputFilledStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:backgroundTint="@android:color/transparent"
                 android:hint="@string/com_shift4_street"
                 android:nextFocusLeft="@id/textInputExpiration"
                 android:nextFocusRight="@id/textInputExpiration"
                 android:nextFocusUp="@id/textInputExpiration"
                 android:nextFocusDown="@id/textInputExpiration"
+                android:textColorHint="@color/com_shift4_placeholder"
+                app:boxBackgroundColor="@android:color/transparent"
+                app:boxStrokeWidth="0dp"
+                app:boxStrokeWidthFocused="0dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
@@ -288,10 +335,17 @@
                 android:background="@drawable/com_shift4_rounded_edge">
 
                 <com.google.android.material.textfield.TextInputLayout
-                    style="@style/SecurionPaySDKTextInputLayoutStyle"
+                    style="?attr/textInputFilledStyle"
                     android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:backgroundTint="@android:color/transparent"
                     android:hint="@string/com_shift4_zip"
                     android:nextFocusRight="@id/textInputCVC"
+                    android:textColorHint="@color/com_shift4_placeholder"
+                    app:boxBackgroundColor="@android:color/transparent"
+                    app:boxStrokeWidth="0dp"
+                    app:boxStrokeWidthFocused="0dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -322,9 +376,17 @@
                 android:background="@drawable/com_shift4_rounded_edge">
 
                 <com.google.android.material.textfield.TextInputLayout
-                    style="@style/SecurionPaySDKTextInputLayoutStyle"
+                    style="?attr/textInputFilledStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:backgroundTint="@android:color/transparent"
                     android:hint="@string/com_shift4_city"
                     android:paddingLeft="@dimen/com_shift4_padding_medium"
+                    android:textColorHint="@color/com_shift4_placeholder"
+                    app:boxBackgroundColor="@android:color/transparent"
+                    app:boxStrokeWidth="0dp"
+                    app:boxStrokeWidthFocused="0dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
 
@@ -373,12 +435,20 @@
             android:background="@drawable/com_shift4_rounded_edge">
 
             <com.google.android.material.textfield.TextInputLayout
-                style="@style/SecurionPaySDKTextInputLayoutStyle"
+                style="?attr/textInputFilledStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:backgroundTint="@android:color/transparent"
                 android:hint="@string/com_shift4_vat"
                 android:nextFocusLeft="@id/textInputExpiration"
                 android:nextFocusRight="@id/textInputExpiration"
                 android:nextFocusUp="@id/textInputExpiration"
                 android:nextFocusDown="@id/textInputExpiration"
+                android:textColorHint="@color/com_shift4_placeholder"
+                app:boxBackgroundColor="@android:color/transparent"
+                app:boxStrokeWidth="0dp"
+                app:boxStrokeWidthFocused="0dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 

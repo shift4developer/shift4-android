@@ -2,18 +2,24 @@ package com.shift4.threed
 
 import android.app.Activity
 import android.app.ProgressDialog
-import com.shift4.BuildConfig
-import com.nsoftware.ipworks3ds.sdk.*
-import com.nsoftware.ipworks3ds.sdk.event.CompletionEvent
-import com.nsoftware.ipworks3ds.sdk.event.ProtocolErrorEvent
-import com.nsoftware.ipworks3ds.sdk.event.RuntimeErrorEvent
 import com.shift4.data.model.error.APIError
 import com.shift4.data.model.threeD.DirectoryServerCertificate
+import com.shift4.threedsecure.pub.AuthenticationRequestParameters
+import com.shift4.threedsecure.pub.ChallengeParameters
+import com.shift4.threedsecure.pub.ChallengeStatusReceiver
+import com.shift4.threedsecure.pub.CompletionEvent
+import com.shift4.threedsecure.pub.ConfigParameters
+import com.shift4.threedsecure.pub.DirectoryServerInfo
+import com.shift4.threedsecure.pub.Transaction
+import com.shift4.threedsecure.pub.ProtocolErrorEvent
+import com.shift4.threedsecure.pub.RuntimeErrorEvent
+import com.shift4.threedsecure.pub.ThreeDS2Service
+import com.shift4.threedsecure.pub.Warning
 import java.util.*
 
 internal class ThreeDManager : ChallengeStatusReceiver {
     private var activity: Activity? = null
-    private var threeDService = ThreeDS2Service.INSTANCE
+    private var threeDService = ThreeDS2Service()
     private var sdkTransaction: Transaction? = null
     private var sdkProgressDialog: ProgressDialog? = null
     private var completion: (Boolean, APIError?) -> Unit? = { _: Boolean, _: APIError? -> }
@@ -27,7 +33,7 @@ internal class ThreeDManager : ChallengeStatusReceiver {
     }
 
     fun showProgressDialog() {
-        sdkProgressDialog = sdkTransaction?.getProgressView(activity)
+        sdkProgressDialog = activity?.let { sdkTransaction?.getProgressView(it) }
         sdkProgressDialog?.show()
     }
 
@@ -36,11 +42,10 @@ internal class ThreeDManager : ChallengeStatusReceiver {
         sdkProgressDialog = null
     }
 
-    fun startChallenge(authResponse: String?, completion: (Boolean, APIError?) -> Unit) {
+    fun startChallenge(authResponse: String, completion: (Boolean, APIError?) -> Unit) {
         this.completion = completion
-        val challengeParameters = ChallengeParameters()
-        challengeParameters.threeDSServerAuthResponse = authResponse
-        sdkTransaction!!.doChallenge(activity, challengeParameters, this, 15)
+        val challengeParameters = ChallengeParameters(authResponse, "")
+        sdkTransaction!!.doChallenge(activity!!, challengeParameters, this, 5)
     }
 
     fun closeTransaction() {
@@ -54,6 +59,7 @@ internal class ThreeDManager : ChallengeStatusReceiver {
         certificate: DirectoryServerCertificate,
         sdkLicense: String,
         signature: String,
+        packageName: String,
         trustedAppStores: List<String>?
     ): Array<Warning> {
         this.activity = activity
@@ -61,213 +67,199 @@ internal class ThreeDManager : ChallengeStatusReceiver {
             threeDService.cleanup(activity)
         } catch (_: Exception) {
         }
-        val directoryServerInfoList: List<ConfigParameters.DirectoryServerInfo> = listOf(
-            ConfigParameters.DirectoryServerInfo(
+
+        val directoryServerInfoList = listOf(
+            DirectoryServerInfo(
                 cardBrand,
                 certificate.certificate,
-                certificate.caCertificates.toTypedArray()
+                certificate.caCertificates
             )
         )
 
         val clientConfigs: MutableList<String> = ArrayList()
         clientConfigs.add("MaskSensitive=true")
-        val eventListener: ClientEventListener?
-        val securityEventListener: SecurityEventListener?
-        if (BuildConfig.DEBUG) {
-            clientConfigs.add("logLevel=3")
-            eventListener = DebugEventListener()
-            securityEventListener = DebugSecurityEventListener()
-        } else {
-            clientConfigs.add("logLevel=0")
-            eventListener = null
-            securityEventListener = null
-        }
-        val deviceParameterBlacklist: MutableList<String> = ArrayList()
-        deviceParameterBlacklist.add("C007")
-        deviceParameterBlacklist.add("C009")
-        deviceParameterBlacklist.add("C010")
-        deviceParameterBlacklist.add("C011")
-        deviceParameterBlacklist.add("C012")
-        deviceParameterBlacklist.add("C014")
+        val excludedDeviceParameters: MutableList<String> = ArrayList()
+        excludedDeviceParameters.add("C007")
+        excludedDeviceParameters.add("C009")
+        excludedDeviceParameters.add("C010")
+        excludedDeviceParameters.add("C011")
+        excludedDeviceParameters.add("C012")
+        excludedDeviceParameters.add("C014")
 
-        deviceParameterBlacklist.add("D001")
-        deviceParameterBlacklist.add("D002")
-        deviceParameterBlacklist.add("D003")
-        deviceParameterBlacklist.add("D005")
-        deviceParameterBlacklist.add("D006")
-        deviceParameterBlacklist.add("D008")
-        deviceParameterBlacklist.add("D021")
-        deviceParameterBlacklist.add("D022")
-        deviceParameterBlacklist.add("D023")
-        deviceParameterBlacklist.add("D024")
-        deviceParameterBlacklist.add("D025")
-        deviceParameterBlacklist.add("D026")
-        deviceParameterBlacklist.add("D027")
-        deviceParameterBlacklist.add("D028")
+        excludedDeviceParameters.add("D001")
+        excludedDeviceParameters.add("D002")
+        excludedDeviceParameters.add("D003")
+        excludedDeviceParameters.add("D005")
+        excludedDeviceParameters.add("D006")
+        excludedDeviceParameters.add("D008")
+        excludedDeviceParameters.add("D021")
+        excludedDeviceParameters.add("D022")
+        excludedDeviceParameters.add("D023")
+        excludedDeviceParameters.add("D024")
+        excludedDeviceParameters.add("D025")
+        excludedDeviceParameters.add("D026")
+        excludedDeviceParameters.add("D027")
+        excludedDeviceParameters.add("D028")
 
         // Telephony manager
-        deviceParameterBlacklist.add("A001")
-        deviceParameterBlacklist.add("A002")
-        deviceParameterBlacklist.add("A003")
-        deviceParameterBlacklist.add("A004")
-        deviceParameterBlacklist.add("A005")
-        deviceParameterBlacklist.add("A006")
-        deviceParameterBlacklist.add("A007")
-        deviceParameterBlacklist.add("A008")
-        deviceParameterBlacklist.add("A009")
-        deviceParameterBlacklist.add("A010")
-        deviceParameterBlacklist.add("A011")
-        deviceParameterBlacklist.add("A012")
-        deviceParameterBlacklist.add("A013")
-        deviceParameterBlacklist.add("A014")
-        deviceParameterBlacklist.add("A015")
-        deviceParameterBlacklist.add("A016")
-        deviceParameterBlacklist.add("A017")
-        deviceParameterBlacklist.add("A018")
-        deviceParameterBlacklist.add("A019")
-        deviceParameterBlacklist.add("A020")
-        deviceParameterBlacklist.add("A021")
-        deviceParameterBlacklist.add("A022")
-        deviceParameterBlacklist.add("A023")
-        deviceParameterBlacklist.add("A024")
-        deviceParameterBlacklist.add("A025")
-        deviceParameterBlacklist.add("A026")
-        deviceParameterBlacklist.add("A027")
+        excludedDeviceParameters.add("A001")
+        excludedDeviceParameters.add("A002")
+        excludedDeviceParameters.add("A003")
+        excludedDeviceParameters.add("A004")
+        excludedDeviceParameters.add("A005")
+        excludedDeviceParameters.add("A006")
+        excludedDeviceParameters.add("A007")
+        excludedDeviceParameters.add("A008")
+        excludedDeviceParameters.add("A009")
+        excludedDeviceParameters.add("A010")
+        excludedDeviceParameters.add("A011")
+        excludedDeviceParameters.add("A012")
+        excludedDeviceParameters.add("A013")
+        excludedDeviceParameters.add("A014")
+        excludedDeviceParameters.add("A015")
+        excludedDeviceParameters.add("A016")
+        excludedDeviceParameters.add("A017")
+        excludedDeviceParameters.add("A018")
+        excludedDeviceParameters.add("A019")
+        excludedDeviceParameters.add("A020")
+        excludedDeviceParameters.add("A021")
+        excludedDeviceParameters.add("A022")
+        excludedDeviceParameters.add("A023")
+        excludedDeviceParameters.add("A024")
+        excludedDeviceParameters.add("A025")
+        excludedDeviceParameters.add("A026")
+        excludedDeviceParameters.add("A027")
 
         // Wifi Manager
-        deviceParameterBlacklist.add("A028")
-        deviceParameterBlacklist.add("A029")
-        deviceParameterBlacklist.add("A030")
-        deviceParameterBlacklist.add("A031")
-        deviceParameterBlacklist.add("A032")
-        deviceParameterBlacklist.add("A033")
-        deviceParameterBlacklist.add("A034")
-        deviceParameterBlacklist.add("A035")
-        deviceParameterBlacklist.add("A036")
-        deviceParameterBlacklist.add("A037")
-        deviceParameterBlacklist.add("A038")
+        excludedDeviceParameters.add("A028")
+        excludedDeviceParameters.add("A029")
+        excludedDeviceParameters.add("A030")
+        excludedDeviceParameters.add("A031")
+        excludedDeviceParameters.add("A032")
+        excludedDeviceParameters.add("A033")
+        excludedDeviceParameters.add("A034")
+        excludedDeviceParameters.add("A035")
+        excludedDeviceParameters.add("A036")
+        excludedDeviceParameters.add("A037")
+        excludedDeviceParameters.add("A038")
 
         // Bluetoth manager
-        deviceParameterBlacklist.add("A039")
-        deviceParameterBlacklist.add("A040")
-        deviceParameterBlacklist.add("A041")
+        excludedDeviceParameters.add("A039")
+        excludedDeviceParameters.add("A040")
+        excludedDeviceParameters.add("A041")
 
         // Build
-        deviceParameterBlacklist.add("A042")
-        deviceParameterBlacklist.add("A043")
-        deviceParameterBlacklist.add("A044")
-        deviceParameterBlacklist.add("A045")
-        deviceParameterBlacklist.add("A046")
-        deviceParameterBlacklist.add("A047")
-        deviceParameterBlacklist.add("A048")
-        deviceParameterBlacklist.add("A049")
-        deviceParameterBlacklist.add("A050")
-        deviceParameterBlacklist.add("A051")
-        deviceParameterBlacklist.add("A052")
-        deviceParameterBlacklist.add("A053")
-        deviceParameterBlacklist.add("A054")
-        deviceParameterBlacklist.add("A055")
-        deviceParameterBlacklist.add("A056")
-        deviceParameterBlacklist.add("A057")
-        deviceParameterBlacklist.add("A058")
-        deviceParameterBlacklist.add("A059")
+        excludedDeviceParameters.add("A042")
+        excludedDeviceParameters.add("A043")
+        excludedDeviceParameters.add("A044")
+        excludedDeviceParameters.add("A045")
+        excludedDeviceParameters.add("A046")
+        excludedDeviceParameters.add("A047")
+        excludedDeviceParameters.add("A048")
+        excludedDeviceParameters.add("A049")
+        excludedDeviceParameters.add("A050")
+        excludedDeviceParameters.add("A051")
+        excludedDeviceParameters.add("A052")
+        excludedDeviceParameters.add("A053")
+        excludedDeviceParameters.add("A054")
+        excludedDeviceParameters.add("A055")
+        excludedDeviceParameters.add("A056")
+        excludedDeviceParameters.add("A057")
+        excludedDeviceParameters.add("A058")
+        excludedDeviceParameters.add("A059")
 
         // Build. Version
-        deviceParameterBlacklist.add("A060")
-        deviceParameterBlacklist.add("A061")
-        deviceParameterBlacklist.add("A062")
-        deviceParameterBlacklist.add("A063")
-        deviceParameterBlacklist.add("A064")
+        excludedDeviceParameters.add("A060")
+        excludedDeviceParameters.add("A061")
+        excludedDeviceParameters.add("A062")
+        excludedDeviceParameters.add("A063")
+        excludedDeviceParameters.add("A064")
 
         // Settings Secure
-        deviceParameterBlacklist.add("A065")
-        deviceParameterBlacklist.add("A066")
-        deviceParameterBlacklist.add("A067")
-        deviceParameterBlacklist.add("A068")
-        deviceParameterBlacklist.add("A069")
-        deviceParameterBlacklist.add("A070")
-        deviceParameterBlacklist.add("A071")
-        deviceParameterBlacklist.add("A072")
-        deviceParameterBlacklist.add("A073")
-        deviceParameterBlacklist.add("A074")
-        deviceParameterBlacklist.add("A075")
-        deviceParameterBlacklist.add("A076")
-        deviceParameterBlacklist.add("A077")
-        deviceParameterBlacklist.add("A078")
-        deviceParameterBlacklist.add("A079")
+        excludedDeviceParameters.add("A065")
+        excludedDeviceParameters.add("A066")
+        excludedDeviceParameters.add("A067")
+        excludedDeviceParameters.add("A068")
+        excludedDeviceParameters.add("A069")
+        excludedDeviceParameters.add("A070")
+        excludedDeviceParameters.add("A071")
+        excludedDeviceParameters.add("A072")
+        excludedDeviceParameters.add("A073")
+        excludedDeviceParameters.add("A074")
+        excludedDeviceParameters.add("A075")
+        excludedDeviceParameters.add("A076")
+        excludedDeviceParameters.add("A077")
+        excludedDeviceParameters.add("A078")
+        excludedDeviceParameters.add("A079")
 
         // Global settings
-        deviceParameterBlacklist.add("A084")
-        deviceParameterBlacklist.add("A085")
-        deviceParameterBlacklist.add("A086")
-        deviceParameterBlacklist.add("A087")
-        deviceParameterBlacklist.add("A088")
-        deviceParameterBlacklist.add("A089")
-        deviceParameterBlacklist.add("A090")
-        deviceParameterBlacklist.add("A091")
-        deviceParameterBlacklist.add("A092")
-        deviceParameterBlacklist.add("A093")
-        deviceParameterBlacklist.add("A094")
-        deviceParameterBlacklist.add("A095")
-        deviceParameterBlacklist.add("A096")
-        deviceParameterBlacklist.add("A097")
-        deviceParameterBlacklist.add("A098")
-        deviceParameterBlacklist.add("A099")
-        deviceParameterBlacklist.add("A100")
-        deviceParameterBlacklist.add("A101")
-        deviceParameterBlacklist.add("A102")
-        deviceParameterBlacklist.add("A103")
-        deviceParameterBlacklist.add("A104")
-        deviceParameterBlacklist.add("A105")
-        deviceParameterBlacklist.add("A106")
-        deviceParameterBlacklist.add("A107")
-        deviceParameterBlacklist.add("A108")
-        deviceParameterBlacklist.add("A109")
-        deviceParameterBlacklist.add("A110")
-        deviceParameterBlacklist.add("A111")
-        deviceParameterBlacklist.add("A112")
-        deviceParameterBlacklist.add("A113")
-        deviceParameterBlacklist.add("A114")
-        deviceParameterBlacklist.add("A115")
-        deviceParameterBlacklist.add("A116")
-        deviceParameterBlacklist.add("A117")
-        deviceParameterBlacklist.add("A118")
-        deviceParameterBlacklist.add("A119")
-        deviceParameterBlacklist.add("A120")
-        deviceParameterBlacklist.add("A121")
-        deviceParameterBlacklist.add("A122")
-        deviceParameterBlacklist.add("A123")
+        excludedDeviceParameters.add("A084")
+        excludedDeviceParameters.add("A085")
+        excludedDeviceParameters.add("A086")
+        excludedDeviceParameters.add("A087")
+        excludedDeviceParameters.add("A088")
+        excludedDeviceParameters.add("A089")
+        excludedDeviceParameters.add("A090")
+        excludedDeviceParameters.add("A091")
+        excludedDeviceParameters.add("A092")
+        excludedDeviceParameters.add("A093")
+        excludedDeviceParameters.add("A094")
+        excludedDeviceParameters.add("A095")
+        excludedDeviceParameters.add("A096")
+        excludedDeviceParameters.add("A097")
+        excludedDeviceParameters.add("A098")
+        excludedDeviceParameters.add("A099")
+        excludedDeviceParameters.add("A100")
+        excludedDeviceParameters.add("A101")
+        excludedDeviceParameters.add("A102")
+        excludedDeviceParameters.add("A103")
+        excludedDeviceParameters.add("A104")
+        excludedDeviceParameters.add("A105")
+        excludedDeviceParameters.add("A106")
+        excludedDeviceParameters.add("A107")
+        excludedDeviceParameters.add("A108")
+        excludedDeviceParameters.add("A109")
+        excludedDeviceParameters.add("A110")
+        excludedDeviceParameters.add("A111")
+        excludedDeviceParameters.add("A112")
+        excludedDeviceParameters.add("A113")
+        excludedDeviceParameters.add("A114")
+        excludedDeviceParameters.add("A115")
+        excludedDeviceParameters.add("A116")
+        excludedDeviceParameters.add("A117")
+        excludedDeviceParameters.add("A118")
+        excludedDeviceParameters.add("A119")
+        excludedDeviceParameters.add("A120")
+        excludedDeviceParameters.add("A121")
+        excludedDeviceParameters.add("A122")
+        excludedDeviceParameters.add("A123")
 
         // System Settings
         // Package manager
-        deviceParameterBlacklist.add("A124")
-        deviceParameterBlacklist.add("A125")
-        deviceParameterBlacklist.add("A126")
-        deviceParameterBlacklist.add("A127")
-        deviceParameterBlacklist.add("A128")
+        excludedDeviceParameters.add("A125")
+        excludedDeviceParameters.add("A127")
+        excludedDeviceParameters.add("A128")
 
         // Environment
-        deviceParameterBlacklist.add("A129")
+        excludedDeviceParameters.add("A129")
 
         // Locale
-        deviceParameterBlacklist.add("A130")
-        deviceParameterBlacklist.add("A136")
+        excludedDeviceParameters.add("A130")
+        excludedDeviceParameters.add("A136")
 
         // DisplayMetrics
-        deviceParameterBlacklist.add("A146")
-        deviceParameterBlacklist.add("A147")
-        deviceParameterBlacklist.add("A148")
-        deviceParameterBlacklist.add("A149")
+        excludedDeviceParameters.add("A146")
+        excludedDeviceParameters.add("A147")
+        excludedDeviceParameters.add("A148")
+        excludedDeviceParameters.add("A149")
 
-        val configParametersBuilder = ConfigParameters.Builder(directoryServerInfoList, sdkLicense)
-            .clientConfig(clientConfigs)
-            .deviceParameterBlacklist(deviceParameterBlacklist)
-            .appSignature(signature)
-        trustedAppStores?.let { configParametersBuilder.trustedAppStores(it) }
-        val configParameters = configParametersBuilder.build()
-
-        configParameters.addParam(null, "ShowWhiteBoxInProcessingScreen", "true")
-        configParameters.addParam(null, "ProgressBarColor", "#0E5BF3")
+        val configParameters = ConfigParameters(
+            signature,
+            packageName,
+            directoryServerInfoList,
+            excludedDeviceParameters,
+            trustedAppStores ?: listOf()
+        )
 
         val locale: String? = null
         threeDService.initialize(
@@ -275,10 +267,8 @@ internal class ThreeDManager : ChallengeStatusReceiver {
             configParameters,
             locale,
             ThreeDUICustomizationFactory(activity.applicationContext).createUICustimization(),
-            eventListener,
-            securityEventListener
         )
-        return threeDService.warnings.filter { it.id != "SW04" }.toTypedArray()
+        return threeDService.getWarnings().filter { it.id != "SW04" }.toTypedArray()
     }
 
     override fun completed(completionEvent: CompletionEvent) {
@@ -294,12 +284,12 @@ internal class ThreeDManager : ChallengeStatusReceiver {
         completion(false, APIError.threeDTimeout)
     }
 
-    override fun protocolError(event: ProtocolErrorEvent?) {
-        completion(false, APIError.unknown)
+    override fun protocolError(event: ProtocolErrorEvent) {
+        completion(false, APIError.protocolThreeD(event))
     }
 
-    override fun runtimeError(event: RuntimeErrorEvent?) {
-        completion(false, APIError.unknown)
+    override fun runtimeError(event: RuntimeErrorEvent) {
+        completion(false, APIError.runtimeThreeD(event))
     }
 }
 

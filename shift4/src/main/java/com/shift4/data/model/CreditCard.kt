@@ -2,15 +2,20 @@ package com.shift4.data.model
 
 import android.content.res.Resources
 import android.graphics.drawable.Drawable
+import com.google.gson.annotations.SerializedName
 import com.shift4.R
 import com.shift4.data.model.lookup.Card
 import com.shift4.utils.empty
 import com.shift4.utils.sanitized
 
 internal class CreditCard(
+    @SerializedName("type")
     val type: Type,
+    @SerializedName("number")
     val number: String?,
+    @SerializedName("last2")
     private val last2: String?,
+    @SerializedName("last4")
     private val last4: String?
 ) {
     companion object {

@@ -53,7 +53,7 @@
         android:id="@+id/buttonClose"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/com_shift4_white"
+        android:background="@color/com_shift4_background"
         android:src="@drawable/com_shift4_ic_close"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

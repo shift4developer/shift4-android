@@ -1,3 +1,5 @@
 package com.shift4.data.model.sms
 
-internal data class SMS(val id: String)
+import com.google.gson.annotations.SerializedName
+
+internal data class SMS(@SerializedName("id") val id: String)

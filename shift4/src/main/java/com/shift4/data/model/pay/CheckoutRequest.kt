@@ -1,10 +1,11 @@
 package com.shift4.data.model.pay
 
 import com.google.gson.Gson
+import com.google.gson.annotations.SerializedName
 import com.shift4.utils.CurrencyFormatter
 import java.util.*
 
-data class CheckoutRequest(internal val content: String) {
+data class CheckoutRequest(@SerializedName("content") internal val content: String) {
     internal val correct: Boolean
         get() {
             return try {

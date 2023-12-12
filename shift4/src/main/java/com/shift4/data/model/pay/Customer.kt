@@ -1,3 +1,5 @@
 package com.shift4.data.model.pay
 
-data class Customer(val id: String): java.io.Serializable
+import com.google.gson.annotations.SerializedName
+
+data class Customer(    @SerializedName("id")val id: String): java.io.Serializable

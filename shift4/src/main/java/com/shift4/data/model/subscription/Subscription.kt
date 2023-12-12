@@ -1,9 +1,11 @@
 package com.shift4.data.model.subscription
 
+import com.google.gson.annotations.SerializedName
 import java.text.NumberFormat
 import java.util.*
 
 internal data class Subscription(
+    @SerializedName("plan")
     val plan: SubscriptionPlan
 ) {
     fun readable(): String {

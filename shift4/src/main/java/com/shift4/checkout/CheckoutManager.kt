@@ -2,7 +2,7 @@ package com.shift4.checkout
 
 import android.app.Activity
 import com.shift4.data.api.Result
-import com.shift4.data.api.Status
+import com.shift4.data.model.result.Status
 import com.shift4.data.model.address.Billing
 import com.shift4.data.model.address.Shipping
 import com.shift4.data.model.error.APIError
@@ -25,6 +25,7 @@ internal class CheckoutManager(
     private val repository: SDKRepository,
     internal val emailStorage: EmailStorage,
     private val signature: String,
+    private val packageName: String,
     private val trustedAppStores: List<String>?,
     private val coroutineScope: CoroutineScope
 ) {
@@ -72,7 +73,6 @@ internal class CheckoutManager(
             )
             return
         }
-
         val threeDCheck =
             repository.threeDCheck(
                 token,
@@ -115,6 +115,7 @@ internal class CheckoutManager(
                 threeDCheckData.directoryServerCertificate,
                 threeDCheckData.sdkLicense,
                 signature,
+                packageName,
                 trustedAppStores
             )
             threeDManager.createTransaction(threeDCheckData.version, threeDCheckData.token.brand)
@@ -138,7 +139,7 @@ internal class CheckoutManager(
             }
         } catch (e: Exception) {
             coroutineScope.launch(Dispatchers.Main) { threeDManager.hideProgressDialog() }
-            callback(Result.error(APIError.unknownThreeD))
+            callback(Result.error(APIError.threeD(e)))
             return@pay
         }
 
@@ -260,7 +261,7 @@ internal class CheckoutManager(
         cvc: String? = null,
         sms: SMS? = null,
         customAmount: Int? = null,
-        customCurrency: String? = null,
+        customCurrency: String? = null, 
         shipping: Shipping?,
         billing: Billing?,
         callback: (Result<ChargeResult>) -> Unit

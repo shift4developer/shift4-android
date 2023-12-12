@@ -18,24 +18,22 @@ internal class SwitchComponent @JvmOverloads constructor(
 
     var onCheckedListener: (Boolean) -> Unit = {}
 
-   init {
+    init {
         LayoutInflater.from(context).inflate(R.layout.com_shift4_layout_switch, this, true)
 
-
-        textViewSwitchTitle = findViewById<TextView>(R.id.textViewSwitchTitle)
-        textViewSwitchSubtitle = findViewById<TextView>(R.id.textViewSwitchSubtitle)
-        switchRememberCard = findViewById<SwitchCompat>(R.id.switchRememberCard)
+        textViewSwitchTitle = findViewById(R.id.textViewSwitchTitle)
+        textViewSwitchSubtitle = findViewById(R.id.textViewSwitchSubtitle)
+        switchRememberCard = findViewById(R.id.switchRememberCard)
 
         context.theme.obtainStyledAttributes(
             attrs, R.styleable.Shift4SwitchComponent, 0, 0
         ).apply {
-
             try {
                 textViewSwitchTitle.text = getString(R.styleable.Shift4SwitchComponent_title)
-                val subtitle = getString(R.styleable.Shift4SwitchComponent_subtitle) ?: ""
+                val subtitle = getString(R.styleable.Shift4SwitchComponent_subtitle)
                 textViewSwitchSubtitle.text = subtitle
                 textViewSwitchSubtitle.visibility =
-                    if (subtitle.isEmpty()) View.GONE else View.VISIBLE
+                    if (subtitle == null) View.GONE else View.VISIBLE
             } finally {
                 recycle()
             }

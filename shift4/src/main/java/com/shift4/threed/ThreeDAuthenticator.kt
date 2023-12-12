@@ -8,12 +8,12 @@ import com.shift4.data.repository.SDKRepository
 import com.shift4.utils.fromBase64
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 
 internal class ThreeDAuthenticator(
     private val repository: SDKRepository,
     private val signature: String,
+    private val packageName: String,
     private val trustedAppStores: List<String>?,
     private val activity: Activity,
     private val coroutineScope: CoroutineScope,
@@ -45,6 +45,7 @@ internal class ThreeDAuthenticator(
                 threeDCheckData.directoryServerCertificate,
                 threeDCheckData.sdkLicense,
                 signature,
+                packageName,
                 trustedAppStores
             )
             threeDManager.createTransaction(

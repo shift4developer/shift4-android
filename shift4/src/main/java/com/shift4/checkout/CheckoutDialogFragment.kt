@@ -365,7 +365,7 @@ internal class CheckoutDialogFragment : BottomSheetDialogFragment() {
     }
 
     private fun callback(result: Result<ChargeResult>?) {
-        val checkoutResult = result?.let { CheckoutResult(it.status, it.data, it.error) }
+        val checkoutResult = result?.let { CheckoutResult(it.data, it.error) }
         (activity as? Shift4.CheckoutDialogFragmentResultListener)?.onCheckoutFinish(checkoutResult)
         (activity as? FragmentDismissalListener)?.onDismiss()
     }
