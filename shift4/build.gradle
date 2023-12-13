@@ -40,7 +40,8 @@ android {
             buildConfigField("String", "API_URL", "\"https://api.shift4.com\"")
             buildConfigField("String", "BACKOFFICE_URL", "\"https://dev.shift4.com\"")
 
-            minifyEnabled true
+            minifyEnabled false
+            shrinkResources false
             consumerProguardFiles 'consumer-rules.pro'
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
@@ -50,7 +51,8 @@ android {
             buildConfigField("String", "API_URL", "\"https://api.shift4.com\"")
             buildConfigField("String", "BACKOFFICE_URL", "\"https://dev.shift4.com\"")
 
-            minifyEnabled true
+            minifyEnabled false
+            shrinkResources false
             consumerProguardFiles 'consumer-rules.pro'
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }

@@ -96,6 +96,20 @@ override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) 
     }
 }
 ```
+
+## Testing
+To check the correctness of the integration, we recommend testing with test cards in test mode to simulate successful charges as well as different types of errors. You can find list of card numbers here: https://dev.shift4.com/docs/testing. You can check status of every charge you made here: https://dev.shift4.com/charges.
+
+To test the operation of 3D Secure, use the following cards:
+```
+Frictionless: 4012000100000114
+OTP Challenge: 4016000000000004
+HTML Challenge 4016000000000038
+```
+We strongly recommend that you run these tests on a release-compiled application.
+
+Remember not to make too many requests in a short period of time or you may reach a rate limit. If you reach the limit you have to wait 24h.
+
 #### Saved cards
 
 Checkout View Controller has a feature allowing to remember cards used before. To delete them, use code:
@@ -224,13 +238,6 @@ TextButton(
 ```
 
 That's it. You can launch your app.
-
-
-## Testing
-
-When making requests in test mode you have to use special card numbers to simulate successful charges or processing errors. You can find list of card numbers here: https://dev.shift4.com/docs/testing. You can check status of every charge you made here: https://dev.shift4.com/charges.
-
-Remember not to make too many requests in a short period of time or you may reach a rate limit. If you reach the limit you have to wait 24h.
 
 ## Translations
 
