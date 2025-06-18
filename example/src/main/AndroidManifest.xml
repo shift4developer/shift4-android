@@ -9,6 +9,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SecurionPay">
         <activity
+            android:configChanges="orientation|screenSize|keyboardHidden"
             android:name="com.shift4.example.MainActivity"
             android:exported="true">
             <intent-filter>

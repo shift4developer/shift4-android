@@ -104,9 +104,6 @@ data class APIError(
         @SerializedName("gateway_error")
         GatewayError("gateway_error"),
 
-        @SerializedName("invalid-verification-code")
-        InvalidVerificationCode("invalid-verification-code"),
-
         ThreeDSecure("3d-secure"),
         SDK("sdk"),
 

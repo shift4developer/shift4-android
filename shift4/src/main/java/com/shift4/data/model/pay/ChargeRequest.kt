@@ -1,8 +1,8 @@
 package com.shift4.data.model.pay
 
 import com.google.gson.annotations.SerializedName
-import com.shift4.data.model.address.Billing
-import com.shift4.data.model.address.Shipping
+import com.shift4.response.address.BillingRequest
+import com.shift4.response.address.ShippingRequest
 
 internal data class ChargeRequest(
     @SerializedName("key")
@@ -15,16 +15,10 @@ internal data class ChargeRequest(
     val checkoutRequest: String,
     @SerializedName("email")
     val email: String,
-    @SerializedName("rememberMe")
-    val rememberMe: Boolean,
-    @SerializedName("cvc")
-    val cvc: String?,
-    @SerializedName("verificationSmsId")
-    val verificationSmsId: String?,
     @SerializedName("customAmount")
     val customAmount: Int?,
     @SerializedName("shipping")
-    val shipping: Shipping?,
+    val shippingRequest: ShippingRequest?,
     @SerializedName("billing")
-    val billing: Billing?
+    val billingRequest: BillingRequest?
 )

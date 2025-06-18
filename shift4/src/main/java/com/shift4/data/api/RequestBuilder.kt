@@ -16,6 +16,13 @@ internal class RequestBuilder(
         .addInterceptor(BasicAuthInterceptor(publicKey, authorize))
         .addInterceptor(RefererInterceptor(baseUrl, true))
         .addInterceptor(UserAgentInterceptor())
+        .addInterceptor { chain ->
+            val request = chain.request()
+                .newBuilder()
+                .addHeader("Accept", "*/*")
+                .build()
+            chain.proceed(request)
+        }
         .build()
 
     private val retrofit: Retrofit = Retrofit.Builder()

@@ -1,20 +1,20 @@
 package com.shift4.example
 
 import android.content.Intent
-import android.content.pm.PackageManager
-import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.switchmaterial.SwitchMaterial
 import com.google.android.material.textfield.TextInputEditText
 import com.shift4.Shift4
 import com.shift4.data.model.pay.CheckoutRequest
 import com.shift4.data.model.result.CheckoutResult
+import com.shift4.request.token.TokenRequest
+import kotlinx.coroutines.launch
+
 class MainActivity : AppCompatActivity(), Shift4.CheckoutDialogFragmentResultListener {
     private lateinit var shift4: Shift4
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,7 +22,6 @@ class MainActivity : AppCompatActivity(), Shift4.CheckoutDialogFragmentResultLis
         setContentView(R.layout.activity_main)
 
         shift4 = Shift4(
-            applicationContext,
             findViewById<TextInputEditText>(R.id.textEditPublicKeyCheckout).text.toString(),
             "com.shift4.example",
             listOf("com.google.android.packageinstaller")
@@ -43,13 +42,35 @@ class MainActivity : AppCompatActivity(), Shift4.CheckoutDialogFragmentResultLis
             )
         }
 
-        findViewById<Button>(R.id.buttonCleanSavedCards).setOnClickListener {
-            shift4.cleanSavedCards()
-            Toast.makeText(applicationContext, "Cards cleaned!", Toast.LENGTH_SHORT).show()
-        }
+        findViewById<Button>(R.id.buttonPay).setOnClickListener {
+            shift4.publicKey =
+                findViewById<TextInputEditText>(R.id.textEditPublicKeyCustomForm).text.toString()
 
-        findViewById<TextInputEditText>(R.id.textEditPublicKeyCheckout).setText("pk_test_MMVbA8QlH8Eynb37DHWxX12Z")
-        findViewById<TextInputEditText>(R.id.textEditCheckoutRequest).setText("ZjkyMGE5ODllMWE2MTFlODNlNTMzYzJjMjk5MGE0YmFhMzdkOWIzMjI5NTFmYTMwZjg3OTYxNmQyYzA5OTVkY3x7ImNoYXJnZSI6eyJhbW91bnQiOjEwMCwiY3VycmVuY3kiOiJFVVIifSwidGhyZWVEU2VjdXJlIjp7ImVuYWJsZSI6dHJ1ZSwicmVxdWlyZUVucm9sbGVkQ2FyZCI6dHJ1ZSwicmVxdWlyZVN1Y2Nlc3NmdWxMaWFiaWxpdHlTaGlmdEZvckVucm9sbGVkQ2FyZCI6dHJ1ZX19")
+            val gpToken = findViewById<TextInputEditText>(R.id.textEditGooglePayToken).text.toString().takeIf { it.isNotBlank() }
+
+            val tokenRequest = TokenRequest(
+                number = findViewById<TextInputEditText>(R.id.textEditCardNumber).text.toString().takeIf { it.isNotBlank() },
+                expMonth = findViewById<TextInputEditText>(R.id.textEditExpMonth).text.toString().takeIf { it.isNotBlank() },
+                expYear = findViewById<TextInputEditText>(R.id.textEditExpYear).text.toString().takeIf { it.isNotBlank() },
+                cvc = findViewById<TextInputEditText>(R.id.textEditCVC).text.toString().takeIf { it.isNotBlank() },
+                googlePay = gpToken?.let { googlePayToken -> TokenRequest.GooglePayRequest(googlePayToken) }
+            )
+
+            val isGooglePayFlow = gpToken != null
+
+            lifecycleScope.launch {
+                val token = shift4.createToken(tokenRequest).data!!
+                val authenticatedToken = shift4.authenticate(
+                    token = if (isGooglePayFlow) null else token,
+                    paymentMethod = if (isGooglePayFlow) token else null,
+                    amount = 100,
+                    currency = "USD",
+                    activity = this@MainActivity
+                )
+
+                findViewById<TextView>(R.id.lastTokenIdCustomForm).text = "Last token: " + authenticatedToken.data?.id
+            }
+        }
     }
 
     override fun onCheckoutFinish(result: CheckoutResult?) {
@@ -91,10 +112,5 @@ class MainActivity : AppCompatActivity(), Shift4.CheckoutDialogFragmentResultLis
         if (resultCode == Shift4.SHIFT4_RESULT_CODE) {
             onCheckoutFinish(data?.getSerializableExtra("result") as CheckoutResult?)
         }
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        shift4.cleanUp()
     }
 }

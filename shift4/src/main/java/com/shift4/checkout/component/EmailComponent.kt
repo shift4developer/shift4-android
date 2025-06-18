@@ -13,41 +13,45 @@ import com.shift4.R
 
 
 internal class EmailComponent @JvmOverloads constructor(
-    context: Context,
-    attrs: AttributeSet? = null,
-    defStyleAttr: Int = 0
+    context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : LinearLayout(context, attrs, defStyleAttr) {
-    private var textInputEmail: com.google.android.material.textfield.TextInputEditText
+    private var textInputEmail: TextInputEditText
     private var textViewEmailError: TextView
+    private var textInputName: TextInputEditText
     private var constraintLayoutInputEmail: ConstraintLayout
 
     init {
         LayoutInflater.from(context).inflate(R.layout.com_shift4_layout_email, this, true)
 
-        textInputEmail = findViewById<com.google.android.material.textfield.TextInputEditText>(R.id.textInputEmail)
+        textInputEmail =
+            findViewById<TextInputEditText>(R.id.textInputEmail)
+        textInputName = findViewById<TextInputEditText>(R.id.textInputName)
         textViewEmailError = findViewById<TextView>(R.id.textViewEmailError)
         constraintLayoutInputEmail = findViewById<ConstraintLayout>(R.id.constraintLayoutInputEmail)
 
         textInputEmail.setBackgroundColor(
             context.resources.getColor(
-                android.R.color.transparent,
-                null
+                android.R.color.transparent, null
             )
         )
     }
 
-    private var emailFlag = false
     var emailChangedListener: (String?) -> Unit = {}
+    var nameChangedListener: (String?) -> Unit = {}
     var email: String?
         get() {
             return textInputEmail.text?.toString()
         }
         set(value) {
-            if (!emailFlag) {
-                emailFlag = true
-                textInputEmail.setText(value)
-                emailFlag = false
-            }
+            textInputEmail.setText(value)
+        }
+
+    var name: String?
+        get() {
+            return textInputName.text?.toString()
+        }
+        set(value) {
+            textInputName.setText(value)
         }
 
     var error: String?
@@ -70,24 +74,25 @@ internal class EmailComponent @JvmOverloads constructor(
 
     override fun setEnabled(enabled: Boolean) {
         textInputEmail.isEnabled = enabled
+        textInputName.isEnabled = enabled
     }
 
     override fun isEnabled(): Boolean {
-        return textInputEmail.isEnabled
+        return textInputEmail.isEnabled && textInputName.isEnabled
     }
 
     override fun clearFocus() {
         super.clearFocus()
         textInputEmail.clearFocus()
+        textInputName.clearFocus()
     }
 
     fun initialize() {
         textInputEmail.addTextChangedListener {
-            if (!emailFlag) {
-                emailFlag = true
-                emailChangedListener(it?.toString())
-                emailFlag = false
-            }
+            emailChangedListener(it?.toString())
+        }
+        textInputName.addTextChangedListener {
+            nameChangedListener(it?.toString())
         }
     }
 }

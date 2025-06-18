@@ -241,46 +241,6 @@
         android:orientation="vertical">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayoutInputName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/com_shift4_rounded_edge">
-
-            <com.google.android.material.textfield.TextInputLayout
-                style="?attr/textInputFilledStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                android:backgroundTint="@android:color/transparent"
-                android:hint="@string/com_shift4_name"
-                android:nextFocusLeft="@id/textInputExpiration"
-                android:nextFocusRight="@id/textInputExpiration"
-                android:nextFocusUp="@id/textInputExpiration"
-                android:nextFocusDown="@id/textInputExpiration"
-                android:textColorHint="@color/com_shift4_placeholder"
-                app:boxBackgroundColor="@android:color/transparent"
-                app:boxStrokeWidth="0dp"
-                app:boxStrokeWidthFocused="0dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/textInputName"
-                    style="@style/SecurionPaySDKTextInputStyle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/shift4_font_textedit"
-                    android:imeOptions="actionNext|flagNoExtractUi|flagNoFullscreen"
-                    android:inputType="text"
-                    android:textSize="@dimen/com_shift4_font_size_textedit" />
-            </com.google.android.material.textfield.TextInputLayout>
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/com_shift4_padding_medium" />
-
-        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayoutInputStreet"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

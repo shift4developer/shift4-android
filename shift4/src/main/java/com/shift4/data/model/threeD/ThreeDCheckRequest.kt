@@ -1,16 +1,25 @@
 package com.shift4.data.model.threeD
 
-import com.google.gson.annotations.SerializedName
+
 
 internal data class ThreeDCheckRequest(
-    @SerializedName("amount")
     val amount: Int,
-    @SerializedName("currency")
     val currency: String,
-    @SerializedName("card")
-    val card: String,
-    @SerializedName("paymentUserAgent")
+    val card: String? = null,
+    val paymentMethod: String? = null,
     val paymentUserAgent: String,
-    @SerializedName("platform")
-    val platform: String = "android"
+    val platform: String = "android",
+    val browser: Browser = Browser(),
+    val options: Options
+)
+
+internal data class Browser(
+    val screenColorDepth: Int = 24,
+    val screenWidth: Int = 430,
+    val screenHeight: Int = 932,
+    val timeZone: Int = -120
+)
+
+internal data class Options(
+    val clientAuthRequest: String
 )

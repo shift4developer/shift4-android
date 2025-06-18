@@ -4,7 +4,6 @@ import android.content.res.Resources
 import android.graphics.drawable.Drawable
 import com.google.gson.annotations.SerializedName
 import com.shift4.R
-import com.shift4.data.model.lookup.Card
 import com.shift4.utils.empty
 import com.shift4.utils.sanitized
 
@@ -43,13 +42,6 @@ internal class CreditCard(
         number = number?.sanitized,
         last2 = null,
         last4 = null
-    )
-
-    constructor(card: Card?) : this(
-        type = Type(card?.brand),
-        number = null,
-        last2 = card?.last2,
-        last4 = card?.last4
     )
 
     val numberLength: Int
@@ -115,7 +107,11 @@ internal class CreditCard(
         return when (type) {
             Type.VISA -> resources.getDrawable(R.drawable.com_shift4_ic_logo_visa, null)
             Type.MASTERCARD -> resources.getDrawable(R.drawable.com_shift4_ic_logo_mastercard, null)
-            Type.AMERICAN_EXPRESS -> resources.getDrawable(R.drawable.com_shift4_ic_logo_americanexpress, null)
+            Type.AMERICAN_EXPRESS -> resources.getDrawable(
+                R.drawable.com_shift4_ic_logo_americanexpress,
+                null
+            )
+
             Type.DISCOVER -> resources.getDrawable(R.drawable.com_shift4_ic_logo_discover, null)
             Type.UNKNOWN -> resources.getDrawable(R.drawable.com_shift4_ic_unknown_card, null)
             Type.DINERS -> resources.getDrawable(R.drawable.com_shift4_ic_logo_diners, null)
@@ -150,9 +146,11 @@ internal class CreditCard(
                 last2 != null -> {
                     "•".repeat(numberLength - 2) + last2
                 }
+
                 last4 != null -> {
                     "•".repeat(numberLength - 4) + last4
                 }
+
                 else -> {
                     "•".repeat(numberLength)
                 }
@@ -187,27 +185,32 @@ internal fun CreditCard.Type.validationRegex(): ValidationRegex {
             2..4,
             listOf(51..55, 2221..2720)
         )
+
         CreditCard.Type.AMERICAN_EXPRESS -> ValidationRegex(
             CreditCard.Type.AMERICAN_EXPRESS,
             2..2,
             listOf(34..34, 37..37)
         )
+
         CreditCard.Type.DISCOVER -> ValidationRegex(
             CreditCard.Type.DISCOVER,
             2..2,
             listOf(60..60, 64..65)
         )
+
         CreditCard.Type.UNKNOWN -> ValidationRegex.unknown
         CreditCard.Type.DINERS -> ValidationRegex(
             CreditCard.Type.DINERS,
             2..3,
             listOf(300..305, 309..309, 36..36, 38..39)
         )
+
         CreditCard.Type.JCB -> ValidationRegex(
             CreditCard.Type.JCB,
             4..4,
             listOf(2131..2131, 1800..1800, 3528..3689)
         )
+
         CreditCard.Type.MAESTRO -> ValidationRegex(CreditCard.Type.MAESTRO, 2..2, listOf(67..67))
     }
 }

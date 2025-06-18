@@ -9,42 +9,41 @@ import android.widget.TextView
 import androidx.core.widget.addTextChangedListener
 import com.google.android.material.textfield.TextInputEditText
 import com.shift4.R
-import com.shift4.data.model.address.Address
-import com.shift4.data.model.address.Billing
-import com.shift4.data.model.address.Shipping
+import com.shift4.request.address.AddressRequest
+import com.shift4.response.address.BillingRequest
+import com.shift4.response.address.ShippingRequest
 
 
 internal class AddressComponent @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : LinearLayout(context, attrs, defStyleAttr) {
-    private var textInputName:TextInputEditText
-    private var textInputStreet:TextInputEditText
-    private var textInputZip:TextInputEditText
-    private var textInputCity:TextInputEditText
-    private var textInputCountry :com.hbb20.CountryCodePicker
-    private var textInputVat:TextInputEditText
+    private var textInputStreet: TextInputEditText
+    private var textInputZip: TextInputEditText
+    private var textInputCity: TextInputEditText
+    private var textInputCountry: com.hbb20.CountryCodePicker
+    private var textInputVat: TextInputEditText
 
-    private var textInputShippingName :TextInputEditText
-    private var textInputShippingStreet:TextInputEditText
-    private var textInputShippingZip :TextInputEditText
-    private var textInputShippingCity :TextInputEditText
-    private var textInputShippingCountry :com.hbb20.CountryCodePicker
+    private var textInputShippingName: TextInputEditText
+    private var textInputShippingStreet: TextInputEditText
+    private var textInputShippingZip: TextInputEditText
+    private var textInputShippingCity: TextInputEditText
+    private var textInputShippingCountry: com.hbb20.CountryCodePicker
 
-    private var sameShippingSwitchComponent : SwitchComponent
-    private var textViewShippingAddress : TextView
-    private var textViewBillingAddress :TextView
+    private var sameShippingSwitchComponent: SwitchComponent
+    private var textViewShippingAddress: TextView
+    private var textViewBillingAddress: TextView
     private var linearLayoutShippingSection: LinearLayout
     private var linearLayoutAddress: LinearLayout
 
-    var onAddressUpdated: (shipping: Shipping?, billing: Billing?) -> Unit = { _, _ -> }
+    var onAddressUpdated: (shippingRequest: ShippingRequest?, billingRequest: BillingRequest?) -> Unit =
+        { _, _ -> }
 
     private var shouldCollectShipping = false
     private var shouldCollectBilling = false
 
-  init {
+    init {
         LayoutInflater.from(context).inflate(R.layout.com_shift4_layout_address, this, true)
 
-        textInputName = findViewById<TextInputEditText>(R.id.textInputName)
         textInputStreet = findViewById<TextInputEditText>(R.id.textInputStreet)
         textInputZip = findViewById<TextInputEditText>(R.id.textInputZip)
         textInputCity = findViewById<TextInputEditText>(R.id.textInputCity)
@@ -52,8 +51,7 @@ internal class AddressComponent @JvmOverloads constructor(
         textInputVat = findViewById<TextInputEditText>(R.id.textInputVat)
 
         textInputShippingName = findViewById<TextInputEditText>(R.id.textInputShippingName)
-        textInputShippingStreet =
-            findViewById<TextInputEditText>(R.id.textInputShippingStreet)
+        textInputShippingStreet = findViewById<TextInputEditText>(R.id.textInputShippingStreet)
         textInputShippingZip = findViewById<TextInputEditText>(R.id.textInputShippingZip)
         textInputShippingCity = findViewById<TextInputEditText>(R.id.textInputShippingCity)
         textInputShippingCountry =
@@ -62,38 +60,35 @@ internal class AddressComponent @JvmOverloads constructor(
         sameShippingSwitchComponent =
             findViewById<SwitchComponent>(R.id.sameShippingSwitchComponent)
         textViewShippingAddress = findViewById<TextView>(R.id.textViewShippingAddress)
-        textViewBillingAddress = findViewById<TextView>(R.id.textViewBillingAddress)
-        linearLayoutShippingSection =
-            findViewById<LinearLayout>(R.id.linearLayoutShippingSection)
+        textViewBillingAddress = findViewById(R.id.textViewBillingAddress)
+        linearLayoutShippingSection = findViewById<LinearLayout>(R.id.linearLayoutShippingSection)
         linearLayoutAddress = findViewById<LinearLayout>(R.id.linearLayoutAddress)
     }
 
-    var billing: Billing?
+    var billingRequest: BillingRequest?
         get() {
-            val name = textInputName.text.toString()
             val street = textInputStreet.text.toString()
             val zip = textInputZip.text.toString()
             val city = textInputCity.text.toString()
             val country = textInputCountry.selectedCountryNameCode
             val vat = textInputVat.text.toString()
 
-            return if (name.isNotEmpty() && street.isNotEmpty() && zip.isNotEmpty() && city.isNotEmpty() && country != null) {
-                Billing(name, Address(street, zip, city, country), vat)
+            return if (street.isNotEmpty() && zip.isNotEmpty() && city.isNotEmpty() && country != null) {
+                BillingRequest(null, AddressRequest(street, null, zip, city, country), vat)
             } else {
                 null
             }
         }
         set(value) {
             if (value != null) {
-                textInputName.setText(value.name)
-                textInputStreet.setText(value.address.line1)
-                textInputZip.setText(value.address.zip)
-                textInputCity.setText(value.address.city)
+                textInputStreet.setText(value.address?.line1)
+                textInputZip.setText(value.address?.zip)
+                textInputCity.setText(value.address?.city)
 //            textInputCountry.cpViewHelper.selectedCountry = value.address.country
                 textInputVat.setText(value.vat)
             }
         }
-    var shipping: Shipping?
+    var shippingRequest: ShippingRequest?
         get() {
             val name = textInputShippingName.text.toString()
             val street = textInputShippingStreet.text.toString()
@@ -102,11 +97,11 @@ internal class AddressComponent @JvmOverloads constructor(
             val country = textInputShippingCountry.selectedCountryNameCode
 
             return if (sameAddress) {
-                billing?.let {
-                    Shipping(it.name, it.address)
+                billingRequest?.let {
+                    ShippingRequest(it.name, it.address)
                 }
             } else if (name.isNotEmpty() && street.isNotEmpty() && zip.isNotEmpty() && city.isNotEmpty() && country != null) {
-                Shipping(name, Address(street, zip, city, country))
+                ShippingRequest(name, AddressRequest(street, null, zip, city, country))
             } else {
                 null
             }
@@ -114,9 +109,9 @@ internal class AddressComponent @JvmOverloads constructor(
         set(value) {
             if (value != null) {
                 textInputShippingName.setText(value.name)
-                textInputShippingStreet.setText(value.address.line1)
-                textInputShippingZip.setText(value.address.zip)
-                textInputShippingCity.setText(value.address.city)
+                textInputShippingStreet.setText(value.address?.line1)
+                textInputShippingZip.setText(value.address?.zip)
+                textInputShippingCity.setText(value.address?.city)
 //            textInputCountry.cpViewHelper.selectedCountry = value.address.country
             }
         }
@@ -134,11 +129,10 @@ internal class AddressComponent @JvmOverloads constructor(
                 textViewBillingAddress.visibility = View.VISIBLE
                 linearLayoutShippingSection.visibility = View.VISIBLE
             }
-            onAddressUpdated(shipping, billing)
+            onAddressUpdated(shippingRequest, billingRequest)
         }
 
         listOf(
-            textInputName,
             textInputStreet,
             textInputZip,
             textInputCity,
@@ -150,13 +144,21 @@ internal class AddressComponent @JvmOverloads constructor(
         ).forEach {
             it.setBackgroundColor(context.resources.getColor(android.R.color.transparent, null))
             it.addTextChangedListener {
-                onAddressUpdated(shipping, billing)
+                onAddressUpdated(shippingRequest, billingRequest)
             }
         }
         textInputCountry.setCountryForNameCode("US")
         textInputShippingCountry.setCountryForNameCode("US")
-        textInputCountry.setOnCountryChangeListener { onAddressUpdated(shipping, billing) }
-        textInputShippingCountry.setOnCountryChangeListener { onAddressUpdated(shipping, billing) }
+        textInputCountry.setOnCountryChangeListener {
+            onAddressUpdated(
+                shippingRequest, billingRequest
+            )
+        }
+        textInputShippingCountry.setOnCountryChangeListener {
+            onAddressUpdated(
+                shippingRequest, billingRequest
+            )
+        }
     }
 
     fun setup(shipping: Boolean, billing: Boolean) {
@@ -179,7 +181,6 @@ internal class AddressComponent @JvmOverloads constructor(
     }
 
     override fun setEnabled(enabled: Boolean) {
-        textInputName.isEnabled = enabled
         textInputStreet.isEnabled = enabled
         textInputZip.isEnabled = enabled
         textInputCity.isEnabled = enabled

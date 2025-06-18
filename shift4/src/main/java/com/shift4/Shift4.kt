@@ -1,7 +1,6 @@
 package com.shift4
 
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.annotation.DrawableRes
@@ -9,33 +8,36 @@ import androidx.annotation.Keep
 import androidx.appcompat.app.AppCompatActivity
 import com.shift4.checkout.CheckoutDialogFragment
 import com.shift4.checkout.TransparentActivity
-import com.shift4.data.model.result.Status
+import com.shift4.data.api.Result
 import com.shift4.data.model.error.APIError
 import com.shift4.data.model.pay.CheckoutRequest
 import com.shift4.data.model.result.CheckoutResult
 import com.shift4.data.repository.SDKRepository
+import com.shift4.request.token.TokenRequest
+import com.shift4.response.token.Token
 import com.shift4.threed.ThreeDAuthenticator
-import com.shift4.utils.EmailStorage
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.cancel
 
 
 class Shift4(
-    context: Context,
-    var publicKey: String,
+    publicKey: String,
     var packageName: String,
     private val trustedAppStores: List<String>? = null
 ) {
     @Keep
     companion object {
-        @Keep const val SHIFT4_RESULT_CODE = 7080
+        @Keep
+        const val SHIFT4_RESULT_CODE = 7080
     }
 
-    internal val repository = SDKRepository(this)
-    internal val emailStorage = EmailStorage(context)
-    private var threeDAuthenticator: ThreeDAuthenticator? = null
-    private val coroutineScope = CoroutineScope(Job())
+    var publicKey: String = publicKey
+        set(value) {
+            field = value
+            threeDAuthenticator = ThreeDAuthenticator(value)
+            repository = SDKRepository(value)
+        }
+
+    private var threeDAuthenticator: ThreeDAuthenticator = ThreeDAuthenticator(publicKey)
+    internal var repository = SDKRepository(publicKey)
 
     interface CheckoutDialogFragmentResultListener {
         fun onCheckoutFinish(result: CheckoutResult?)
@@ -54,27 +56,7 @@ class Shift4(
         if (!checkoutRequest.correct) {
             activity.onCheckoutFinish(
                 CheckoutResult(
-                    null,
-                    APIError.invalidCheckoutRequest
-                )
-            )
-            return
-        }
-
-        if (checkoutRequest.termsAndConditions != null) {
-            activity.onCheckoutFinish(
-                CheckoutResult(
-                    null,
-                    APIError.unsupportedValue("termsAndConditions")
-                )
-            )
-            return
-        }
-        if (checkoutRequest.crossSaleOfferIds != null) {
-            activity.onCheckoutFinish(
-                CheckoutResult(
-                    null,
-                    APIError.unsupportedValue("crossSaleOfferIds")
+                    null, APIError.invalidCheckoutRequest
                 )
             )
             return
@@ -124,11 +106,25 @@ class Shift4(
         }
     }
 
-    fun cleanSavedCards() {
-        emailStorage.cleanSavedEmails()
+    suspend fun createToken(tokenRequest: TokenRequest): Result<Token> {
+        return repository.createToken(tokenRequest)
     }
 
-    fun cleanUp() {
-        coroutineScope.cancel()
+    suspend fun authenticate(
+        token: Token?,
+        paymentMethod: Token?,
+        amount: Int,
+        currency: String,
+        activity: AppCompatActivity
+    ): Result<Token> {
+        if (token == null && paymentMethod == null) {
+            return Result.error(APIError(message = "Token or payment method must be passed."))
+        }
+
+        if (token != null && paymentMethod != null) {
+            return Result.error(APIError(message = "Cannot pass both token and payment method."))
+        }
+
+        return threeDAuthenticator.authenticate(token, paymentMethod, amount, currency, activity)
     }
 }

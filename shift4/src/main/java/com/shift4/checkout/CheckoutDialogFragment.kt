@@ -3,8 +3,6 @@ package com.shift4.checkout
 import android.app.Activity
 import android.content.DialogInterface
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -27,8 +25,6 @@ import com.shift4.checkout.component.AddressComponent
 import com.shift4.checkout.component.ButtonComponent
 import com.shift4.checkout.component.CardComponent
 import com.shift4.checkout.component.EmailComponent
-import com.shift4.checkout.component.SMSComponent
-import com.shift4.checkout.component.SwitchComponent
 import com.shift4.data.api.Result
 import com.shift4.data.model.pay.ChargeResult
 import com.shift4.data.model.result.CheckoutResult
@@ -42,12 +38,10 @@ internal class CheckoutDialogFragment : BottomSheetDialogFragment() {
     private lateinit var imageViewMerchantLogo: ImageView
     private lateinit var emailComponent: EmailComponent
     private lateinit var cardComponent: CardComponent
-    private lateinit var smsComponent: SMSComponent
     private lateinit var addressComponent: AddressComponent
     private lateinit var viewButtonSeparator: View
     private lateinit var textViewAdditionalButtonInfo: TextView
     private lateinit var buttonComponent: ButtonComponent
-    private lateinit var rememberSwitchComponent: SwitchComponent
     private lateinit var recyclerViewDonation: RecyclerView
     private lateinit var progressIndicator: ProgressBar
     private lateinit var textViewError: TextView
@@ -67,12 +61,10 @@ internal class CheckoutDialogFragment : BottomSheetDialogFragment() {
         imageViewMerchantLogo = rootView.findViewById(R.id.imageViewMerchantLogo)
         emailComponent = rootView.findViewById(R.id.emailComponent)
         cardComponent = rootView.findViewById(R.id.cardComponent)
-        smsComponent = rootView.findViewById(R.id.smsComponent)
         addressComponent = rootView.findViewById(R.id.addressComponent)
         viewButtonSeparator = rootView.findViewById(R.id.viewButtonSeparator)
         textViewAdditionalButtonInfo = rootView.findViewById(R.id.textViewAdditionalButtonInfo)
         buttonComponent = rootView.findViewById(R.id.buttonComponent)
-        rememberSwitchComponent = rootView.findViewById(R.id.rememberSwitchComponent)
         recyclerViewDonation = rootView.findViewById(R.id.recyclerViewDonation)
         progressIndicator = rootView.findViewById(R.id.progressIndicator)
         textViewError = rootView.findViewById(R.id.textViewError)
@@ -103,13 +95,12 @@ internal class CheckoutDialogFragment : BottomSheetDialogFragment() {
         }
 
         emailComponent.emailChangedListener = viewModel::onEmailChange
+        emailComponent.nameChangedListener = viewModel::onNameChange
         cardComponent.cardChangedListener = viewModel::onCardChange
         cardComponent.expirationChangedListener = viewModel::onExpChange
         cardComponent.cvcChangedListener = viewModel::onCvcChange
-        smsComponent.smsEnteredListener = viewModel::onSmsEntered
         addressComponent.onAddressUpdated = viewModel::onAddressEntered
         buttonComponent.onClickListener = { viewModel.onClickButton(requireActivity()) }
-        rememberSwitchComponent.onCheckedListener = viewModel::onRememberSwitchChange
 
         viewModel.emailValue.observe(viewLifecycleOwner) {
             emailComponent.email = it
@@ -127,20 +118,12 @@ internal class CheckoutDialogFragment : BottomSheetDialogFragment() {
             cardComponent.cvc = it
         }
 
-        viewModel.billingValue.observe(viewLifecycleOwner) {
-            addressComponent.billing = it
+        viewModel.billingRequestValue.observe(viewLifecycleOwner) {
+            addressComponent.billingRequest = it
         }
 
-        viewModel.shippingValue.observe(viewLifecycleOwner) {
-            addressComponent.shipping = it
-        }
-
-        viewModel.rememberValue.observe(viewLifecycleOwner) {
-            rememberSwitchComponent.checked = it
-        }
-
-        viewModel.isRememberSwitchComponentEnabled.observe(viewLifecycleOwner) {
-            rememberSwitchComponent.isEnabled = it
+        viewModel.shippingRequestValue.observe(viewLifecycleOwner) {
+            addressComponent.shippingRequest = it
         }
 
         viewModel.isAddressComponentVisible.observe(viewLifecycleOwner) {
@@ -185,40 +168,7 @@ internal class CheckoutDialogFragment : BottomSheetDialogFragment() {
             cardComponent.setCreditCard(it.first, it.second)
         }
 
-        viewModel.isSmsComponentVisible.observe(viewLifecycleOwner) {
-            smsComponent.visibility = if (it) View.VISIBLE else View.GONE
-        }
-
-        viewModel.isSmsComponentFocused.observe(viewLifecycleOwner) {
-            if (it) {
-                Handler(Looper.getMainLooper()).postDelayed(
-                    {
-                        smsComponent.focus()
-                        showKeyboard()
-                    },
-                    100,
-                )
-                smsComponent.clean()
-            }
-        }
-
-        viewModel.isSmsComponentError.observe(viewLifecycleOwner) {
-            if (it) {
-                smsComponent.blinkError()
-            }
-        }
-
-        viewModel.isSwitchVisible.observe(viewLifecycleOwner) {
-            if (it) {
-                (viewButtonSeparator.layoutParams as ViewGroup.MarginLayoutParams).topMargin =
-                    0
-                rememberSwitchComponent.visibility = View.VISIBLE
-            } else {
-                (viewButtonSeparator.layoutParams as ViewGroup.MarginLayoutParams).topMargin =
-                    64
-                rememberSwitchComponent.visibility = View.GONE
-            }
-        }
+        (viewButtonSeparator.layoutParams as ViewGroup.MarginLayoutParams).topMargin = 64
 
         viewModel.isEmailComponentVisible.observe(viewLifecycleOwner) {
             emailComponent.visibility = if (it) View.VISIBLE else View.GONE
@@ -336,10 +286,6 @@ internal class CheckoutDialogFragment : BottomSheetDialogFragment() {
         cardComponent.initialize()
     }
 
-    override fun onDismiss(dialog: DialogInterface) {
-        super.onDismiss(dialog)
-        viewModel.checkoutManager.threeDManager.closeTransaction()
-    }
 
     override fun onCancel(dialog: DialogInterface) {
         super.onCancel(dialog)
@@ -350,7 +296,6 @@ internal class CheckoutDialogFragment : BottomSheetDialogFragment() {
     private fun hideKeyboard() {
         view?.also { view ->
             cardComponent.clearFocus()
-            smsComponent.clearFocus()
             emailComponent.clearFocus()
             addressComponent.clearFocus()
 

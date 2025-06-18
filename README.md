@@ -97,6 +97,48 @@ override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) 
 }
 ```
 
+### Custom form with 3D-secure
+
+With custom form you can create a token and decorate it with 3D-secure authorization result.
+```kotlin
+ lifecycleScope.launch {
+    val tokenRequest = TokenRequest(
+        number = "4242424242424242",
+        expMonth = "12",
+        expYear = "2060",
+        cvc = "123"
+    )
+     
+     val token = shift4.createToken(tokenRequest).data!!
+     val authenticatedToken = shift4.authenticate(
+         token = token,
+         amount = 100,
+         currency = "USD",
+         activity = this@MainActivity
+     )
+ }
+```
+
+### Google Pay with 3D-secure
+
+When using Google Pay, you use a Google Pay token to create a Shift4 token and decorate it with 3D-secure authorization result. Please use Google Pay token "as is" without parsing it or decoding on your side.
+```kotlin
+ lifecycleScope.launch {
+    val tokenRequest = TokenRequest(
+        googlePay = TokenRequest.GooglePayRequest(GOOGLE_PAY_TOKEN)
+    )
+     
+     val token = shift4.createToken(tokenRequest).data!!
+     val authenticatedToken = shift4.authenticate(
+         paymentMethod = token,
+         amount = 100,
+         currency = "USD",
+         activity = this@MainActivity
+     )
+ }
+
+```
+
 ## Testing
 To check the correctness of the integration, we recommend testing with test cards in test mode to simulate successful charges as well as different types of errors. You can find list of card numbers here: https://dev.shift4.com/docs/testing. You can check status of every charge you made here: https://dev.shift4.com/charges.
 
@@ -104,25 +146,22 @@ To test the operation of 3D Secure, use the following cards:
 ```
 Frictionless: 4012000100000114
 OTP Challenge: 4016000000000004
-HTML Challenge 4016000000000038
 ```
 We strongly recommend that you run these tests on a release-compiled application.
 
-Remember not to make too many requests in a short period of time or you may reach a rate limit. If you reach the limit you have to wait 24h.
-
-#### Saved cards
-
-Checkout View Controller has a feature allowing to remember cards used before. To delete them, use code:
-
-```kotlin
-shift4.cleanSavedCards()
+To test Google Pay, use Google Pay testing tokens:
 ```
+Needs 3DS: PAN_ONLY
+Without 3DS: CRYPTOGRAM_3DS
+```
+
+Remember not to make too many requests in a short period of time or you may reach a rate limit. If you reach the limit you have to wait 24h.
 
 #### Possible errors
 
 | Type          | Code                      | Message                                                | Explanation                                                  |
 | ------------- | ------------------------- | ------------------------------------------------------ | ------------------------------------------------------------ |
-| .sdk          | .unsupportedValue         | "Unsupported value: \(value)"                          | Framework does not accept Checkout Request fields: **termsAndConditionsUrl**, **customerId**, **crossSaleOfferIds**. |
+| .sdk          | .unsupportedValue         | "Unsupported value: \(value)"                          |                                                              | 
 | .sdk          | .incorrectCheckoutRequest | "Incorrect checkout request"                           | Checkout Request looks corrupted. Make sure you created it according to documentation. |
 | .threeDSecure | .unknown                  | "Unknown 3D Secure Error. Check your SDK integration." |                                                              |
 | .threeDSecure | .deviceJailbroken         | "The device is jailbroken."                            |                                                              |

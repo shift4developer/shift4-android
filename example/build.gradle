@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace 'com.shift4.example'
-    compileSdkVersion 33
+    compileSdkVersion 34
     buildToolsVersion "30.0.3"
 
     defaultConfig {
@@ -67,6 +67,7 @@ dependencies {
     
     implementation 'com.google.android.material:material:1.9.0'
     implementation 'androidx.core:core-ktx:1.9.0'
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.7.0"
 }
 
 if (project.file("src/androidTest/dependencies.gradle").exists()) {

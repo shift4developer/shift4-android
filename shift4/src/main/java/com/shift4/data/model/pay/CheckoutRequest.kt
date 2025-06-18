@@ -37,11 +37,6 @@ data class CheckoutRequest(@SerializedName("content") internal val content: Stri
             )
         }
 
-    internal val rememberMe: Boolean
-        get() {
-            return checkoutRequestContent.rememberMe ?: false
-        }
-
     internal val termsAndConditions: String?
         get() {
             return checkoutRequestContent.termsAndConditionsUrl
@@ -50,11 +45,6 @@ data class CheckoutRequest(@SerializedName("content") internal val content: Stri
     internal val customerId: String?
         get() {
             return checkoutRequestContent.customerId
-        }
-
-    internal val crossSaleOfferIds: Array<String>?
-        get() {
-            return checkoutRequestContent.crossSaleOfferIds
         }
 
     internal val donations: List<Donation>?

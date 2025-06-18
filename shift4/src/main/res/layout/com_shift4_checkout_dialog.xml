@@ -61,11 +61,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/com_shift4_padding_big" />
 
-            <com.shift4.checkout.component.SMSComponent
-                android:id="@+id/smsComponent"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
             <com.shift4.checkout.component.CardComponent
                 android:id="@+id/cardComponent"
                 android:layout_width="match_parent"
@@ -86,13 +81,6 @@
                 android:layout_height="1dp"
                 android:paddingBottom="@dimen/com_shift4_padding_huge"
                 android:background="@color/com_shift4_separator" />
-
-            <com.shift4.checkout.component.SwitchComponent
-                app:title="@string/com_shift4_save_for_future_payments"
-                app:subtitle="@string/com_shift4_shift4_safely_stores"
-                android:id="@+id/rememberSwitchComponent"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
 
             <Space
                 android:layout_width="wrap_content"

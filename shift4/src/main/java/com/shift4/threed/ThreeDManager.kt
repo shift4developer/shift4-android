@@ -57,7 +57,6 @@ internal class ThreeDManager : ChallengeStatusReceiver {
         activity: Activity,
         cardBrand: String,
         certificate: DirectoryServerCertificate,
-        sdkLicense: String,
         signature: String,
         packageName: String,
         trustedAppStores: List<String>?

@@ -11,5 +11,10 @@
             android:excludeFromRecents="true"
             android:taskAffinity=""
             android:launchMode="singleInstance"/>
+
+        <activity
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:name="com.shift4.checkout.ThreeDSActivity"
+            android:exported="false" />
     </application>
 </manifest>
