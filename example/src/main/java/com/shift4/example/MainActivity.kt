@@ -21,11 +21,7 @@ class MainActivity : AppCompatActivity(), Shift4.CheckoutDialogFragmentResultLis
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        shift4 = Shift4(
-            findViewById<TextInputEditText>(R.id.textEditPublicKeyCheckout).text.toString(),
-            "com.shift4.example",
-            listOf("com.google.android.packageinstaller")
-        )
+        shift4 = Shift4(findViewById<TextInputEditText>(R.id.textEditPublicKeyCheckout).text.toString())
 
         findViewById<Button>(R.id.buttonPaymentDialog).setOnClickListener {
             shift4.publicKey =

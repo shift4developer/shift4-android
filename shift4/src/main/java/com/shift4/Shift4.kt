@@ -19,9 +19,7 @@ import com.shift4.threed.ThreeDAuthenticator
 
 
 class Shift4(
-    publicKey: String,
-    var packageName: String,
-    private val trustedAppStores: List<String>? = null
+    publicKey: String
 ) {
     @Keep
     companion object {
@@ -65,7 +63,6 @@ class Shift4(
         val arguments = Bundle().apply {
             putString("checkoutRequest", checkoutRequest.content)
             putString("publicKey", publicKey)
-            putString("packageName", packageName)
             putString("merchantName", merchantName)
             putString("description", description)
             putBoolean("collectShippingAddress", collectShippingAddress)
@@ -76,7 +73,6 @@ class Shift4(
                     putString("initialEmail", it)
                 }
             }
-            trustedAppStores?.let { putStringArray("trustedAppStores", it.toTypedArray()) }
         }
 
         if (activity is AppCompatActivity) {
@@ -88,7 +84,6 @@ class Shift4(
             intent.apply {
                 putExtra("checkoutRequest", checkoutRequest.content)
                 putExtra("publicKey", publicKey)
-                putExtra("packageName", packageName)
                 putExtra("merchantName", merchantName)
                 putExtra("description", description)
                 putExtra("collectShippingAddress", collectShippingAddress)
@@ -99,7 +94,6 @@ class Shift4(
                         putExtra("initialEmail", it)
                     }
                 }
-                trustedAppStores?.let { putExtra("trustedAppStores", it.toTypedArray()) }
             }
 
             activity.startActivityForResult(intent, 0)

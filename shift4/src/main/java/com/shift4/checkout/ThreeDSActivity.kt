@@ -7,6 +7,7 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.activity.addCallback
 import androidx.appcompat.app.AppCompatActivity
+import com.shift4.BuildConfig
 import org.json.JSONObject
 
 class ThreeDSActivity : AppCompatActivity() {
@@ -44,7 +45,7 @@ class ThreeDSActivity : AppCompatActivity() {
             }
         }
 
-        webView.loadUrl("https://js.dev.shift4.com/3ds-android.html")
+        webView.loadUrl("${BuildConfig.JS_URL}/3ds-android.html")
     }
 
     inner class JSBridge {

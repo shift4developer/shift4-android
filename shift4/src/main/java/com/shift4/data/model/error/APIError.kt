@@ -3,9 +3,6 @@ package com.shift4.data.model.error
 import android.content.Context
 import com.google.gson.annotations.SerializedName
 import com.shift4.R
-import com.shift4.threedsecure.pub.ProtocolErrorEvent
-import com.shift4.threedsecure.pub.RuntimeErrorEvent
-import com.shift4.threedsecure.pub.Warning
 import java.io.Serializable
 
 data class APIError(
@@ -35,18 +32,6 @@ data class APIError(
             e.message
         )
 
-        fun protocolThreeD(e: ProtocolErrorEvent): APIError = APIError(
-            Type.ThreeDSecure,
-            Code.Unknown,
-            e.errorMessage.errorDescription
-        )
-
-        fun runtimeThreeD(e: RuntimeErrorEvent): APIError = APIError(
-            Type.ThreeDSecure,
-            Code.Unknown,
-            e.getErrorMessage()
-        )
-
         val invalidCheckoutRequest: APIError = APIError(
             Type.InvalidRequest,
             Code.InvalidCheckoutRequest,
@@ -64,16 +49,6 @@ data class APIError(
             Code.UnsupportedValue,
             "Unsupported value: $value"
         )
-
-        fun threeDError(warning: Warning): APIError {
-            return when (warning.id) {
-                "SW01" -> APIError(Type.ThreeDSecure, Code.DeviceJailbroken, warning.message)
-                "SW02" -> APIError(Type.ThreeDSecure, Code.IntegrityTampered, warning.message)
-                "SW03" -> APIError(Type.ThreeDSecure, Code.Simulator, warning.message)
-                "SW05" -> APIError(Type.ThreeDSecure, Code.OSNotSupported, warning.message)
-                else -> APIError.unknownThreeD
-            }
-        }
 
         val enrolledCardIsRequired: APIError = APIError(
             Type.InvalidRequest,

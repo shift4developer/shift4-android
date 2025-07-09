@@ -22,7 +22,7 @@ Add `shift4-android` to your `build.gradle` dependencies.
 
 ```
 dependencies {
-    implementation 'com.shift4:shift4-android:1.1.0'
+    implementation 'com.shift4:shift4-android:1.4.0'
 }
 ```
 
@@ -38,9 +38,7 @@ If you are installing an app from a store other than the Play Store, enter its I
 
 ```kotlin
 val publicKey = "pk_test_..."
-val trustedAppStores = listOf("com.google.android.packageinstaller") // Firebase App Distribution
-val appIdentifier = "com.shift4.example"
-shift4 = Shift4(applicationContext, publicKey, appIdentifier, trustedAppStores)
+shift4 = Shift4(publicKey)
 ```
 
 Remember to clean up the library in onDestroy method:

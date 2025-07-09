@@ -7,6 +7,7 @@ import com.google.gson.Gson
 import com.shift4.checkout.ThreeDSActivity
 import com.shift4.checkout.ThreeDSResultHolder
 import com.shift4.data.api.Result
+import com.shift4.response.token.GooglePayAuthMethod
 import com.shift4.response.token.Token
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlin.coroutines.resume
@@ -17,6 +18,11 @@ internal class ThreeDAuthenticator(
     suspend fun authenticate(
         token: Token?, paymentMethod: Token?, amount: Int, currency: String, activity: Activity
     ): Result<Token> = suspendCancellableCoroutine { cont ->
+        if (paymentMethod?.googlePay?.authMethod == GooglePayAuthMethod.CRYPTOGRAM_3DS) {
+            cont.resume(Result.success(paymentMethod))
+            return@suspendCancellableCoroutine
+        }
+
         ThreeDSResultHolder.callback = {
             val result = Gson().fromJson(it, ThreeDSecureResult::class.java)
             cont.resume(Result.success(result.result))

@@ -12,5 +12,10 @@ data class Token(
     val cardholder: String?,
     val brand: String,
     val type: String,
-    val threeDSecureInfo: ThreeDInfo?
-)
+    val threeDSecureInfo: ThreeDInfo?,
+    val googlePay: GooglePay
+) {
+    data class GooglePay(
+        val authMethod: GooglePayAuthMethod?
+    )
+}
