@@ -1,24 +1,26 @@
 package com.shift4.data.repository
 
 import com.shift4.BuildConfig
-import com.shift4.Shift4
 import com.shift4.data.api.APIService
 import com.shift4.data.api.RequestBuilder
 import com.shift4.data.api.Result
-import com.shift4.response.address.BillingRequest
-import com.shift4.response.address.ShippingRequest
 import com.shift4.data.model.checkoutRequestDetails.CheckoutDetailsRequest
 import com.shift4.data.model.checkoutRequestDetails.CheckoutRequestDetails
 import com.shift4.data.model.pay.ChargeRequest
 import com.shift4.data.model.pay.ChargeResult
 import com.shift4.data.model.pay.CheckoutRequest
 import com.shift4.data.model.threeD.*
-import com.shift4.response.token.Token
 import com.shift4.request.token.TokenRequest
+import com.shift4.response.address.BillingRequest
+import com.shift4.response.address.ShippingRequest
+import com.shift4.response.token.Token
 import com.shift4.utils.UserAgentGenerator
 import com.shift4.utils.base64
 
-internal class SDKRepository(val publicKey: String) {
+internal class SDKRepository(
+    val publicKey: String,
+    val merchantId: String?,
+) {
     private val responseHandler = ResponseHandler()
 
     suspend fun createToken(tokenRequest: TokenRequest): Result<Token> {
@@ -127,7 +129,7 @@ internal class SDKRepository(val publicKey: String) {
     }
 
     private fun service(url: String, authorize: Boolean): APIService {
-        val requestBuilder = RequestBuilder(publicKey, url, authorize)
+        val requestBuilder = RequestBuilder(publicKey, merchantId, url, authorize)
         return requestBuilder.buildService(APIService::class.java)
     }
 }

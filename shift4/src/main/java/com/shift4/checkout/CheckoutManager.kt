@@ -31,7 +31,7 @@ internal class CheckoutManager(
         billingRequest: BillingRequest?,
         callback: (Result<ChargeResult>) -> Unit
     ) {
-        val threeDAuthenticator = ThreeDAuthenticator(repository.publicKey)
+        val threeDAuthenticator = ThreeDAuthenticator(repository.publicKey, repository.merchantId)
         val checkoutDetailsResult = repository.checkoutRequestDetails(checkoutRequest)
         val checkoutDetails = checkoutDetailsResult.data ?: run {
             callback(Result.error(checkoutDetailsResult.error ?: APIError.unknown, null))

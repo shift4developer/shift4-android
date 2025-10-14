@@ -52,6 +52,7 @@ android {
             buildConfigField("String", "API_URL", "\"${envProps['API_URL']}\"")
             buildConfigField("String", "BACKOFFICE_URL", "\"${envProps['BACKOFFICE_URL']}\"")
             buildConfigField("String", "JS_URL", "\"${envProps['JS_URL']}\"")
+            buildConfigField "long", "BUILD_TIME", "${System.currentTimeMillis()}"
 
             minifyEnabled false
             shrinkResources false
@@ -64,6 +65,7 @@ android {
             buildConfigField("String", "API_URL", "\"${envProps['API_URL']}\"")
             buildConfigField("String", "BACKOFFICE_URL", "\"${envProps['BACKOFFICE_URL']}\"")
             buildConfigField("String", "JS_URL", "\"${envProps['JS_URL']}\"")
+            buildConfigField "long", "BUILD_TIME", "${System.currentTimeMillis()}"
 
             minifyEnabled false
             shrinkResources false

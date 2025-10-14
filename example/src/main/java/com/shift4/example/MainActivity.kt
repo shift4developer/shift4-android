@@ -39,9 +39,13 @@ class MainActivity : AppCompatActivity(), Shift4.CheckoutDialogFragmentResultLis
         }
 
         findViewById<Button>(R.id.buttonPay).setOnClickListener {
-            shift4.publicKey =
-                findViewById<TextInputEditText>(R.id.textEditPublicKeyCustomForm).text.toString()
-
+            val merchantId = findViewById<TextInputEditText>(R.id.textEditMerchantId).text.toString()
+            val publicKey = findViewById<TextInputEditText>(R.id.textEditPublicKeyCustomForm).text.toString()
+            if (merchantId.isNotBlank()) {
+                shift4 = Shift4(publicKey, merchantId)
+            } else {
+                shift4.publicKey = publicKey
+            }
             val gpToken = findViewById<TextInputEditText>(R.id.textEditGooglePayToken).text.toString().takeIf { it.isNotBlank() }
 
             val tokenRequest = TokenRequest(

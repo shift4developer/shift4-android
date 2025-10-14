@@ -148,6 +148,7 @@ internal class CheckoutDialogFragmentViewModel : ViewModel() {
         this.email = email
         updateButtonStatus()
     }
+
     fun onNameChange(name: String?) {
         this.name = name
         updateButtonStatus()
@@ -208,11 +209,14 @@ internal class CheckoutDialogFragmentViewModel : ViewModel() {
         checkoutRequest =
             CheckoutRequest(arguments.getString("checkoutRequest", null).orEmpty())
         checkoutManager = CheckoutManager(
-            SDKRepository(arguments.getString("publicKey", null).orEmpty()),
-            arguments.getString("signature", null).orEmpty(),
-            arguments.getString("packageName", null).orEmpty(),
-            arguments.getStringArray("trustedAppStores")?.toList(),
-            viewModelScope
+            repository = SDKRepository(
+                publicKey = arguments.getString("publicKey", null).orEmpty(),
+                merchantId = arguments.getString("merchantId", null)
+            ),
+            signature = arguments.getString("signature", null).orEmpty(),
+            packageName = arguments.getString("packageName", null).orEmpty(),
+            trustedAppStores = arguments.getStringArray("trustedAppStores")?.toList(),
+            coroutineScope = viewModelScope
         )
         collectShippingAddress = arguments.getBoolean("collectShippingAddress")
         collectBillingAddress =
@@ -358,7 +362,7 @@ internal class CheckoutDialogFragmentViewModel : ViewModel() {
         _emailError.value = null
         _cardError.value = null
         billingRequest = billingRequest?.let { BillingRequest(name, it.address, it.vat) }
-        shippingRequest = shippingRequest?.let { ShippingRequest(it.name ?: name, it.address ) }
+        shippingRequest = shippingRequest?.let { ShippingRequest(it.name ?: name, it.address) }
 
         val tokenRequest = TokenRequest(number = card, expMonth = month, expYear = year, cvc = cvc)
         viewModelScope.launch(Dispatchers.IO) {

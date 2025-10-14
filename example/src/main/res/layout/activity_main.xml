@@ -133,6 +133,12 @@
                 android:layout_height="50dp"
                 android:hint="Google Pay Token" />
 
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/textEditMerchantId"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="Merchant ID (for Platforms)" />
+
             <Button
                 android:id="@+id/buttonPay"
                 android:layout_width="match_parent"

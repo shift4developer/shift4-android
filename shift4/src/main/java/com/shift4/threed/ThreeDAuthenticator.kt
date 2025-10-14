@@ -13,7 +13,8 @@ import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlin.coroutines.resume
 
 internal class ThreeDAuthenticator(
-    private val publicKey: String
+    private val publicKey: String,
+    private val merchantId: String?,
 ) {
     suspend fun authenticate(
         token: Token?, paymentMethod: Token?, amount: Int, currency: String, activity: Activity
@@ -30,6 +31,7 @@ internal class ThreeDAuthenticator(
 
         val intent = Intent(activity, ThreeDSActivity::class.java).apply {
             putExtra("publicKey", publicKey)
+            putExtra("merchantId", merchantId)
             putExtra("token", token?.id)
             putExtra("paymentMethod", paymentMethod?.id)
             putExtra("amount", amount)

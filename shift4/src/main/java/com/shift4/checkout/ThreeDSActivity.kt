@@ -16,6 +16,7 @@ class ThreeDSActivity : AppCompatActivity() {
     private lateinit var token: String
     private lateinit var paymentMethod: String
     private lateinit var publicKey: String
+    private lateinit var merchantId: String
     private var amount: Int = 0
     private lateinit var currency: String
 
@@ -26,6 +27,7 @@ class ThreeDSActivity : AppCompatActivity() {
         token = intent.getStringExtra("token").orEmpty()
         paymentMethod = intent.getStringExtra("paymentMethod").orEmpty()
         publicKey = intent.getStringExtra("publicKey").orEmpty()
+        merchantId = intent.getStringExtra("merchantId").orEmpty()
         amount = intent.getIntExtra("amount", 0)
         currency = intent.getStringExtra("currency").orEmpty()
 
@@ -40,14 +42,21 @@ class ThreeDSActivity : AppCompatActivity() {
 
         webView.webViewClient = object : WebViewClient() {
             override fun onPageFinished(view: WebView, url: String) {
-                val js = "run3ds(${JSONObject.quote(publicKey)}, ${JSONObject.quote(token)}, ${JSONObject.quote(paymentMethod)}, $amount, ${JSONObject.quote(currency)});"
+                val publicKeyParam = JSONObject.quote(publicKey)
+                val tokenParam = JSONObject.quote(token)
+                val paymentMethodParam = JSONObject.quote(paymentMethod)
+                val currencyParam = JSONObject.quote(currency)
+                val merchantIdParam = JSONObject.quote(merchantId)
+                val js =
+                    "run3ds($publicKeyParam, $tokenParam, $paymentMethodParam, $amount, $currencyParam, $merchantIdParam);"
                 webView.evaluateJavascript(js, null)
             }
         }
 
-        webView.loadUrl("${BuildConfig.JS_URL}/3ds-android.html")
+        webView.loadUrl("${BuildConfig.JS_URL}/3ds-android.html?timestamp=${BuildConfig.BUILD_TIME}")
     }
 
+    @Suppress("unused")
     inner class JSBridge {
         @JavascriptInterface
         fun on3dsResult(resultJson: String) {
@@ -57,6 +66,7 @@ class ThreeDSActivity : AppCompatActivity() {
         }
     }
 
+    @SuppressLint("MissingSuperCall")
     @Deprecated("Deprecated in Java")
     override fun onBackPressed() {}
 }

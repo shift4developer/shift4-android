@@ -19,23 +19,19 @@ import com.shift4.threed.ThreeDAuthenticator
 
 
 class Shift4(
-    publicKey: String
+    var publicKey: String,
+    var merchantId: String? = null,
 ) {
     @Keep
     companion object {
         @Keep
         const val SHIFT4_RESULT_CODE = 7080
     }
+    private val threeDAuthenticator: ThreeDAuthenticator
+        get() = ThreeDAuthenticator(publicKey, merchantId)
 
-    var publicKey: String = publicKey
-        set(value) {
-            field = value
-            threeDAuthenticator = ThreeDAuthenticator(value)
-            repository = SDKRepository(value)
-        }
-
-    private var threeDAuthenticator: ThreeDAuthenticator = ThreeDAuthenticator(publicKey)
-    internal var repository = SDKRepository(publicKey)
+    internal val repository
+        get() = SDKRepository(publicKey, merchantId)
 
     interface CheckoutDialogFragmentResultListener {
         fun onCheckoutFinish(result: CheckoutResult?)
@@ -63,6 +59,7 @@ class Shift4(
         val arguments = Bundle().apply {
             putString("checkoutRequest", checkoutRequest.content)
             putString("publicKey", publicKey)
+            putString("merchantId", merchantId)
             putString("merchantName", merchantName)
             putString("description", description)
             putBoolean("collectShippingAddress", collectShippingAddress)
@@ -84,6 +81,7 @@ class Shift4(
             intent.apply {
                 putExtra("checkoutRequest", checkoutRequest.content)
                 putExtra("publicKey", publicKey)
+                putExtra("merchantId", merchantId)
                 putExtra("merchantName", merchantName)
                 putExtra("description", description)
                 putExtra("collectShippingAddress", collectShippingAddress)

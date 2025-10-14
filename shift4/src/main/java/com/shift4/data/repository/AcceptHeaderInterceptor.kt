@@ -4,15 +4,13 @@ import okhttp3.Interceptor
 import okhttp3.Response
 import java.io.IOException
 
-internal class RefererInterceptor(private val baseURL: String) :
-    Interceptor {
+internal class AcceptHeaderInterceptor(val acceptValue: String) : Interceptor {
     @Throws(IOException::class)
     override fun intercept(chain: Interceptor.Chain): Response {
         val request = chain.request()
-        val authenticatedRequest = request
             .newBuilder()
-            .header("Referer", baseURL)
+            .addHeader("Accept", acceptValue)
             .build()
-        return chain.proceed(authenticatedRequest)
+        return chain.proceed(request)
     }
 }
