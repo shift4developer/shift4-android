@@ -1,3 +1,8 @@
+> [!WARNING]
+> **This SDK is no longer maintained.** There are no plans for further updates, bug fixes, or security patches. The repository is kept available for reference and existing integrations, but new projects should not adopt it.
+> 
+> For current integration options, see the [Documentation](https://dev.shift4.com).
+
 # Shift4 Android SDK
 
 Welcome to Shift4 Android SDK. Framework allows you to easily add Shift4 payments to your mobile apps. It allows you to integrate Shift4 with just a few lines of code.
